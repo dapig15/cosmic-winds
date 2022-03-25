@@ -46,4 +46,11 @@ public class Hitbox {
         return (o.x1 >= x1 && o.x1 <= x2) || (o.x2 >= x1 && o.x2 <= x2) ||
                 (o.y1 >= y1 && o.y1 <= y2) || (o.y2 >= y1 && o.y2 <= y2);
     }
+
+    public void shiftHitbox(int xInc, int yInc) {
+        x1 += xInc;
+        x2 += xInc;
+        y1 += yInc;
+        y2 += yInc;
+    }
 }
