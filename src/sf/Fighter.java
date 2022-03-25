@@ -6,14 +6,13 @@ public class Fighter {
     private int frameCount = 0; //(frame of move currently in)
     private boolean vulnerable = false; //(if vulnerable to attacks)
     private int comboCount = 0; //(how many consecutive moves opp has registered on self)
-    public boolean movingLeft = false, movingRight = false;
-    private final double vx, vy; //(x and y velocity)
+    public double vx, vy; //
+    private final double defaultSpeed;
     private final Move[] moves; //(possible moves)
     private final double g = 10; //(gravitational acceleration)
-    public Fighter(Hitbox body, double vx, double vy, Move[] moves) {
+    public Fighter(Hitbox body, double defaultSpeed, double vy, Move[] moves) {
         this.body = body;
-        this.vx = vx;
-        this.vy = vy;
+        this.defaultSpeed = defaultSpeed;
         this.moves = moves;
     }
     public Hitbox getBody() {
@@ -45,24 +44,21 @@ public class Fighter {
     }
     public void setComboCount(int comboCount) {
         this.comboCount = comboCount;
-    }
-    public boolean isMovingLeft() {
-        return movingLeft;
-    }
-    public void setMovingLeft(boolean movingLeft) {
-        this.movingLeft = movingLeft;
-    }
-    public boolean isMovingRight() {
-        return movingRight;
-    }
-    public void setMovingRight(boolean movingRight) {
-        this.movingRight = movingRight;
+    } 
+    public double getDefaultSpeed() {
+        return defaultSpeed;
     }
     public double getVx() {
         return vx;
-    }      
+    }
+    public void setVx(double vx) {
+        this.vx = vx;
+    }
     public double getVy() {
         return vy;
+    }
+    public void setVy(double vy) {
+        this.vy = vy;
     }
     public Move[] getMoves() {
         return moves;
