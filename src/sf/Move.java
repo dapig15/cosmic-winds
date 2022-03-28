@@ -8,10 +8,11 @@ public class Move {
     private final int comboPos; //(# of possible consecutive follow-up moves can be registered after this attack)
     private final int oppRecovery; //(# of frames for which opponent is vulnerable if attack is successful)
     private final double launchx, launchy; //(velocity at which opp is launched)
-    private final double selflaunchy; //(velocity at which self is launched)
+    private final double selfLaunchx;
+    private final double selfLaunchy; //(velocity at which self is launched)
     
     public Move(Hitbox attackArea, int startup, int active, int recovery, int fullDamage, int blockDamage,
-            int critDamage, double critChance, int comboPos, int oppRecovery, double launchx, double launchy, double selflaunchy) {
+            int critDamage, double critChance, int comboPos, int oppRecovery, double launchx, double launchy, double selflaunchx, double selflaunchy) {
         this.attackArea = attackArea;
         this.startup = startup;
         this.active = active;
@@ -24,7 +25,8 @@ public class Move {
         this.oppRecovery = oppRecovery;
         this.launchx = launchx;
         this.launchy = launchy;
-        this.selflaunchy = selflaunchy;
+        this.selfLaunchx = selflaunchx;
+        this.selfLaunchy = selflaunchy;
     }
     public Hitbox getAttackArea() {
         return attackArea;
@@ -62,7 +64,10 @@ public class Move {
     public double getLaunchy() {
         return launchy;
     }
+    public double getSelflaunchx() {
+        return selfLaunchx;
+    }
     public double getSelflaunchy() {
-        return selflaunchy;
+        return selfLaunchy;
     }
 }
