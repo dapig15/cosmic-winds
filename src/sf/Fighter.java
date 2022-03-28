@@ -1,19 +1,22 @@
 package sf;
 import utility.*;
 public class Fighter {
-    private Hitbox body; //(hitbox)
+    public int health = 0, specialMeter = 0;
+    private Hitbox body; //(hitbox) (320 tall, 160 wide)
     private Move currMove = null; //(move currently being used)
     private int frameCount = 0; //(frame of move currently in)
     private boolean vulnerable = false; //(if vulnerable to attacks)
     private int comboCount = 0; //(how many consecutive moves opp has registered on self)
-    public double vx, vy; //
-    private final double defaultSpeed;
+    public int vx, vy; //
+    private final int defaultSpeed;
     private final Move[] moves; //(possible moves)
-    private final double g = 10; //(gravitational acceleration)
-    public Fighter(Hitbox body, double defaultSpeed, double vy, Move[] moves) {
+    private final Move special;
+    private final int g = 10; //(gravitational acceleration)
+    public Fighter(Hitbox body, int defaultSpeed, double vy, Move[] moves, Move special) {
         this.body = body;
         this.defaultSpeed = defaultSpeed;
         this.moves = moves;
+        this.special = special;
     }
     public Hitbox getBody() {
         return body;
@@ -45,23 +48,26 @@ public class Fighter {
     public void setComboCount(int comboCount) {
         this.comboCount = comboCount;
     } 
-    public double getDefaultSpeed() {
+    public int getDefaultSpeed() {
         return defaultSpeed;
     }
-    public double getVx() {
+    public int getVx() {
         return vx;
     }
-    public void setVx(double vx) {
+    public void setVx(int vx) {
         this.vx = vx;
     }
-    public double getVy() {
+    public int getVy() {
         return vy;
     }
-    public void setVy(double vy) {
+    public void setVy(int vy) {
         this.vy = vy;
     }
     public Move[] getMoves() {
         return moves;
+    }
+    public Move getSpecial() {
+        return special;
     }
     public double getG() {
         return g;
