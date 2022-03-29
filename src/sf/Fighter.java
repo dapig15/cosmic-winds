@@ -3,21 +3,23 @@ package sf;
 import utility.*;
 
 public class Fighter {
-    private Hitbox body; // (hitbox)
+    public int health = 0, specialMeter = 0;
+    private Hitbox body; // (hitbox) (320 tall, 160 wide)
     private Move currMove = null; // (move currently being used)
     private int frameCount = 0; // (frame of move currently in)
     private boolean vulnerable = false; // (if vulnerable to attacks)
     private int comboCount = 0; // (how many consecutive moves opp has registered on self)
-    public boolean movingLeft = false, movingRight = false;
-    private final double vx, vy; // (x and y velocity)
+    public int vx, vy; //
+    private final int defaultSpeed;
     private final Move[] moves; // (possible moves)
-    private final double g = 10; // (gravitational acceleration)
+    private final Move special;
+    private final int g = 10; // (gravitational acceleration)
 
-    public Fighter(Hitbox body, double vx, double vy, Move[] moves) {
+    public Fighter(Hitbox body, int defaultSpeed, double vy, Move[] moves, Move special) {
         this.body = body;
-        this.vx = vx;
-        this.vy = vy;
+        this.defaultSpeed = defaultSpeed;
         this.moves = moves;
+        this.special = special;
     }
 
     public Hitbox getBody() {
@@ -60,36 +62,35 @@ public class Fighter {
         this.comboCount = comboCount;
     }
 
-    public boolean isMovingLeft() {
-        return movingLeft;
+    public int getDefaultSpeed() {
+        return defaultSpeed;
     }
 
-    public void setMovingLeft(boolean movingLeft) {
-        this.movingLeft = movingLeft;
-    }
-
-    public boolean isMovingRight() {
-        return movingRight;
-    }
-
-    public void setMovingRight(boolean movingRight) {
-        this.movingRight = movingRight;
-    }
-
-    public double getVx() {
+    public int getVx() {
         return vx;
     }
 
-    public double getVy() {
+    public void setVx(int vx) {
+        this.vx = vx;
+    }
+
+    public int getVy() {
         return vy;
+    }
+
+    public void setVy(int vy) {
+        this.vy = vy;
     }
 
     public Move[] getMoves() {
         return moves;
     }
 
+    public Move getSpecial() {
+        return special;
+    }
+
     public double getG() {
         return g;
     }
-
 }
