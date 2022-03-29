@@ -25,6 +25,18 @@ public abstract class Ship {
         this.imagePath = imagePath;
     }
 
+    public Coords getCoords() {
+        return coords;
+    }
+
+    public void setCoords(Coords coords) {
+        this.coords = coords;
+    }
+
+    public void shiftCoords(int xInc, int yInc) {
+        coords.shiftCoords(xInc, yInc);
+    }
+
     public void paintMe(Graphics g) {
         try {
             BufferedImage img = ImageIO.read(new File(imagePath));

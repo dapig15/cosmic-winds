@@ -2,12 +2,16 @@ package bullethell;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Main {
+
     private GamePanel gamePanel;
+    Timer timer;
 
     public GamePanel getGamePanel() {
         return gamePanel;
@@ -29,5 +33,18 @@ public class Main {
         frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
+
+        timer = new Timer();
+        timer.schedule(new GameTick(), 0, 20);
+    }
+
+    class GameTick extends TimerTask {
+
+        @Override
+        public void run() {
+            gamePanel.update();
+            gamePanel.repaint();
+        }
+
     }
 }
