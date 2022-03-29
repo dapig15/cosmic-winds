@@ -35,7 +35,7 @@ public class Main {
         frame.setVisible(true);
 
         timer = new Timer();
-        timer.schedule(new GameTick(), 0, 20);
+        timer.schedule(new GameTick(), 0, 42);
     }
 
     class GameTick extends TimerTask {
