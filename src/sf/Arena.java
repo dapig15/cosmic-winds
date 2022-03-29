@@ -26,4 +26,7 @@ public class Arena {
     public Fighter getOpponent() {
         return opponent;
     }
+    public void frameUpdate(boolean[] playerInputs, boolean[] opponentInputs) { // left, right, light, heavy, special
+        
+    }
 }
