@@ -7,12 +7,12 @@ public class Fighter {
     private int frameCount = 0; //(frame of move currently in)
     private boolean vulnerable = false; //(if vulnerable to attacks)
     private int comboCount = 0; //(how many consecutive moves opp has registered on self)
-    public int vx, vy; //
+    public int vx = 0, vy = 0; //
     private final int defaultSpeed;
     private final Move[] moves; //(possible moves)
     private final Move special;
-    private final int g = 10; //(gravitational acceleration)
-    public Fighter(Hitbox body, int defaultSpeed, double vy, Move[] moves, Move special) {
+    public static final int g = 10; //(gravitational acceleration)
+    public Fighter(Hitbox body, int defaultSpeed, Move[] moves, Move special) {
         this.body = body;
         this.defaultSpeed = defaultSpeed;
         this.moves = moves;
@@ -69,7 +69,41 @@ public class Fighter {
     public Move getSpecial() {
         return special;
     }
-    public double getG() {
-        return g;
+    public void updatePos(Fighter other, int direction) { // -1 = left, 0 = staying still, 1 = moving right
+        int speed = 0, vspeed = 0;
+        if (body.getY2() == Arena.boundy){
+            if (direction == -1) 
+                speed = -defaultSpeed;
+            else if (direction ==  1)
+                speed = defaultSpeed;
+        } else {
+            speed = vx;
+            vspeed = vy;
+        }
+        if (speed < 0) { 
+            Hitbox otherBody = other.getBody();
+            int increment;
+            if (otherBody.getX2() - speed >= body.getX1()) {
+                increment = otherBody.getX2() - body.getX1() + 1;
+            } else if (body.getX1() + speed < 0) {
+                increment = body.getX1();
+            } else {
+                increment = speed;
+            }
+            body.setX1(body.getX1() + increment);
+            body.setX2(body.getX2() + increment);
+        } else if (speed > 0) {
+            Hitbox otherBody = other.getBody();
+            int increment;
+            if (otherBody.getX1() - speed <= body.getX2()) {
+                increment = otherBody.getX1() - body.getX2() - 1;
+            } else if (body.getX2() + speed > 640) {
+                increment = 640 - body.getX2();
+            } else {
+                increment = speed;
+            }
+            body.setX1(body.getX1() + increment);
+            body.setX2(body.getX2() + increment);
+        }
     }
 }
