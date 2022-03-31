@@ -1,6 +1,5 @@
 package bullethell.entity;
 
-import utility.*;
 import bullethell.*;
 
 import java.awt.Graphics;
@@ -13,15 +12,12 @@ import javax.imageio.ImageIO;
 public abstract class Ship {
     private Coords coords;
     private int hitboxWidth, hitboxHeight;
-    private Hitbox hitbox;
     private String imagePath;
 
     public Ship(Coords coords, int hitboxWidth, int hitboxHeight, String imagePath) {
         this.coords = coords;
         this.hitboxWidth = hitboxHeight;
         this.hitboxHeight = hitboxHeight;
-        this.hitbox = new Hitbox(coords.getX() - hitboxWidth / 2, coords.getY() - hitboxHeight / 2,
-                coords.getX() + hitboxWidth / 2, coords.getY() + hitboxHeight / 2);
         this.imagePath = imagePath;
     }
 
@@ -36,6 +32,24 @@ public abstract class Ship {
     public void shiftCoords(int xInc, int yInc) {
         coords.shiftCoords(xInc, yInc);
     }
+
+    public int getHitboxWidth() {
+        return hitboxWidth;
+    }
+
+    public void setHitboxWidth(int hitboxWidth) {
+        this.hitboxWidth = hitboxWidth;
+    }
+
+    public int getHitboxHeight() {
+        return hitboxHeight;
+    }
+
+    public void setHitboxHeight(int hitboxHeight) {
+        this.hitboxHeight = hitboxHeight;
+    }
+
+    public abstract void update();
 
     public void paintMe(Graphics g) {
         try {

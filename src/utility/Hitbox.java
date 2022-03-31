@@ -1,5 +1,7 @@
 package utility;
 
+import bullethell.Coords;
+
 public class Hitbox {
     private int x1, y1, x2, y2;
 
@@ -40,6 +42,10 @@ public class Hitbox {
 
     public void setY2(int y2) {
         this.y2 = y2;
+    }
+
+    public boolean containsCoord(Coords c) {
+        return (c.getX() >= x1 && c.getX() <= x2 && c.getY() >= y1 && c.getY() <= y2);
     }
 
     public boolean checkIfOverlaps(Hitbox o) {
