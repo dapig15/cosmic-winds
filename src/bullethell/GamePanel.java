@@ -36,6 +36,8 @@ public class GamePanel extends JPanel {
 
         bulletPanel = new BulletPanel(this);
         this.add(bulletPanel);
+
+        counter--;
     }
 
     public BulletPanel getBulletPanel() {
@@ -58,7 +60,7 @@ public class GamePanel extends JPanel {
         return enemyBullets;
     }
 
-    private int counter = 7;
+    private int counter = 0;
     private int cooldown = 50;
     private final int WAVES = 11, COOLDOWN_MAX = 50;
 
