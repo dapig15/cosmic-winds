@@ -3,11 +3,13 @@ package bullethell.entity;
 import java.util.ArrayList;
 
 import bullethell.Coords;
+import bullethell.entity.bullet.EnemyBullet;
+import bullethell.entity.bullet.EnemyBulletAngularRotational;
 
 public class EnemyShipGreen extends EnemyShipBasic {
 
     public EnemyShipGreen(Coords coords, PlayerShip psRef, int initialYVel) {
-        super(coords, 26, 26, "ship_1.png", 30, psRef, initialYVel);
+        super(coords, 26, 26, "ship_2.png", 30, psRef, initialYVel);
     }
 
     @Override
@@ -21,28 +23,8 @@ public class EnemyShipGreen extends EnemyShipBasic {
                     toReturn.add(
                             new EnemyBulletAngularRotational(new Coords(this.getCoords().getX(),
                                     this.getCoords().getY()),
-                                    6, 3, angle + j / 4f * (float) Math.PI, 6, rotation));
+                                    6, 3, angle + j / 4f * (float) Math.PI, 0.2f, rotation));
                 }
-                /*
-                 * float angle = angleToPlayer();
-                 * float xVel = 5 * (float) Math.cos(angle);
-                 * float yVel = 5 * (float) Math.sin(angle);
-                 * int max = 16;
-                 * final float smallAngle = (float) Math.atan2(1, 2);
-                 * for (int i = 0; i < max; i++) {
-                 * float tempThing = (max / 8 - Math.abs((i % (max / 4)) - max / 8)) * 1f / (max
-                 * / 8);
-                 * float maxDist = 150 * (float) Math.sqrt(1 + tempThing * tempThing);
-                 * toReturn.add(
-                 * new EnemyBulletShape(new Coords(this.getCoords().getX(),
-                 * this.getCoords().getY()), 6, 0.04f,
-                 * angle, xVel, yVel, maxDist, 150, false));
-                 * if (i % 4 == 0 || i % 4 == 3)
-                 * angle += smallAngle;
-                 * else
-                 * angle += (Math.PI / 4f - smallAngle);
-                 * }
-                 */
             }
         }
         return toReturn;

@@ -2,6 +2,8 @@ package bullethell.entity;
 
 import bullethell.BulletPanel;
 import bullethell.Coords;
+import bullethell.entity.bullet.Bullet;
+import bullethell.entity.bullet.EnemyBullet;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -21,10 +23,8 @@ public class PlayerShip extends Ship {
     private int shootCooldown = 0, shootCooldownMax = 1;
     private PlayerKeyAdapter pka = new PlayerKeyAdapter();
 
-    private int health = 100;
-
     public PlayerShip(Coords coords, int hitboxWidth, int hitboxHeight, String imagePath) {
-        super(coords, hitboxWidth, hitboxHeight, imagePath);
+        super(coords, hitboxWidth, hitboxHeight, imagePath, 100);
     }
 
     public int getMoveSpeed() {
@@ -69,10 +69,6 @@ public class PlayerShip extends Ship {
 
     public PlayerKeyAdapter getPKA() {
         return pka;
-    }
-
-    public int getHealth() {
-        return health;
     }
 
     @Override
@@ -171,7 +167,8 @@ public class PlayerShip extends Ship {
         return toReturn;
     }
 
-    public void getHit(EnemyBullet eb) {
-        health--;
+    @Override
+    public void getHit(Bullet eb) {
+        setHealth(getHealth() - 1);
     }
 }

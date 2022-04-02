@@ -1,4 +1,4 @@
-package bullethell.entity;
+package bullethell.entity.bullet;
 
 import bullethell.Coords;
 
@@ -53,11 +53,9 @@ public class EnemyBulletShape extends EnemyBullet {
 
     @Override
     public void paintMe(Graphics g) {
-        Color c = g.getColor();
         g.setColor(Color.GREEN);
         g.fillOval(getCoords().getX() - getHitboxRadius(),
                 getCoords().getY() - getHitboxRadius(), getHitboxRadius() * 2, getHitboxRadius() * 2);
-        g.setColor(c);
     }
 
 }

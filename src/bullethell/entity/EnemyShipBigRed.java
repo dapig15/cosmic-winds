@@ -3,11 +3,14 @@ package bullethell.entity;
 import java.util.ArrayList;
 
 import bullethell.Coords;
+import bullethell.entity.bullet.EnemyBullet;
+import bullethell.entity.bullet.EnemyBulletAngularAccel;
+import bullethell.entity.bullet.EnemyBulletNoAccel;
 
 public class EnemyShipBigRed extends EnemyShipBasic {
 
     public EnemyShipBigRed(Coords coords, PlayerShip psRef) {
-        super(coords, 26 * 2, 26 * 2, "ship_big_0.png", 100, psRef, 10);
+        super(coords, 26 * 2, 26 * 2, "ship_big_0.png", 450, psRef, 10);
     }
 
     @Override
@@ -18,7 +21,7 @@ public class EnemyShipBigRed extends EnemyShipBasic {
             for (int i = -2; i <= 2; i++) {
                 toReturn.add(new EnemyBulletAngularAccel(new Coords(this.getCoords().getX(), this.getCoords().getY()),
                         6, -7,
-                        i / 12.0f * (float) Math.PI + angle, 4));
+                        i / 12.0f * (float) Math.PI + angle, 0.2f));
             }
         }
         if ((getFramesAlive() + 1) % 90 == 0) {

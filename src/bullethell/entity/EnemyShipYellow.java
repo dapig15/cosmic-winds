@@ -3,6 +3,9 @@ package bullethell.entity;
 import java.util.ArrayList;
 
 import bullethell.Coords;
+import bullethell.entity.bullet.EnemyBullet;
+import bullethell.entity.bullet.EnemyBulletAngularHoming;
+import bullethell.entity.bullet.EnemyBulletNoAccel;
 
 public class EnemyShipYellow extends EnemyShipBasic {
 

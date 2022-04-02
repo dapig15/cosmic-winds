@@ -28,4 +28,16 @@ public class Coords {
         this.x += xInc;
         this.y += yInc;
     }
+
+    public float distanceTo(Coords o) {
+        return (float) Math.sqrt((x - o.x) * (x - o.x) + (y - o.y) * (y - o.y));
+    }
+
+    public float angleTo(Coords o) {
+        return (float) Math.atan2(o.y - y, o.x - x);
+    }
+
+    public Coords deepClone() {
+        return new Coords(x, y);
+    }
 }
