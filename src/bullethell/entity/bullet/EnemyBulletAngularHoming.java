@@ -1,6 +1,7 @@
-package bullethell.entity;
+package bullethell.entity.bullet;
 
 import bullethell.Coords;
+import bullethell.entity.PlayerShip;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -36,10 +37,8 @@ public class EnemyBulletAngularHoming extends EnemyBulletAngular {
 
     @Override
     public void paintMe(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.orange);
+        g.setColor(Color.yellow);
         g.fillOval(getCoords().getX() - getHitboxRadius(),
                 getCoords().getY() - getHitboxRadius(), getHitboxRadius() * 2, getHitboxRadius() * 2);
-        g.setColor(c);
     }
 }

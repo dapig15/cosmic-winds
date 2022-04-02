@@ -1,6 +1,8 @@
 package bullethell;
 
 import bullethell.entity.*;
+import bullethell.entity.bullet.Bullet;
+import bullethell.entity.bullet.EnemyBullet;
 
 import java.awt.Color;
 
@@ -20,7 +22,9 @@ public class GamePanel extends JPanel {
     private ArrayList<EnemyBullet> enemyBullets = new ArrayList<>();
 
     public GamePanel() {
-        player = new PlayerShip(new Coords(0, 0), 4, 4, "shipTest.png");
+        player = new PlayerShip(
+                new Coords(BulletPanel.getBulletPanelWidth() / 2, BulletPanel.getBulletPanelHeight() * 3 / 4), 4, 4,
+                "shipTest.png");
         this.addKeyListener(player.getPKA());
         this.setFocusable(true);
         PlayerBullet.setEnemyShipReference(enemyShips);
@@ -60,9 +64,9 @@ public class GamePanel extends JPanel {
         return enemyBullets;
     }
 
-    private int counter = 0;
+    private int counter = 13;
     private int cooldown = 50;
-    private final int WAVES = 11, COOLDOWN_MAX = 50;
+    private final int WAVES = 14, COOLDOWN_MAX = 50;
 
     // removing items from arraylist moved to bulletpanel
     public void update() {
@@ -148,26 +152,41 @@ public class GamePanel extends JPanel {
                         break;
                     case 9:
                         for (int i = 5; i <= 7; i++) {
-                            for (int j = 0; j >= -80; j -= 40) {
-                                enemyShips.add(new EnemyShipYellow(new Coords(40, 0), player, i));
-                                enemyShips.add(new EnemyShipYellow(
-                                        new Coords(BulletPanel.getBulletPanelWidth() - 40, 0), player, i));
-                                enemyShips.add(new EnemyShipGreen(new Coords(250, 0), player, i));
-                                enemyShips.add(new EnemyShipGreen(
-                                        new Coords(BulletPanel.getBulletPanelWidth() - 250, 0), player, i));
-                                enemyShips.add(new EnemyShipRed(new Coords(210, 0), player, i));
-                                enemyShips.add(new EnemyShipRed(
-                                        new Coords(BulletPanel.getBulletPanelWidth() - 210, 0), player, i));
-                                enemyShips.add(new EnemyShipRed(new Coords(170, 0), player, i));
-                                enemyShips.add(new EnemyShipRed(
-                                        new Coords(BulletPanel.getBulletPanelWidth() - 170, 0), player, i));
-                            }
+                            enemyShips.add(new EnemyShipYellow(new Coords(40, 0), player, i));
+                            enemyShips.add(new EnemyShipYellow(
+                                    new Coords(BulletPanel.getBulletPanelWidth() - 40, 0), player, i));
+                            enemyShips.add(new EnemyShipGreen(new Coords(250, 0), player, i));
+                            enemyShips.add(new EnemyShipGreen(
+                                    new Coords(BulletPanel.getBulletPanelWidth() - 250, 0), player, i));
+                            enemyShips.add(new EnemyShipRed(new Coords(210, 0), player, i));
+                            enemyShips.add(new EnemyShipRed(
+                                    new Coords(BulletPanel.getBulletPanelWidth() - 210, 0), player, i));
+                            enemyShips.add(new EnemyShipRed(new Coords(170, 0), player, i));
+                            enemyShips.add(new EnemyShipRed(
+                                    new Coords(BulletPanel.getBulletPanelWidth() - 170, 0), player, i));
                         }
                         break;
                     case 10:
                         enemyShips.add(new EnemyShipBigRed(new Coords(150, 0), player));
                         enemyShips.add(
                                 new EnemyShipBigRed(new Coords(BulletPanel.getBulletPanelWidth() - 150, 0), player));
+                        break;
+                    case 11:
+                        enemyShips.add(new EnemyShipBigYellow(new Coords(150, 0), player));
+                        enemyShips.add(
+                                new EnemyShipBigYellow(new Coords(BulletPanel.getBulletPanelWidth() - 150, 0), player));
+                        break;
+                    case 12:
+                        enemyShips.add(new EnemyShipBigGreen(new Coords(150, 0), player));
+                        enemyShips.add(
+                                new EnemyShipBigGreen(new Coords(BulletPanel.getBulletPanelWidth() - 150, 0), player));
+                        break;
+                    case 13:
+                        enemyShips.add(
+                                new EnemyShipBossRed(new Coords(BulletPanel.getBulletPanelWidth() / 2, 0), player,
+                                        new Coords(BulletPanel.getBulletPanelWidth() / 2,
+                                                BulletPanel.getBulletPanelHeight() / 4)));
+                        break;
                 }
             }
         }

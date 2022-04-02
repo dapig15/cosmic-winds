@@ -1,7 +1,9 @@
 package bullethell.entity;
 
 import bullethell.*;
+import bullethell.entity.bullet.Bullet;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -13,12 +15,14 @@ public abstract class Ship {
     private Coords coords;
     private int hitboxWidth, hitboxHeight;
     private String imagePath;
+    private int health;
 
-    public Ship(Coords coords, int hitboxWidth, int hitboxHeight, String imagePath) {
+    public Ship(Coords coords, int hitboxWidth, int hitboxHeight, String imagePath, int health) {
         this.coords = coords;
         this.hitboxWidth = hitboxHeight;
         this.hitboxHeight = hitboxHeight;
         this.imagePath = imagePath;
+        this.health = health;
     }
 
     public Coords getCoords() {
@@ -49,7 +53,17 @@ public abstract class Ship {
         this.hitboxHeight = hitboxHeight;
     }
 
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
     public abstract void update();
+
+    public abstract void getHit(Bullet b);
 
     public void paintMe(Graphics g) {
         try {

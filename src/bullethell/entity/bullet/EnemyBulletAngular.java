@@ -1,23 +1,26 @@
-package bullethell.entity;
+package bullethell.entity.bullet;
 
 import bullethell.Coords;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 public class EnemyBulletAngular extends EnemyBullet {
 
-    private int velocity;
+    private float velocity;
     private float angle;
 
-    public EnemyBulletAngular(Coords coords, int spriteRadius, int velocity, float angle) {
+    public EnemyBulletAngular(Coords coords, int spriteRadius, float velocity, float angle) {
         super(coords, spriteRadius);
         this.velocity = velocity;
         this.angle = angle;
     }
 
-    public int getVelocity() {
+    public float getVelocity() {
         return velocity;
     }
 
-    public void setVelocity(int velocity) {
+    public void setVelocity(float velocity) {
         this.velocity = velocity;
     }
 
@@ -37,6 +40,13 @@ public class EnemyBulletAngular extends EnemyBullet {
     @Override
     public float findYDisp() {
         return (float) Math.sin(angle) * velocity;
+    }
+
+    @Override
+    public void paintMe(Graphics g) {
+        g.setColor(Color.RED);
+        g.fillOval(getCoords().getX() - getHitboxRadius(),
+                getCoords().getY() - getHitboxRadius(), getHitboxRadius() * 2, getHitboxRadius() * 2);
     }
 
 }

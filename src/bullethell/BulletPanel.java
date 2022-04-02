@@ -1,6 +1,7 @@
 package bullethell;
 
 import bullethell.entity.*;
+import bullethell.entity.bullet.EnemyBullet;
 
 import java.awt.Color;
 import java.awt.Graphics;

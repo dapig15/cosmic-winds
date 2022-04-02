@@ -3,21 +3,18 @@ package bullethell.entity;
 import java.util.ArrayList;
 
 import bullethell.*;
+import bullethell.entity.bullet.EnemyBullet;
+
 import utility.Hitbox;
 
 public abstract class EnemyShip extends Ship {
 
-    int health;
     private Hitbox hitbox;
     private int framesAlive = 0;
+    private boolean killMe = false;
 
     public EnemyShip(Coords coords, int hitboxWidth, int hitboxHeight, String imagePath, int health) {
-        super(coords, hitboxWidth, hitboxHeight, imagePath);
-        this.health = health;
-    }
-
-    public int getHealth() {
-        return health;
+        super(coords, hitboxWidth, hitboxHeight, imagePath, health);
     }
 
     public Hitbox getHitbox() {
@@ -26,6 +23,14 @@ public abstract class EnemyShip extends Ship {
 
     public int getFramesAlive() {
         return framesAlive;
+    }
+
+    public boolean isKillMe() {
+        return killMe;
+    }
+
+    public void setKillMe(boolean killMe) {
+        this.killMe = killMe;
     }
 
     @Override
@@ -44,7 +49,5 @@ public abstract class EnemyShip extends Ship {
     public abstract int findYDisp();
 
     public abstract ArrayList<EnemyBullet> spawnBullets();
-
-    public abstract void getHit(PlayerBullet pb);
 
 }

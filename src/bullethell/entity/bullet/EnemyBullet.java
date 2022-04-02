@@ -1,6 +1,7 @@
-package bullethell.entity;
+package bullethell.entity.bullet;
 
 import bullethell.*;
+import bullethell.entity.PlayerShip;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -27,27 +28,27 @@ public abstract class EnemyBullet extends Bullet {
         playerReference = p;
     }
 
-    private int sqr(int x) {
+    private float sqr(float x) {
         return x * x;
     }
 
-    private int dist2(int x1, int y1, int x2, int y2) {
+    private float dist2(float x1, float y1, float x2, float y2) {
         return sqr(x1 - x2) + sqr(y1 - y2);
     }
 
     // code credited from:
     // https://stackoverflow.com/questions/849211/shortest-distance-between-a-point-and-a-line-segment
-    private int distToSegmentSquared(int xp, int yp, int x1, int y1, int x2, int y2) {
-        var l2 = dist2(x1, y1, x2, y2);
+    private float distToSegmentSquared(float xp, float yp, float x1, float y1, float x2, float y2) {
+        float l2 = dist2(x1, y1, x2, y2);
         if (l2 == 0)
             return dist2(x1, y1, xp, yp);
-        var t = ((xp - x1) * (x2 - x1) + (yp - y1) * (y2 - y1)) / l2;
+        float t = ((xp - x1) * (x2 - x1) + (yp - y1) * (y2 - y1)) / l2;
         t = Math.max(0, Math.min(1, t));
         return dist2(xp, yp, x1 + t * (x2 - x1),
                 y1 + t * (y2 - y1));
     }
 
-    private boolean hasCollidedWithPlayer(int xInc, int yInc) {
+    private boolean hasCollidedWithPlayer(float xInc, float yInc) {
         Coords p = playerReference.getCoords();
         return distToSegmentSquared(p.getX(), p.getY(), getCoords().getX(), getCoords().getY(),
                 getCoords().getX() + xInc,
@@ -56,17 +57,14 @@ public abstract class EnemyBullet extends Bullet {
 
     @Override
     public void process() {
-        if (hasCollidedWithPlayer((int) -findXDisp(), (int) -findYDisp())) {
+        if (hasCollidedWithPlayer(-findXDisp(), -findYDisp())) {
             playerReference.getHit(this);
             setKillMe(true);
         }
     }
 
     public void paintMe(Graphics g) {
-        Color c = g.getColor();
-        g.setColor(Color.red);
         g.fillOval(getCoords().getX() - hitboxRadius,
                 getCoords().getY() - hitboxRadius, hitboxRadius * 2, hitboxRadius * 2);
-        g.setColor(c);
     }
 }
