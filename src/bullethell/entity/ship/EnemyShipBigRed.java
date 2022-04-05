@@ -1,4 +1,4 @@
-package bullethell.entity;
+package bullethell.entity.ship;
 
 import java.util.ArrayList;
 

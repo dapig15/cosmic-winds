@@ -1,4 +1,4 @@
-package bullethell.entity;
+package bullethell.entity.ship;
 
 import bullethell.*;
 import bullethell.entity.bullet.Bullet;

@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import bullethell.*;
-import bullethell.entity.EnemyShip;
+import bullethell.entity.ship.EnemyShip;
 
 public abstract class PlayerBullet extends Bullet {
     private int spriteRadius;

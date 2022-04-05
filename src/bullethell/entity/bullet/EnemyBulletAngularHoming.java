@@ -1,7 +1,7 @@
 package bullethell.entity.bullet;
 
 import bullethell.Coords;
-import bullethell.entity.PlayerShip;
+import bullethell.entity.ship.PlayerShip;
 
 import java.awt.Color;
 import java.awt.Graphics;

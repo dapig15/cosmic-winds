@@ -1,4 +1,4 @@
-package bullethell.entity;
+package bullethell.entity.ship;
 
 import bullethell.BulletPanel;
 import bullethell.Coords;
@@ -154,15 +154,19 @@ public class PlayerShip extends Ship {
         if (isShooting) {
             if (normalShotCooldown == 0) {
                 int myX = getCoords().getX(), myY = getCoords().getY();
-                if (moveSpeed == slowMoveSpeed) {
-                    toReturn.add(new PlayerBulletNoAccel(new Coords(myX - 10, myY), 4, 0, -10));
-                    toReturn.add(new PlayerBulletNoAccel(new Coords(myX + 10, myY), 4, 0, -10));
-                } else {
-                    toReturn.add(new PlayerBulletNoAccel(new Coords(myX - 10, myY), 4, -2, -10));
-                    toReturn.add(new PlayerBulletNoAccel(new Coords(myX + 10, myY), 4, 2, -10));
-                }
+                /*
+                 * if (moveSpeed == slowMoveSpeed) {
+                 * toReturn.add(new PlayerBulletNoAccel(new Coords(myX - 10, myY), 4, 0, -10));
+                 * toReturn.add(new PlayerBulletNoAccel(new Coords(myX + 10, myY), 4, 0, -10));
+                 * } else {
+                 * toReturn.add(new PlayerBulletNoAccel(new Coords(myX - 10, myY), 4, -2, -10));
+                 * toReturn.add(new PlayerBulletNoAccel(new Coords(myX + 10, myY), 4, 2, -10));
+                 * }
+                 */
                 for (int i = 5; i <= 10; i++) {
-                    toReturn.add(new PlayerBulletNoAccel(getCoords().deepClone(), i, 0, -i));
+                    PlayerBulletNoAccel pbna = new PlayerBulletNoAccel(getCoords().deepClone(), i, 0, -i);
+                    pbna.setDamage(i);
+                    toReturn.add(pbna);
                 }
                 normalShotCooldown = normalShotMaxCooldown;
             }
@@ -173,6 +177,6 @@ public class PlayerShip extends Ship {
 
     @Override
     public void getHit(Bullet eb) {
-        setHealth(getHealth() - 1);
+        setHealth(getHealth() - eb.getDamage());
     }
 }
