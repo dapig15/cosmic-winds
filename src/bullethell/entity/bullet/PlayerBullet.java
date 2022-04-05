@@ -1,4 +1,4 @@
-package bullethell.entity;
+package bullethell.entity.bullet;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -6,7 +6,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 import bullethell.*;
-import bullethell.entity.bullet.Bullet;
+import bullethell.entity.EnemyShip;
 
 public abstract class PlayerBullet extends Bullet {
     private int spriteRadius;

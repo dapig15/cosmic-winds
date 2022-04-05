@@ -3,6 +3,7 @@ package bullethell;
 import bullethell.entity.*;
 import bullethell.entity.bullet.Bullet;
 import bullethell.entity.bullet.EnemyBullet;
+import bullethell.entity.bullet.PlayerBullet;
 
 import java.awt.Color;
 

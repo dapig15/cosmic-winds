@@ -13,8 +13,8 @@ public class EnemyBulletShape extends EnemyBullet {
     private int enlargeFrames;
     private boolean stayWhileEnlarging = true;
 
-    public EnemyBulletShape(Coords coords, int spriteRadius, float shapeRotation, float angleOffset, float shapeXVel,
-            float shapeYVel, float finalRadius, int enlargeFrames, boolean stayWhileEnlarging) {
+    public EnemyBulletShape(Coords coords, int spriteRadius, float shapeRotation, float angleOffset,
+            float shapeXVel, float shapeYVel, float finalRadius, int enlargeFrames, boolean stayWhileEnlarging) {
         super(coords, spriteRadius);
         centerX = coords.getX();
         centerY = coords.getY();
