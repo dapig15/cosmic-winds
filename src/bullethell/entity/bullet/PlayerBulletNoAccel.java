@@ -1,4 +1,4 @@
-package bullethell.entity;
+package bullethell.entity.bullet;
 
 import bullethell.Coords;
 

@@ -1,9 +1,11 @@
-package bullethell.entity;
+package bullethell.entity.ship;
 
 import bullethell.BulletPanel;
 import bullethell.Coords;
 import bullethell.entity.bullet.Bullet;
 import bullethell.entity.bullet.EnemyBullet;
+import bullethell.entity.bullet.PlayerBullet;
+import bullethell.entity.bullet.PlayerBulletNoAccel;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -20,7 +22,6 @@ public class PlayerShip extends Ship {
     private int moveSpeed = 12;
     private int defaultMoveSpeed = 12, slowMoveSpeed = 4;
     private boolean moveRight, moveLeft, moveDown, moveUp, isShooting;
-    private int shootCooldown = 0, shootCooldownMax = 1;
     private PlayerKeyAdapter pka = new PlayerKeyAdapter();
 
     public PlayerShip(Coords coords, int hitboxWidth, int hitboxHeight, String imagePath) {
@@ -146,29 +147,36 @@ public class PlayerShip extends Ship {
         }
     }
 
+    int normalShotCooldown = 0, normalShotMaxCooldown = 10;
+
     public ArrayList<PlayerBullet> spawnBullets() {
         ArrayList<PlayerBullet> toReturn = new ArrayList<>();
         if (isShooting) {
-            if (shootCooldown == 0) {
+            if (normalShotCooldown == 0) {
                 int myX = getCoords().getX(), myY = getCoords().getY();
-                if (moveSpeed == slowMoveSpeed) {
-                    toReturn.add(new PlayerBulletNoAccel(new Coords(myX - 10, myY), 4, 0, -10));
-                    toReturn.add(new PlayerBulletNoAccel(new Coords(myX + 10, myY), 4, 0, -10));
-                } else {
-                    toReturn.add(new PlayerBulletNoAccel(new Coords(myX - 10, myY), 4, -2, -10));
-                    toReturn.add(new PlayerBulletNoAccel(new Coords(myX + 10, myY), 4, 2, -10));
+                /*
+                 * if (moveSpeed == slowMoveSpeed) {
+                 * toReturn.add(new PlayerBulletNoAccel(new Coords(myX - 10, myY), 4, 0, -10));
+                 * toReturn.add(new PlayerBulletNoAccel(new Coords(myX + 10, myY), 4, 0, -10));
+                 * } else {
+                 * toReturn.add(new PlayerBulletNoAccel(new Coords(myX - 10, myY), 4, -2, -10));
+                 * toReturn.add(new PlayerBulletNoAccel(new Coords(myX + 10, myY), 4, 2, -10));
+                 * }
+                 */
+                for (int i = 5; i <= 10; i++) {
+                    PlayerBulletNoAccel pbna = new PlayerBulletNoAccel(getCoords().deepClone(), i, 0, -i);
+                    pbna.setDamage(i);
+                    toReturn.add(pbna);
                 }
-                shootCooldown = shootCooldownMax + 1;
+                normalShotCooldown = normalShotMaxCooldown;
             }
-            shootCooldown--;
-        } else {
-            shootCooldown = 0;
         }
+        normalShotCooldown = Math.max(0, normalShotCooldown - 1);
         return toReturn;
     }
 
     @Override
     public void getHit(Bullet eb) {
-        setHealth(getHealth() - 1);
+        setHealth(getHealth() - eb.getDamage());
     }
 }

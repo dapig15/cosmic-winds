@@ -1,7 +1,7 @@
 package bullethell.entity.bullet;
 
 import bullethell.Coords;
-import bullethell.entity.PlayerShip;
+import bullethell.entity.ship.PlayerShip;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -12,7 +12,8 @@ public class EnemyBulletAngularHoming extends EnemyBulletAngular {
     private int homingFrames;
     private float homingFactor;
 
-    public EnemyBulletAngularHoming(Coords coords, int spriteRadius, int velocity, float angle, PlayerShip psRef,
+    public EnemyBulletAngularHoming(Coords coords, int spriteRadius, int velocity, float angle,
+            PlayerShip psRef,
             int homingFrames, float homingFactor) {
         super(coords, spriteRadius, velocity, angle);
         this.psRef = psRef;

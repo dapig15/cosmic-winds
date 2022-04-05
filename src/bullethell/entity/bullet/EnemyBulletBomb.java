@@ -16,7 +16,8 @@ public class EnemyBulletBomb extends EnemyBulletAngular {
 
     public EnemyBulletBomb(Coords coords, int hitboxRadius, int finalRadius, Coords targetCoords,
             float chaseFactor, int chaseFrames, int deflateFrames) {
-        super(coords, hitboxRadius, coords.distanceTo(targetCoords) * chaseFactor, coords.angleTo(targetCoords));
+        super(coords, hitboxRadius, coords.distanceTo(targetCoords) * chaseFactor,
+                coords.angleTo(targetCoords));
         this.startRadius = hitboxRadius;
         this.finalRadius = finalRadius;
         currentRadius = startRadius;

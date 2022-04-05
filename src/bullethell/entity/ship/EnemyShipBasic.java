@@ -1,4 +1,4 @@
-package bullethell.entity;
+package bullethell.entity.ship;
 
 import bullethell.Coords;
 import bullethell.entity.bullet.Bullet;
@@ -47,7 +47,7 @@ public abstract class EnemyShipBasic extends EnemyShip {
     public void setInitialYVel(int initialYVel) {
         this.initialYVel = initialYVel;
     }
-    
+
     public int getMaxHealth() {
         return maxHealth;
     }
@@ -87,7 +87,7 @@ public abstract class EnemyShipBasic extends EnemyShip {
 
     @Override
     public void getHit(Bullet pb) {
-        setHealth(getHealth() - 1);
+        setHealth(getHealth() - pb.getDamage());
         lastHitFrame = getFramesAlive();
         if (getHealth() <= 0) {
             setKillMe(true);

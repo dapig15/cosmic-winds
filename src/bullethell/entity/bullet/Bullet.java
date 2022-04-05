@@ -10,6 +10,7 @@ import bullethell.Coords;
 4) add one to frames
 */
 public abstract class Bullet {
+    private int damage = 1;
     private Coords coords;
     private float x, y;
     private int framesAlive = 0;
@@ -20,6 +21,14 @@ public abstract class Bullet {
         this.coords = coords;
         this.x = coords.getX();
         this.y = coords.getY();
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public void setDamage(int damage) {
+        this.damage = damage;
     }
 
     public Coords getCoords() {
