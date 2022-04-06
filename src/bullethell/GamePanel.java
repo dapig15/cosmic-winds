@@ -34,7 +34,7 @@ public class GamePanel extends JPanel {
     public GamePanel() {
         player = new PlayerShip(
                 new Coords(BulletPanel.getBulletPanelWidth() / 2, BulletPanel.getBulletPanelHeight() * 3 / 4), 4, 4,
-                "shipTest.png");
+                "shipTest.png", enemyShips);
         this.addKeyListener(player.getPKA());
         this.setFocusable(true);
         PlayerBullet.setEnemyShipReference(enemyShips);

@@ -1,16 +1,27 @@
 package bullethell.entity.bullet;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
 import bullethell.Coords;
 
 public class PlayerBulletAngular extends PlayerBullet {
-    
+
     private float velocity;
     private float angle;
+    private Color color = Color.MAGENTA;
 
     public PlayerBulletAngular(Coords coords, int spriteRadius, float velocity, float angle) {
         super(coords, spriteRadius);
         this.velocity = velocity;
         this.angle = angle;
+    }
+
+    public PlayerBulletAngular(Coords coords, int spriteRadius, float velocity, float angle, Color color) {
+        super(coords, spriteRadius);
+        this.velocity = velocity;
+        this.angle = angle;
+        this.color = color;
     }
 
     public float getVelocity() {
@@ -37,5 +48,12 @@ public class PlayerBulletAngular extends PlayerBullet {
     @Override
     public float findYDisp() {
         return (float) Math.sin(angle) * velocity;
+    }
+
+    @Override
+    public void paintMe(Graphics g) {
+        g.setColor(color);
+        g.fillOval(getCoords().getX() - getSpriteRadius(),
+                getCoords().getY() - getSpriteRadius(), getSpriteRadius() * 2, getSpriteRadius() * 2);
     }
 }
