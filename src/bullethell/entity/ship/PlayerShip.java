@@ -185,7 +185,7 @@ public class PlayerShip extends Ship {
                     angleToClosestShip = getCoords().angleTo(closestShip.getCoords());
                 }
                 for (float j = angleToClosestShip - 1.5f; j <= angleToClosestShip + 1.5f; j += 0.75f) {
-                    toReturn.add(new PlayerBulletAngularHoming(pbb.getCoords().deepClone(), 6, 12, j, closestShip, 1000,
+                    toReturn.add(new PlayerBulletAngularHoming(pbb.getCoords().deepClone(), 6, 12, j, closestShip, 37,
                             0.1f));
                 }
             }
