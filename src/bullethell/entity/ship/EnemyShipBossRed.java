@@ -46,8 +46,7 @@ public class EnemyShipBossRed extends EnemyShipBoss {
     public void update() {
         super.update();
         if (getCurrentPhase() == 0) {
-            targetCoords = new Coords(BulletPanel.getBulletPanelWidth() - getPsRef().getCoords().getX(),
-                    centerCoords.getY());
+            targetCoords = new Coords(getPsRef().getCoords().getX(), centerCoords.getY());
         } else {
             targetCoords = centerCoords;
         }
@@ -78,8 +77,8 @@ public class EnemyShipBossRed extends EnemyShipBoss {
                 toReturn.add(
                         new EnemyBulletAngularAccel(getCoords().deepClone(),
                                 (int) (Math.random() * 5) + 3, 4,
-                                -(angleToPlayer() + (float) Math.random() * (float) (Math.PI / 2)
-                                        - (float) (Math.PI / 4)),
+                                (float) (Math.PI * 3) / 2 + ((float) Math.random() * (float) (Math.PI)
+                                        - (float) (Math.PI / 2)),
                                 -0.1f));
                 if ((getFramesAliveThisPhase() + 25) % 30 == 0) {
                     for (int i = 0; i < 72; i++) {
