@@ -1,4 +1,4 @@
-package sf;
+package streetfighter;
 import utility.*;
 public class Move {
     private final Hitbox attackArea; //(area of effective attack)
