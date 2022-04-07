@@ -39,7 +39,7 @@ public class PlayerBulletAngularHoming extends PlayerBulletAngular {
 
     @Override
     public void paintMe(Graphics g) {
-        g.setColor(Color.yellow);
+        g.setColor(Color.PINK);
         g.fillOval(getCoords().getX() - getSpriteRadius(),
                 getCoords().getY() - getSpriteRadius(), getSpriteRadius() * 2, getSpriteRadius() * 2);
     }

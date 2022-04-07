@@ -1,4 +1,4 @@
-package sf;
+package streetfighter;
 
 import utility.*;
 
