@@ -3,6 +3,16 @@ package bullethell;
 import bullethell.entity.*;
 import bullethell.entity.bullet.Bullet;
 import bullethell.entity.bullet.EnemyBullet;
+import bullethell.entity.bullet.PlayerBullet;
+import bullethell.entity.ship.EnemyShip;
+import bullethell.entity.ship.EnemyShipBigGreen;
+import bullethell.entity.ship.EnemyShipBigRed;
+import bullethell.entity.ship.EnemyShipBigYellow;
+import bullethell.entity.ship.EnemyShipBossRed;
+import bullethell.entity.ship.EnemyShipGreen;
+import bullethell.entity.ship.EnemyShipRed;
+import bullethell.entity.ship.EnemyShipYellow;
+import bullethell.entity.ship.PlayerShip;
 
 import java.awt.Color;
 
@@ -24,7 +34,7 @@ public class GamePanel extends JPanel {
     public GamePanel() {
         player = new PlayerShip(
                 new Coords(BulletPanel.getBulletPanelWidth() / 2, BulletPanel.getBulletPanelHeight() * 3 / 4), 4, 4,
-                "shipTest.png");
+                "shipTest.png", enemyShips);
         this.addKeyListener(player.getPKA());
         this.setFocusable(true);
         PlayerBullet.setEnemyShipReference(enemyShips);
@@ -64,7 +74,7 @@ public class GamePanel extends JPanel {
         return enemyBullets;
     }
 
-    private int counter = 13;
+    private int counter = 0;
     private int cooldown = 50;
     private final int WAVES = 14, COOLDOWN_MAX = 50;
 

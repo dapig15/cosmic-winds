@@ -2,6 +2,8 @@ package bullethell;
 
 import bullethell.entity.*;
 import bullethell.entity.bullet.EnemyBullet;
+import bullethell.entity.bullet.PlayerBullet;
+import bullethell.entity.ship.EnemyShip;
 
 import java.awt.Color;
 import java.awt.Graphics;

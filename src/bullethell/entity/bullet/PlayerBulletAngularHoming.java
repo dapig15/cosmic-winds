@@ -1,22 +1,23 @@
 package bullethell.entity.bullet;
 
 import bullethell.Coords;
+import bullethell.entity.ship.EnemyShip;
 import bullethell.entity.ship.PlayerShip;
 
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class EnemyBulletAngularHoming extends EnemyBulletAngular {
+public class PlayerBulletAngularHoming extends PlayerBulletAngular {
 
-    private PlayerShip psRef;
+    private EnemyShip esRef;
     private int homingFrames;
     private float homingFactor;
 
-    public EnemyBulletAngularHoming(Coords coords, int spriteRadius, int velocity, float angle,
-            PlayerShip psRef,
+    public PlayerBulletAngularHoming(Coords coords, int spriteRadius, int velocity, float angle,
+            EnemyShip esRef,
             int homingFrames, float homingFactor) {
         super(coords, spriteRadius, velocity, angle);
-        this.psRef = psRef;
+        this.esRef = esRef;
         this.homingFrames = homingFrames;
         this.homingFactor = homingFactor;
     }
@@ -27,7 +28,7 @@ public class EnemyBulletAngularHoming extends EnemyBulletAngular {
         if (getFramesAlive() <= homingFrames) {
             float x1 = getX(), y1 = getY();
             float x2 = getX() + (float) Math.cos(getAngle()), y2 = getY() + (float) Math.sin(getAngle());
-            float x3 = psRef.getCoords().getX(), y3 = psRef.getCoords().getY();
+            float x3 = esRef.getCoords().getX(), y3 = esRef.getCoords().getY();
             float val = (y2 - y1) * (x3 - x2) - (y3 - y2) * (x2 - x1);
             if (val < 0)
                 setAngle(getAngle() + homingFactor);
@@ -38,8 +39,8 @@ public class EnemyBulletAngularHoming extends EnemyBulletAngular {
 
     @Override
     public void paintMe(Graphics g) {
-        g.setColor(Color.yellow);
-        g.fillOval(getCoords().getX() - getHitboxRadius(),
-                getCoords().getY() - getHitboxRadius(), getHitboxRadius() * 2, getHitboxRadius() * 2);
+        g.setColor(Color.PINK);
+        g.fillOval(getCoords().getX() - getSpriteRadius(),
+                getCoords().getY() - getSpriteRadius(), getSpriteRadius() * 2, getSpriteRadius() * 2);
     }
 }
