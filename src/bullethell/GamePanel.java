@@ -15,7 +15,7 @@ import bullethell.entity.ship.EnemyShipYellow;
 import bullethell.entity.ship.PlayerShip;
 
 import java.awt.Color;
-
+import java.awt.Dimension;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -37,6 +37,7 @@ public class GamePanel extends JPanel {
                 "shipTest.png", enemyShips);
         this.addKeyListener(player.getPKA());
         this.setFocusable(true);
+        this.setPreferredSize(new Dimension(1080, 720));
         PlayerBullet.setEnemyShipReference(enemyShips);
         EnemyBullet.setPlayerReference(player);
 
