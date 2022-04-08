@@ -202,6 +202,7 @@ public class PlayerShip extends Ship {
                 }
                 normalShotCooldown = normalShotMaxCooldown;
             }
+            /*
             if (bombShotCooldown == 0) {
                 int myX = getCoords().getX(), myY = getCoords().getY();
                 PlayerBulletBomb pbb = new PlayerBulletBomb(getCoords().deepClone(), 5, 20, new Coords(myX, myY - 100),
@@ -221,6 +222,7 @@ public class PlayerShip extends Ship {
                 }
                 waveCooldown = waveMaxCooldown;
             }
+            */
         }
         normalShotCooldown = Math.max(0, normalShotCooldown - 1);
         bombShotCooldown = Math.max(0, bombShotCooldown - 1);

@@ -3,8 +3,9 @@ package streetfighter;
 import utility.*;
 
 public class Fighter {
-    public int health = 0, specialMeter = 0;
+    //public int health = 0, specialMeter = 0;
     private Hitbox body; // (hitbox) (320 tall, 160 wide)
+    /*
     private Move currMove = null; // (move currently being used)
     private int frameCount = 0; // (frame of move currently in)
     private boolean vulnerable = false; // (if vulnerable to attacks)
@@ -14,12 +15,15 @@ public class Fighter {
     private final Move[] moves; // (possible moves)
     private final Move special;
     private final int g = 10; // (gravitational acceleration)
+    */
 
-    public Fighter(Hitbox body, int defaultSpeed, double vy, Move[] moves, Move special) {
+    public Fighter(Hitbox body/*, int defaultSpeed, double vy, Move[] moves, Move special*/) {
         this.body = body;
+        /*
         this.defaultSpeed = defaultSpeed;
         this.moves = moves;
         this.special = special;
+        */
     }
 
     public Hitbox getBody() {
@@ -29,7 +33,7 @@ public class Fighter {
     public void setBody(Hitbox body) {
         this.body = body;
     }
-
+    /*
     public Move getCurrMove() {
         return currMove;
     }
@@ -93,4 +97,5 @@ public class Fighter {
     public double getG() {
         return g;
     }
+    */
 }

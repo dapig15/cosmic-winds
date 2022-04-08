@@ -1,12 +1,14 @@
 package streetfighter;
+import javax.swing.JPanel;
+
 import utility.*;
-public class Arena {
+public class Arena extends JPanel {
     private int playerWins, opponentWins;
     private final Fighter player, opponent;
     public static final int boundx = 1080, boundy = 640;
-    public Arena(Fighter player, Fighter opponent) {
-        this.player = player;
-        this.opponent = opponent;
+    public Arena() {
+        player = new Fighter(new Hitbox(0, 0, 160, 320));
+        opponent = new Fighter(new Hitbox(0, 0, 160, 320));
     }
     public int getPlayerWins() {
         return playerWins;
@@ -25,5 +27,8 @@ public class Arena {
     }
     public Fighter getOpponent() {
         return opponent;
+    }
+    public void update() {
+
     }
 }
