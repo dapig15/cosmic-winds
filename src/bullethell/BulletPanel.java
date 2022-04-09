@@ -6,8 +6,14 @@ import bullethell.entity.bullet.PlayerBullet;
 import bullethell.entity.ship.EnemyShip;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import javax.swing.JPanel;
 
@@ -15,11 +21,19 @@ public class BulletPanel extends JPanel {
 
     private GamePanel gpReference;
     private static int xOffset = 50, bulletPanelWidth = 540, bulletPanelHeight = 720;
+    private static BufferedImage[] backgrounds; // TODO remember to make this more efficient
 
     public BulletPanel(GamePanel gpReference) {
         this.gpReference = gpReference;
+        this.setBounds(0, 0, bulletPanelWidth, bulletPanelHeight);
         this.setLayout(null);
-        this.setBounds(xOffset, 0, bulletPanelWidth, bulletPanelHeight);
+        backgrounds = new BufferedImage[2];
+        try {
+            backgrounds[0] = ImageIO.read(new File("background.png"));
+            backgrounds[1] = ImageIO.read(new File("backgroundReversed.png"));
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
 
     public static int getxOffset() {
@@ -46,10 +60,15 @@ public class BulletPanel extends JPanel {
         BulletPanel.bulletPanelHeight = bulletPanelHeight;
     }
 
+    private int panelFrameCount = 0;
+
     @Override
     public void paintComponent(Graphics g) {
-        g.setColor(Color.BLACK);
-        g.fillRect(0, 0, this.getWidth(), this.getHeight());
+        g.drawImage(backgrounds[(panelFrameCount / bulletPanelHeight) % 2], 0, panelFrameCount % bulletPanelHeight,
+                null);
+        g.drawImage(backgrounds[(panelFrameCount / bulletPanelHeight + 1) % 2], 0,
+                panelFrameCount % bulletPanelHeight - 720, null);
+        panelFrameCount++;
         gpReference.getPlayerShip().paintMe(g);
         ArrayList<PlayerBullet> playerBullets = gpReference.getPlayerBullets();
         ArrayList<EnemyBullet> enemyBullets = gpReference.getEnemyBullets();

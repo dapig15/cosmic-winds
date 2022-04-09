@@ -15,11 +15,17 @@ import bullethell.entity.ship.EnemyShipYellow;
 import bullethell.entity.ship.PlayerShip;
 
 import java.awt.Color;
-
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 public class GamePanel extends JPanel {
 
@@ -30,6 +36,7 @@ public class GamePanel extends JPanel {
     private ArrayList<EnemyShip> enemyShips = new ArrayList<>();
     private ArrayList<PlayerBullet> playerBullets = new ArrayList<>();
     private ArrayList<EnemyBullet> enemyBullets = new ArrayList<>();
+    private BufferedImage background;
 
     public GamePanel() {
         player = new PlayerShip(
@@ -37,6 +44,7 @@ public class GamePanel extends JPanel {
                 "shipTest.png", enemyShips);
         this.addKeyListener(player.getPKA());
         this.setFocusable(true);
+        this.setBounds(0, 0, 1080, 720);
         PlayerBullet.setEnemyShipReference(enemyShips);
         EnemyBullet.setPlayerReference(player);
 
@@ -45,13 +53,22 @@ public class GamePanel extends JPanel {
         this.add(label);
         label.setText("hp: " + player.getHealth());
 
-        this.setBackground(Color.RED);
+        try {
+            background = ImageIO.read(new File("gamePanelBackground.png"));
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
         this.setLayout(null);
 
         bulletPanel = new BulletPanel(this);
         this.add(bulletPanel);
 
         counter--;
+    }
+
+    @Override
+    public void paintComponent(Graphics g) {
+        g.drawImage(background, 0, 0, null);
     }
 
     public BulletPanel getBulletPanel() {
@@ -213,10 +230,8 @@ public class GamePanel extends JPanel {
         for (int i = 0; i < enemyBullets.size(); i++) {
             EnemyBullet eb = enemyBullets.get(i);
             eb.update();
-            if (eb.isKillMe()) {
-                label.setText("hp: " + player.getHealth());
-            }
         }
+        label.setText("hp: " + player.getHealth());
         bulletPanel.repaint();
     }
 }
