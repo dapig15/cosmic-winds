@@ -17,13 +17,8 @@ public class Fighter {
     private final int g = 10; // (gravitational acceleration)
     */
 
-    public Fighter(Hitbox body/*, int defaultSpeed, double vy, Move[] moves, Move special*/) {
+    public Fighter(Hitbox body) {
         this.body = body;
-        /*
-        this.defaultSpeed = defaultSpeed;
-        this.moves = moves;
-        this.special = special;
-        */
     }
 
     public Hitbox getBody() {
