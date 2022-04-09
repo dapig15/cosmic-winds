@@ -16,6 +16,8 @@ public abstract class Bullet {
     private int framesAlive = 0;
     private boolean killMe = false;
     public static final int KILL_OFFSET = 100;
+    private boolean ignoreKillOffset = false;
+    private boolean dieWhenCollide = true;
 
     public Bullet(Coords coords) {
         this.coords = coords;
@@ -71,6 +73,22 @@ public abstract class Bullet {
         this.killMe = killMe;
     }
 
+    public boolean isIgnoreKillOffset() {
+        return ignoreKillOffset;
+    }
+
+    public void setIgnoreKillOffset(boolean ignoreKillOffset) {
+        this.ignoreKillOffset = ignoreKillOffset;
+    }
+
+    public boolean isDieWhenCollide() {
+        return dieWhenCollide;
+    }
+
+    public void setDieWhenCollide(boolean dieWhenCollide) {
+        this.dieWhenCollide = dieWhenCollide;
+    }
+
     public void update() {
         float xInc = findXDisp();
         float yInc = findYDisp();
@@ -78,9 +96,9 @@ public abstract class Bullet {
         y += yInc;
         coords.shiftCoords((int) x - coords.getX(), (int) y - coords.getY());
         process();
-        if (getCoords().getX() < -KILL_OFFSET || getCoords().getY() < -KILL_OFFSET ||
+        if (!ignoreKillOffset && (getCoords().getX() < -KILL_OFFSET || getCoords().getY() < -KILL_OFFSET ||
                 getCoords().getX() > BulletPanel.getBulletPanelWidth() + KILL_OFFSET ||
-                getCoords().getY() > BulletPanel.getBulletPanelHeight() + KILL_OFFSET) {
+                getCoords().getY() > BulletPanel.getBulletPanelHeight() + KILL_OFFSET)) {
             setKillMe(true);
         }
         framesAlive++;

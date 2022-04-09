@@ -16,22 +16,20 @@ public class EnemyShipYellow extends EnemyShipBasic {
     @Override
     public ArrayList<EnemyBullet> spawnBullets() {
         ArrayList<EnemyBullet> toReturn = new ArrayList<>();
-        if ((getFramesAlive() + 1) % 60 == 0) {
+        int[] multiply = new int[] { 1, -1 };
+        if ((getFramesAlive() - 20) % 60 == 0) {
             float angle = angleToPlayer();
-            toReturn.add(
-                    new EnemyBulletAngularHoming(new Coords(this.getCoords().getX(), this.getCoords().getY()),
-                            6, 10, angle - 0.5f, getPsRef(), 40, 0.04f));
-            toReturn.add(
-                    new EnemyBulletAngularHoming(new Coords(this.getCoords().getX(), this.getCoords().getY()),
-                            6, 10, angle + 0.5f, getPsRef(), 40, 0.04f));
+            for (int i : multiply) {
+                toReturn.add(
+                        new EnemyBulletAngularHoming(getCoords().deepClone(), 6, 10, angle + 0.5f * i, getPsRef(), 40,
+                                0.04f));
+            }
         }
-        if ((getFramesAlive() + 1) % 25 == 0) {
-            toReturn.add(
-                    new EnemyBulletNoAccel(new Coords(this.getCoords().getX() - 10, this.getCoords().getY()),
-                            6, 0, 7));
-            toReturn.add(
-                    new EnemyBulletNoAccel(new Coords(this.getCoords().getX() + 10, this.getCoords().getY()),
-                            6, 0, 7));
+        if ((getFramesAlive() - 10) % 25 == 0) {
+            for (int i : multiply) {
+                toReturn.add(
+                        new EnemyBulletNoAccel(new Coords(getCoords().getX() + 10 * i, getCoords().getY()), 6, 0, 7));
+            }
         }
         /*
          * for (int i = 1; i <= 13; i++) {

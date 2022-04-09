@@ -22,11 +22,11 @@ public class Main {
 
     public void run() {
         JFrame frame = new JFrame();
-        frame.setPreferredSize(new Dimension(1080, 720));
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //frame.setLayout(null);
 
         gamePanel = new GamePanel();
-        frame.add(gamePanel);
+        frame.setContentPane(gamePanel);
 
         frame.setResizable(false);
         frame.pack();

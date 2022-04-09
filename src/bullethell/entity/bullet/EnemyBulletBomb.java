@@ -25,6 +25,7 @@ public class EnemyBulletBomb extends EnemyBulletAngular {
         this.chaseFactor = chaseFactor;
         this.chaseFrames = chaseFrames;
         this.deflateFrames = deflateFrames;
+        setDieWhenCollide(false);
     }
 
     public boolean isDeflating() {
