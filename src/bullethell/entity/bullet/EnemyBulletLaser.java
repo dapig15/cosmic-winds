@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-package bullethell.entity.bullet;
-
-public class EnemyBulletLaser {
-    
-}
-=======
 package bullethell.entity.bullet;
 
 import java.awt.Color;
@@ -74,4 +67,3 @@ public class EnemyBulletLaser extends EnemyBulletAngular {
     }
 
 }
->>>>>>> main
