@@ -64,7 +64,8 @@ public class BulletPanel extends JPanel {
 
     @Override
     public void paintComponent(Graphics g) {
-        g.drawImage(backgrounds[(panelFrameCount / bulletPanelHeight) % 2], 0, panelFrameCount % bulletPanelHeight,
+        g.drawImage(backgrounds[(panelFrameCount / bulletPanelHeight) % 2], 0,
+                panelFrameCount % bulletPanelHeight,
                 null);
         g.drawImage(backgrounds[(panelFrameCount / bulletPanelHeight + 1) % 2], 0,
                 panelFrameCount % bulletPanelHeight - 720, null);

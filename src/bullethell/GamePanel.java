@@ -8,6 +8,7 @@ import bullethell.entity.ship.EnemyShip;
 import bullethell.entity.ship.EnemyShipBigGreen;
 import bullethell.entity.ship.EnemyShipBigRed;
 import bullethell.entity.ship.EnemyShipBigYellow;
+import bullethell.entity.ship.EnemyShipBossGreen;
 import bullethell.entity.ship.EnemyShipBossRed;
 import bullethell.entity.ship.EnemyShipGreen;
 import bullethell.entity.ship.EnemyShipRed;
@@ -23,6 +24,8 @@ import javax.swing.JPanel;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+
+import java.awt.Graphics;
 
 import javax.imageio.ImageIO;
 
@@ -90,12 +93,13 @@ public class GamePanel extends JPanel {
         return enemyBullets;
     }
 
-    private int counter = 0;
+    private int counter = 14;
     private int cooldown = 50;
-    private final int WAVES = 14, COOLDOWN_MAX = 50;
+    private final int WAVES = 15, COOLDOWN_MAX = 50;
 
     // removing items from arraylist moved to bulletpanel
     public void update() {
+        System.out.println(javax.swing.SwingUtilities.isEventDispatchThread());
         if (enemyShips.isEmpty()) {
             cooldown++;
             if (cooldown >= COOLDOWN_MAX) {
@@ -210,6 +214,12 @@ public class GamePanel extends JPanel {
                     case 13:
                         enemyShips.add(
                                 new EnemyShipBossRed(new Coords(BulletPanel.getBulletPanelWidth() / 2, 0), player,
+                                        new Coords(BulletPanel.getBulletPanelWidth() / 2,
+                                                BulletPanel.getBulletPanelHeight() / 4)));
+                        break;
+                    case 14:
+                        enemyShips.add(
+                                new EnemyShipBossGreen(new Coords(BulletPanel.getBulletPanelWidth() / 2, 0), player,
                                         new Coords(BulletPanel.getBulletPanelWidth() / 2,
                                                 BulletPanel.getBulletPanelHeight() / 4)));
                         break;

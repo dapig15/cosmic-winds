@@ -5,6 +5,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 public class Main {
 
@@ -16,14 +17,19 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
-        Main m = new Main();
-        m.run();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                Main m = new Main();
+                m.run();
+            }
+        });
     }
 
     public void run() {
+        System.out.println("hhh: " + SwingUtilities.isEventDispatchThread());
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.setLayout(null);
+        // frame.setLayout(null);
 
         gamePanel = new GamePanel();
         frame.setContentPane(gamePanel);
@@ -40,8 +46,12 @@ public class Main {
 
         @Override
         public void run() {
-            gamePanel.update();
-            gamePanel.repaint();
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    gamePanel.update();
+                    gamePanel.repaint();
+                }
+            });
         }
 
     }
