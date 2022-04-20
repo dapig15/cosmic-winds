@@ -1,3 +1,6 @@
+package streetfighter;
+
+import utility.*;
 public class Move {
 	private int[] hitbox; //x1, y1, x2, y2 compared to lower right
 	private int damage;

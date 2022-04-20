@@ -1,8 +1,10 @@
+package streetfighter;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.util.Timer;
 import java.util.TimerTask;
-
+import utility.*;
 import javax.swing.JFrame;
 
 public class SFMain {

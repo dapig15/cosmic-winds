@@ -1,5 +1,8 @@
+package streetfighter;
+
 import java.awt.Color;
 import java.awt.Graphics;
+import utility.*;
 
 import javax.swing.JPanel;
 

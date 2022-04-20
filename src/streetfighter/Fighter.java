@@ -1,5 +1,8 @@
+package streetfighter;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyAdapter;
+import utility.*;
 
 public class Fighter {
 	class PlayerKeyAdapter extends KeyAdapter {
