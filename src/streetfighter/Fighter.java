@@ -5,7 +5,7 @@ import java.awt.event.KeyAdapter;
 import utility.*;
 
 public class Fighter {
-	class PlayerKeyAdapter extends KeyAdapter {
+    class PlayerKeyAdapter extends KeyAdapter {
         @Override
         public void keyTyped(KeyEvent e) {
         }
@@ -62,9 +62,9 @@ public class Fighter {
             }
         }
     }
-    
-	private boolean moveRight, moveLeft, moveDown, moveUp, moveLight, moveHeavy, moveSpecial;
-	private int right = KeyEvent.VK_RIGHT, altRight = KeyEvent.VK_D;
+
+    private boolean moveRight, moveLeft, moveDown, moveUp, moveLight, moveHeavy, moveSpecial;
+    private int right = KeyEvent.VK_RIGHT, altRight = KeyEvent.VK_D;
     private int left = KeyEvent.VK_LEFT, altLeft = KeyEvent.VK_A;
     private int down = KeyEvent.VK_DOWN, altDown = KeyEvent.VK_S;
     private int up = KeyEvent.VK_UP, altUp = KeyEvent.VK_W;
@@ -72,46 +72,46 @@ public class Fighter {
     private int heavy = KeyEvent.VK_K, altHeavy = KeyEvent.VK_N;
     private int special = KeyEvent.VK_L, altSpecial = KeyEvent.VK_M;
     private PlayerKeyAdapter pka = new PlayerKeyAdapter();
-    
-    private Move lightMove = new Move(new int[] {0, 50, 50, 100}, 10),
-    		heavyMove = new Move(new int[] {0, 0, 50, 50}, 20),
-    		specialMove = new Move(new int[] {0, 100, 50, 150}, 30),
-    		currMove;
-    
+
+    private Move lightMove = new Move(new int[] { 0, 50, 50, 100 }, 10),
+            heavyMove = new Move(new int[] { 0, 0, 50, 50 }, 20),
+            specialMove = new Move(new int[] { 0, 100, 50, 150 }, 30),
+            currMove;
+
     private Hitbox body;
     private Hitbox attack;
-    
+
     private boolean player;
     private int width = 50, height = 150;
     private int speed = 15, jump = 70, gravity = 13;
     private int yspeed;
     private int freeze = 0;
-    
+
     public Fighter(Hitbox body, boolean player) {
         this.body = body;
         this.player = player;
     }
-    
+
     public Hitbox getBody() {
         return body;
     }
-    
+
     public void setBody(Hitbox body) {
         this.body = body;
     }
-    
+
     public Hitbox getAttack() {
-    	return attack;
+        return attack;
     }
-    
+
     public PlayerKeyAdapter getPKA() {
-    	return pka;
+        return pka;
     }
-    
+
     public Move getCurrMove() {
-    	return currMove;
+        return currMove;
     }
-    
+
     public void update(Fighter other) {
     	if (moveSpecial) {
 	   		currMove = specialMove;
@@ -158,5 +158,65 @@ public class Fighter {
 	    } else {
 	    	attack = null;
 	    }
+
     }
 }
+
+    
+
+    
+        
+
+    
+        
+
+    
+        
+
+    
+        
+            
+        
+            
+        
+            
+        
+            
+        
+
+        
+            
+            
+                
+            
+                
+            
+                
+                    
+            
+                
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+        
+
+        
+            
+            
+                
+                        
+            
+                
+                        
+            
+        
+            
+        

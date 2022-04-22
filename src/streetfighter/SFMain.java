@@ -6,6 +6,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import utility.*;
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
 
 public class SFMain {
 
@@ -17,8 +18,12 @@ public class SFMain {
     }
 
     public static void main(String[] args) throws Exception {
-        SFMain m = new SFMain();
-        m.run();
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                SFMain m = new SFMain();
+                m.run();
+            }
+        });
     }
 
     public void run() {
@@ -41,8 +46,12 @@ public class SFMain {
 
         @Override
         public void run() {
-            arena.update();
-            arena.repaint();
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    arena.update();
+                    arena.repaint();
+                }
+            });
         }
     }
 }

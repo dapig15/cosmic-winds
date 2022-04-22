@@ -50,6 +50,8 @@ public class Arena extends JPanel {
 
     public void paintComponent(Graphics g) {
         g.fillRect(0, boundy, boundx, boundy + 100);
+        g.setColor(Color.white);
+        g.fillRect(0, 0, boundx, boundy);
         g.setColor(Color.blue);
         g.drawRect(player.getBody().getX1(), boundy - player.getBody().getY2(),
                 player.getBody().getX2() - player.getBody().getX1(),
