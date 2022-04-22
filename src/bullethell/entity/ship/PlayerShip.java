@@ -21,11 +21,12 @@ public class PlayerShip extends Ship {
     private int left = KeyEvent.VK_LEFT, altLeft = KeyEvent.VK_A;
     private int down = KeyEvent.VK_DOWN, altDown = KeyEvent.VK_S;
     private int up = KeyEvent.VK_UP, altUp = KeyEvent.VK_W;
+    private int auto = KeyEvent.VK_C;
     private int slow = KeyEvent.VK_SHIFT;
     private int shoot = KeyEvent.VK_Z;
     private int moveSpeed = 12;
     private int defaultMoveSpeed = 12, slowMoveSpeed = 4;
-    private boolean moveRight, moveLeft, moveDown, moveUp, isShooting;
+    private boolean moveRight, moveLeft, moveDown, moveUp, isShooting, autoFire = false;
     private PlayerKeyAdapter pka = new PlayerKeyAdapter();
     private ArrayList<EnemyShip> esListRef;
 
@@ -112,6 +113,9 @@ public class PlayerShip extends Ship {
             if (key == shoot) {
                 isShooting = true;
             }
+            if (key == auto) {
+                autoFire = !autoFire;
+            }
         }
 
         @Override
@@ -190,7 +194,7 @@ public class PlayerShip extends Ship {
                 }
             }
         }
-        if (isShooting) {
+        if (isShooting || autoFire) {
             if (normalShotCooldown == 0) {
                 int myX = getCoords().getX(), myY = getCoords().getY();
                 if (moveSpeed == slowMoveSpeed) {
