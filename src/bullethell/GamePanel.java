@@ -98,7 +98,6 @@ public class GamePanel extends JPanel {
 
     // removing items from arraylist moved to bulletpanel
     public void update() {
-        System.out.println(javax.swing.SwingUtilities.isEventDispatchThread());
         if (enemyShips.isEmpty()) {
             cooldown++;
             if (cooldown >= COOLDOWN_MAX) {

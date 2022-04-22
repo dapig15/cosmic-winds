@@ -26,7 +26,6 @@ public class Main {
     }
 
     public void run() {
-        System.out.println("hhh: " + SwingUtilities.isEventDispatchThread());
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // frame.setLayout(null);
