@@ -64,8 +64,7 @@ public class GamePanel extends JPanel {
 
         bulletPanel = new BulletPanel(this);
         this.add(bulletPanel);
-
-        counter--;
+        
     }
 
     @Override
@@ -93,7 +92,7 @@ public class GamePanel extends JPanel {
         return enemyBullets;
     }
 
-    private int counter = 14;
+    private int counter = 13;
     private int cooldown = 50;
     private final int WAVES = 15, COOLDOWN_MAX = 50;
 
@@ -241,6 +240,7 @@ public class GamePanel extends JPanel {
             eb.update();
         }
         label.setText("hp: " + player.getHealth());
+        label.setForeground(Color.white);
         bulletPanel.repaint();
     }
 }
