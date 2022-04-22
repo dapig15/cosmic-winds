@@ -19,7 +19,7 @@ public class EnemyShipBossGreen extends EnemyShipBoss {
     private Coords targetCoords;
 
     public EnemyShipBossGreen(Coords coords, PlayerShip psRef, Coords centerCoords) {
-        super(coords, 26 * 4, 26 * 4, "ship_huge_2.png", 500, psRef, 10, 5, 200);
+        super(coords, 26 * 4, 26 * 4, "ship_huge_2.png", 20, psRef, 10, 5, 20);
         this.centerCoords = centerCoords;
         this.targetCoords = centerCoords;
     }
@@ -53,10 +53,10 @@ public class EnemyShipBossGreen extends EnemyShipBoss {
             if (ebb.isKillMe()) {
                 ebbs.remove(i);
                 i--;
-            } else if (ebb.isDeflating() && ebb.getFramesAlive() % 2 == 0) {
-                float angle = ebb.getCoords().angleTo(getPsRef().getCoords());
-                for (float j = -0.5f; j <= 0.5f; j += 0.5) {
-                    toReturn.add(new EnemyBulletAngularAccel(ebb.getCoords().deepClone(), 6, 5, angle + j, 0.5f));
+            } else if (ebb.isDeflating() && ebb.getFramesAlive() == 151) {
+                // float angle = ebb.getCoords().angleTo(getPsRef().getCoords());
+                for (float j = 0; j <= (float) (2 * Math.PI); j += (float) (Math.PI / 12)) {
+                    toReturn.add(new EnemyBulletAngular(ebb.getCoords().deepClone(), 6, 5, j));
                 }
             }
         }
@@ -66,7 +66,7 @@ public class EnemyShipBossGreen extends EnemyShipBoss {
         switch (getCurrentPhase()) {
             case 0: // solar eruption
                 toReturn.add(new EnemyBulletLaser(getCoords().deepClone(), 5, 600, getFramesAliveThisPhase() / 80f, 50,
-                        200));
+                        100));
                 if (getFramesAliveThisPhase() % 1 == 0) {
                     for (int i = 0; i < 24; i++) {
                         if (getFramesAliveThisPhase() % 40 < 20)
@@ -79,22 +79,16 @@ public class EnemyShipBossGreen extends EnemyShipBoss {
                 }
                 break;
             case 1: // moon's melancholy
-                for (int i = 1; i < 8; i += 2) {
-                    float newAngle = ((getFramesAliveThisPhase() % 100) / 100f + i / 4f) * (float) Math.PI;
-                    toReturn.add(new EnemyBulletAngular(getCoords().deepClone(), 6, 5, newAngle));
-                }
-                if ((getFramesAliveThisPhase() + 25) % 50 == 0) {
-                    float distance = 250;
-                    for (int i = 1; i < 8; i += 2) {
-                        float newAngle = i / 4f * (float) Math.PI;
-                        EnemyBulletBomb ebb = new EnemyBulletBomb(getCoords().deepClone(), 6, 30,
-                                new Coords(
-                                        getCoords().getX() + (int) (distance * (float) Math.cos(newAngle)),
-                                        getCoords().getY() + (int) (distance * (float) Math.sin(newAngle))),
-                                0.04f, 50, 20);
-                        toReturn.add(ebb);
-                        ebbs.add(ebb);
-                    }
+                if (getFramesAliveThisPhase() % 2 == 0) {
+                    EnemyBulletBomb ebb = new EnemyBulletBomb(getCoords().deepClone(), 6, 30,
+                            new Coords(
+                                    getCoords().getX()
+                                            + (int) (100 * (float) Math.cos(getFramesAliveThisPhase() / 20f)),
+                                    getCoords().getY()
+                                            + (int) (100 * (float) Math.sin(getFramesAliveThisPhase() / 20f))),
+                            0.04f, 150, 20);
+                    toReturn.add(ebb);
+                    ebbs.add(ebb);
                 }
                 break;
             case 2: // cosmic corridor
@@ -119,12 +113,12 @@ public class EnemyShipBossGreen extends EnemyShipBoss {
                     float distance = 250;
                     for (int i = 0; i < 24; i += 1) {
                         float newAngle = i / 12f * (float) Math.PI;
-                        EnemyBulletBomb ebb = new EnemyBulletBomb(getCoords().deepClone(), 6, 30,
+                        EnemyBulletBomb ebbtemp = new EnemyBulletBomb(getCoords().deepClone(), 6, 30,
                                 new Coords(getCoords().getX() + (int) (distance * (float) Math.cos(newAngle)),
                                         getCoords().getY() + (int) (distance * (float) Math.sin(newAngle))),
                                 0.02f, 50, 20);
-                        toReturn.add(ebb);
-                        ebbs.add(ebb);
+                        toReturn.add(ebbtemp);
+                        ebbs.add(ebbtemp);
                     }
                 }
                 if (getFramesAliveThisPhase() % 5 == 0) {
