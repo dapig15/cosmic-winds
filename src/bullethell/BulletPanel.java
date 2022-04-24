@@ -29,8 +29,8 @@ public class BulletPanel extends JPanel {
         this.setLayout(null);
         backgrounds = new BufferedImage[2];
         try {
-            backgrounds[0] = ImageIO.read(new File("background.png"));
-            backgrounds[1] = ImageIO.read(new File("backgroundReversed.png"));
+            backgrounds[0] = ImageIO.read(new File("images/background.png"));
+            backgrounds[1] = ImageIO.read(new File("images/backgroundReversed.png"));
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }

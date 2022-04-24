@@ -1,5 +1,6 @@
 package bullethell.entity.ship;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import bullethell.Coords;
@@ -10,7 +11,7 @@ import bullethell.entity.bullet.EnemyBulletNoAccel;
 
 public class EnemyShipRed extends EnemyShipBasic {
     public EnemyShipRed(Coords coords, PlayerShip psRef, int initialYVel) {
-        super(coords, 26, 26, "ship_0.png", 30, psRef, initialYVel);
+        super(coords, 26, 26, "images/sprites/ships/ship_0.png", 30, psRef, initialYVel);
     }
 
     @Override

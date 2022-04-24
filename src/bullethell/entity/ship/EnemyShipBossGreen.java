@@ -19,7 +19,7 @@ public class EnemyShipBossGreen extends EnemyShipBoss {
     private Coords targetCoords;
 
     public EnemyShipBossGreen(Coords coords, PlayerShip psRef, Coords centerCoords) {
-        super(coords, 26 * 4, 26 * 4, "ship_huge_2.png", 20, psRef, 10, 5, 20);
+        super(coords, 26 * 4, 26 * 4, "images/sprites/ships/ship_huge_2.png", 20, psRef, 10, 5, 20);
         this.centerCoords = centerCoords;
         this.targetCoords = centerCoords;
     }
@@ -65,16 +65,19 @@ public class EnemyShipBossGreen extends EnemyShipBoss {
         }
         switch (getCurrentPhase()) {
             case 0: // solar eruption
-                toReturn.add(new EnemyBulletLaser(getCoords().deepClone(), 5, 600, getFramesAliveThisPhase() / 80f, 50,
-                        100));
-                if (getFramesAliveThisPhase() % 1 == 0) {
+                final int[] vals = new int[] { 32, 48, 56, 60, 62, 63 };
+                boolean shouldSpawn = false;
+                for (int val : vals) {
+                    if ((getFramesAliveThisPhase() + 20) % 80 == val) {
+                        shouldSpawn = true;
+                    }
+                }
+                if (shouldSpawn) {
                     for (int i = 0; i < 24; i++) {
-                        if (getFramesAliveThisPhase() % 40 < 20)
-                            toReturn.add(new EnemyBulletAngularRotational(getCoords().deepClone(), 6, 2,
-                                    (float) (i * Math.PI / 12), 0.2f, 0.04f));
-                        else
-                            toReturn.add(new EnemyBulletAngularRotational(getCoords().deepClone(), 6, 2,
-                                    (float) (i * Math.PI / 12), 0.2f, -0.04f));
+                        toReturn.add(new EnemyBulletAngularRotational(getCoords().deepClone(), 6, 2,
+                                (float) (i * Math.PI / 12), 0.2f, 0.04f));
+                        toReturn.add(new EnemyBulletAngularRotational(getCoords().deepClone(), 6, 2,
+                                (float) (i * Math.PI / 12), 0.2f, -0.04f));
                     }
                 }
                 break;

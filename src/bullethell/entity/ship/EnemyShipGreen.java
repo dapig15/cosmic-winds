@@ -9,7 +9,7 @@ import bullethell.entity.bullet.EnemyBulletAngularRotational;
 public class EnemyShipGreen extends EnemyShipBasic {
 
     public EnemyShipGreen(Coords coords, PlayerShip psRef, int initialYVel) {
-        super(coords, 26, 26, "ship_2.png", 30, psRef, initialYVel);
+        super(coords, 26, 26, "images/sprites/ships/ship_2.png", 30, psRef, initialYVel);
     }
 
     @Override

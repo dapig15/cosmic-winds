@@ -43,7 +43,8 @@ public class GamePanel extends JPanel {
     public GamePanel() {
         player = new PlayerShip(
                 new Coords(BulletPanel.getBulletPanelWidth() / 2, BulletPanel.getBulletPanelHeight() * 3 / 4), 4, 4,
-                "shipTest.png", enemyShips);
+                "images/sprites/ships/shipTest.png",
+                enemyShips);
         this.addKeyListener(player.getPKA());
         this.setFocusable(true);
         this.setPreferredSize(new Dimension(1080, 720));
@@ -56,7 +57,7 @@ public class GamePanel extends JPanel {
         label.setText("hp: " + player.getHealth());
 
         try {
-            background = ImageIO.read(new File("gamePanelBackground.png"));
+            background = ImageIO.read(new File("images/gamePanelBackground.png"));
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
@@ -64,7 +65,7 @@ public class GamePanel extends JPanel {
 
         bulletPanel = new BulletPanel(this);
         this.add(bulletPanel);
-        
+
     }
 
     @Override
