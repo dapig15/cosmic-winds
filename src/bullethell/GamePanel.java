@@ -14,6 +14,7 @@ import bullethell.entity.ship.EnemyShipGreen;
 import bullethell.entity.ship.EnemyShipRed;
 import bullethell.entity.ship.EnemyShipYellow;
 import bullethell.entity.ship.PlayerShip;
+import utility.FontGenerator;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -32,7 +33,6 @@ import javax.imageio.ImageIO;
 public class GamePanel extends JPanel {
 
     private BulletPanel bulletPanel;
-    private JLabel label;
 
     private PlayerShip player;
     private ArrayList<EnemyShip> enemyShips = new ArrayList<>();
@@ -51,11 +51,6 @@ public class GamePanel extends JPanel {
         PlayerBullet.setEnemyShipReference(enemyShips);
         EnemyBullet.setPlayerReference(player);
 
-        label = new JLabel();
-        label.setBounds(600, 40, 100, 100);
-        this.add(label);
-        label.setText("hp: " + player.getHealth());
-
         try {
             background = ImageIO.read(new File("images/gamePanelBackground.png"));
         } catch (IOException ioe) {
@@ -64,6 +59,7 @@ public class GamePanel extends JPanel {
         this.setLayout(null);
 
         bulletPanel = new BulletPanel(this);
+        bulletPanel.setBounds(50, 0, BulletPanel.getBulletPanelWidth(), BulletPanel.getBulletPanelHeight());
         this.add(bulletPanel);
 
     }
@@ -71,6 +67,16 @@ public class GamePanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         g.drawImage(background, 0, 0, null);
+        FontGenerator.writeText(g, "hp: " + player.getHealth(), 50 + BulletPanel.getBulletPanelWidth() + 50, 50, 3,
+                Color.white);
+        g.setColor(Color.gray);
+        g.fillRoundRect(50 + BulletPanel.getBulletPanelWidth() + 40, 390,
+                getWidth() - BulletPanel.getBulletPanelWidth() - 130, getHeight() - 430, 50, 50);
+        g.setColor(Color.white);
+        g.fillRoundRect(50 + BulletPanel.getBulletPanelWidth() + 50, 400,
+                getWidth() - BulletPanel.getBulletPanelWidth() - 150, getHeight() - 450, 50, 50);
+        FontGenerator.writeText(g, "qwertyuiopasdfghjklzxcvbnm\nQWERTYUIOPASDFGHJKLZXCVBNM\n1234567890",
+                50 + BulletPanel.getBulletPanelWidth() + 70, 400 + 20, 1.25f);
     }
 
     public BulletPanel getBulletPanel() {
@@ -239,8 +245,6 @@ public class GamePanel extends JPanel {
             EnemyBullet eb = enemyBullets.get(i);
             eb.update();
         }
-        label.setText("hp: " + player.getHealth());
-        label.setForeground(Color.white);
         bulletPanel.repaint();
     }
 }

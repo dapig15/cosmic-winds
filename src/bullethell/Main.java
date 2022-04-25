@@ -7,6 +7,8 @@ import java.util.TimerTask;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import utility.FontGenerator;
+
 public class Main {
 
     private GamePanel gamePanel;
@@ -17,6 +19,7 @@ public class Main {
     }
 
     public static void main(String[] args) throws Exception {
+        FontGenerator.prime();
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 Main m = new Main();

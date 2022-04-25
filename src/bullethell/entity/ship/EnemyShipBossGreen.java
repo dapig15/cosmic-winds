@@ -65,19 +65,15 @@ public class EnemyShipBossGreen extends EnemyShipBoss {
         }
         switch (getCurrentPhase()) {
             case 0: // solar eruption
-                final int[] vals = new int[] { 32, 48, 56, 60, 62, 63 };
-                boolean shouldSpawn = false;
-                for (int val : vals) {
-                    if ((getFramesAliveThisPhase() + 20) % 80 == val) {
-                        shouldSpawn = true;
-                    }
-                }
-                if (shouldSpawn) {
-                    for (int i = 0; i < 24; i++) {
+                for (int i = 0; i < 24; i++) {
+                    if (getFramesAliveThisPhase() % 30 < 25) {
+                        float tilt = (float) (getFramesAliveThisPhase() % 30 * Math.PI / 360);
+                        if (getFramesAliveThisPhase() % 60 > 30)
+                            tilt *= -1;
                         toReturn.add(new EnemyBulletAngularRotational(getCoords().deepClone(), 6, 2,
-                                (float) (i * Math.PI / 12), 0.2f, 0.04f));
+                                tilt + (float) (i * Math.PI / 12), 0.2f, 0.04f));
                         toReturn.add(new EnemyBulletAngularRotational(getCoords().deepClone(), 6, 2,
-                                (float) (i * Math.PI / 12), 0.2f, -0.04f));
+                                tilt + (float) (i * Math.PI / 12), 0.2f, -0.04f));
                     }
                 }
                 break;
