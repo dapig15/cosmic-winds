@@ -8,7 +8,7 @@ import bullethell.entity.bullet.*;
 public class EnemyShipBigGreen extends EnemyShipBasic {
 
     public EnemyShipBigGreen(Coords coords, PlayerShip psRef) {
-        super(coords, 26 * 2, 26 * 2, "images/sprites/ships/ship_big_2.png", 500, psRef, 10);
+        super(coords, 26 * 2, 26 * 2, "images/sprites/ships/ship_big_2.png", 250, psRef, 10);
     }
 
     @Override

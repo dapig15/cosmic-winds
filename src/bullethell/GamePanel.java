@@ -99,7 +99,7 @@ public class GamePanel extends JPanel {
         return enemyBullets;
     }
 
-    private int counter = 13;
+    private int counter = 9;
     private int cooldown = 50;
     private final int WAVES = 15, COOLDOWN_MAX = 50;
 
