@@ -158,7 +158,7 @@ public class PlayerShip extends Ship {
         }
     }
 
-    int normalShotCooldown = 0, normalShotMaxCooldown = 4;
+    int normalShotCooldown = 0, normalShotMaxCooldown = 2;
     int bombShotCooldown = 0, bombShotMaxCooldown = 100;
     int waveCooldown = 0, waveMaxCooldown = 40;
 
@@ -206,25 +206,30 @@ public class PlayerShip extends Ship {
                 }
                 normalShotCooldown = normalShotMaxCooldown;
             }
-            if (bombShotCooldown == 0) {
-                int myX = getCoords().getX(), myY = getCoords().getY();
-                PlayerBulletBomb pbb = new PlayerBulletBomb(getCoords().deepClone(), 5, 20, new Coords(myX, myY - 100),
-                        0.04f, 50, 20);
-                toReturn.add(pbb);
-                pbbs.add(pbb);
-                bombShotCooldown = bombShotMaxCooldown;
-            }
-            if (waveCooldown == 0) {
-                for (int i = 5; i <= 10; i++) {
-                    for (float j = (float) Math.PI * 11 / 8; j <= (float) Math.PI * 13.1 / 8; j += (float) Math.PI
-                            / 16) {
-                        PlayerBulletAngular pbna = new PlayerBulletAngular(getCoords().deepClone(), i, i, j,
-                                new Color(255 - (i * 10), 0, i * 20));
-                        toReturn.add(pbna);
-                    }
-                }
-                waveCooldown = waveMaxCooldown;
-            }
+            /*
+             * if (bombShotCooldown == 0) {
+             * int myX = getCoords().getX(), myY = getCoords().getY();
+             * PlayerBulletBomb pbb = new PlayerBulletBomb(getCoords().deepClone(), 5, 20,
+             * new Coords(myX, myY - 100),
+             * 0.04f, 50, 20);
+             * toReturn.add(pbb);
+             * pbbs.add(pbb);
+             * bombShotCooldown = bombShotMaxCooldown;
+             * }
+             * if (waveCooldown == 0) {
+             * for (int i = 5; i <= 10; i++) {
+             * for (float j = (float) Math.PI * 11 / 8; j <= (float) Math.PI * 13.1 / 8; j
+             * += (float) Math.PI
+             * / 16) {
+             * PlayerBulletAngular pbna = new PlayerBulletAngular(getCoords().deepClone(),
+             * i, i, j,
+             * new Color(255 - (i * 10), 0, i * 20));
+             * toReturn.add(pbna);
+             * }
+             * }
+             * waveCooldown = waveMaxCooldown;
+             * }
+             */
         }
         normalShotCooldown = Math.max(0, normalShotCooldown - 1);
         bombShotCooldown = Math.max(0, bombShotCooldown - 1);

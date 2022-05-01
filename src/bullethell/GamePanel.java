@@ -99,7 +99,7 @@ public class GamePanel extends JPanel {
         return enemyBullets;
     }
 
-    private int counter = 9;
+    private int counter = 0;
     private int cooldown = 50;
     private final int WAVES = 15, COOLDOWN_MAX = 50;
 
@@ -108,7 +108,6 @@ public class GamePanel extends JPanel {
         if (enemyShips.isEmpty()) {
             cooldown++;
             if (cooldown >= COOLDOWN_MAX) {
-                counter++;
                 cooldown = 0;
                 switch (counter % WAVES) {
                     case 0:
@@ -229,6 +228,7 @@ public class GamePanel extends JPanel {
                                                 BulletPanel.getBulletPanelHeight() / 4)));
                         break;
                 }
+                counter++;
             }
         }
         player.update();

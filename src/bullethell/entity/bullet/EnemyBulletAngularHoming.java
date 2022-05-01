@@ -12,7 +12,7 @@ public class EnemyBulletAngularHoming extends EnemyBulletAngular {
     private int homingFrames;
     private float homingFactor;
 
-    public EnemyBulletAngularHoming(Coords coords, int spriteRadius, int velocity, float angle,
+    public EnemyBulletAngularHoming(Coords coords, int spriteRadius, float velocity, float angle,
             PlayerShip psRef,
             int homingFrames, float homingFactor) {
         super(coords, spriteRadius, velocity, angle);

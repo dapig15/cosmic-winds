@@ -6,8 +6,12 @@ import bullethell.Coords;
 import bullethell.entity.bullet.EnemyBullet;
 import bullethell.entity.bullet.EnemyBulletAngularHoming;
 import bullethell.entity.bullet.EnemyBulletNoAccel;
+import bullethell.entity.bullet.patterns.BPArc;
+import bullethell.entity.bullet.patterns.BulletPatternCaller;
 
 public class EnemyShipYellow extends EnemyShipBasic {
+    private BPArc arcAttackRight = new BPArc(getCoords(), 12, 6, 8, -0.1f, 0.1f);
+    private BPArc arcAttackLeft = new BPArc(getCoords(), 12, 6, 8, -0.1f + (float) Math.PI, 0.1f + (float) Math.PI);
 
     public EnemyShipYellow(Coords coords, PlayerShip psRef, int initialYVel) {
         super(coords, 26, 26, "images/sprites/ships/ship_1.png", 30, psRef, initialYVel);
@@ -16,6 +20,12 @@ public class EnemyShipYellow extends EnemyShipBasic {
     @Override
     public ArrayList<EnemyBullet> spawnBullets() {
         ArrayList<EnemyBullet> toReturn = new ArrayList<>();
+        if (BulletPatternCaller.canSpawn(getFramesAlive(), 50, 10)) {
+            arcAttackRight.create(toReturn);
+            arcAttackRight.shiftAngle((float) (Math.PI * 0.1f));
+            arcAttackLeft.create(toReturn);
+            arcAttackLeft.shiftAngle((float) (Math.PI * 0.1f));
+        }
         int[] multiply = new int[] { 1, -1 };
         if ((getFramesAlive() - 20) % 60 == 0) {
             float angle = angleToPlayer();
@@ -23,12 +33,6 @@ public class EnemyShipYellow extends EnemyShipBasic {
                 toReturn.add(
                         new EnemyBulletAngularHoming(getCoords().deepClone(), 6, 10, angle + 0.5f * i, getPsRef(), 40,
                                 0.04f));
-            }
-        }
-        if ((getFramesAlive() - 10) % 25 == 0) {
-            for (int i : multiply) {
-                toReturn.add(
-                        new EnemyBulletNoAccel(new Coords(getCoords().getX() + 10 * i, getCoords().getY()), 6, 0, 7));
             }
         }
         /*
