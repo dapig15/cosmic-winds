@@ -14,14 +14,18 @@ import javax.imageio.ImageIO;
 public abstract class Ship {
     private Coords coords;
     private int hitboxWidth, hitboxHeight;
-    private String imagePath;
+    private BufferedImage ship;
     private int health;
 
     public Ship(Coords coords, int hitboxWidth, int hitboxHeight, String imagePath, int health) {
         this.coords = coords;
         this.hitboxWidth = hitboxHeight;
         this.hitboxHeight = hitboxHeight;
-        this.imagePath = imagePath;
+        try {
+            ship = ImageIO.read(new File(imagePath));
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
         this.health = health;
     }
 
@@ -53,6 +57,10 @@ public abstract class Ship {
         this.hitboxHeight = hitboxHeight;
     }
 
+    public BufferedImage getShipImage() {
+        return ship;
+    }
+
     public int getHealth() {
         return health;
     }
@@ -66,11 +74,6 @@ public abstract class Ship {
     public abstract void getHit(Bullet b);
 
     public void paintMe(Graphics g) {
-        try {
-            BufferedImage img = ImageIO.read(new File(imagePath));
-            g.drawImage(img, coords.getX() - img.getWidth() / 2, coords.getY() - img.getHeight() / 2, null);
-        } catch (IOException ioe) {
-            ioe.printStackTrace();
-        }
+        g.drawImage(ship, coords.getX() - ship.getWidth() / 2, coords.getY() - ship.getHeight() / 2, null);
     }
 }

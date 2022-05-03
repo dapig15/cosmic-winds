@@ -16,6 +16,11 @@ public class BulletPatternCaller {
         return (frames >= delay && ((frames - delay) % interval == 0));
     }
 
+    public static boolean canSpawn(int frames, int delay, int interval, int min, int max) {
+        int status = (frames - delay) % interval;
+        return (frames >= delay && (status >= min && status <= max));
+    }
+
     public static void spawnPattern(ArrayList<EnemyBullet> toReturn, EnemyBulletPattern pattern) {
         pattern.create(toReturn);
     }

@@ -16,6 +16,7 @@ public abstract class EnemyShipBoss extends EnemyShipBasic {
     private int rechargeFrames, rechargeCounter = -1;
     private boolean isRecharging = true;
     private int framesAliveThisPhase = -1;
+    private ShipDeathAnimation sda = null;
 
     public EnemyShipBoss(Coords coords, int hitboxWidth, int hitboxHeight, String imagePath, int health,
             PlayerShip psRef, int initialYVel, int totalPhases, int rechargeFrames) {
@@ -50,6 +51,7 @@ public abstract class EnemyShipBoss extends EnemyShipBasic {
                     rechargeCounter = 0;
                     isRecharging = true;
                     framesAliveThisPhase = -1;
+                    sda = new ShipDeathAnimation(getCoords(), getShipImage(), false, 30);
                 }
             }
         } else {
@@ -72,9 +74,18 @@ public abstract class EnemyShipBoss extends EnemyShipBasic {
                 isRecharging = false;
             }
         }
+        if (sda != null) {
+            sda.update();
+            if (sda.shouldKill()) {
+                sda = null;
+            }
+        }
     }
 
     public void paintMe(Graphics g) {
+        if (sda != null) {
+            sda.paintMe(g);
+        }
         super.paintMe(g);
         if (isRecharging) {
             g.setColor(Color.yellow);

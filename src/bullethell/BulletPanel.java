@@ -4,6 +4,8 @@ import bullethell.entity.*;
 import bullethell.entity.bullet.EnemyBullet;
 import bullethell.entity.bullet.PlayerBullet;
 import bullethell.entity.ship.EnemyShip;
+import bullethell.entity.ship.EnemyShipBoss;
+import bullethell.entity.ship.ShipDeathAnimation;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -74,6 +76,7 @@ public class BulletPanel extends JPanel {
         ArrayList<PlayerBullet> playerBullets = gpReference.getPlayerBullets();
         ArrayList<EnemyBullet> enemyBullets = gpReference.getEnemyBullets();
         ArrayList<EnemyShip> enemyShips = gpReference.getEnemyShips();
+        ArrayList<ShipDeathAnimation> shipDeaths = gpReference.getShipDeaths();
         for (int i = 0; i < playerBullets.size(); i++) {
             PlayerBullet pb = playerBullets.get(i);
             if (pb.isKillMe()) {
@@ -95,10 +98,22 @@ public class BulletPanel extends JPanel {
         for (int i = 0; i < enemyShips.size(); i++) {
             EnemyShip es = enemyShips.get(i);
             if (es.getHealth() <= 0) {
+                shipDeaths.add(
+                        new ShipDeathAnimation(es.getCoords(), es.getShipImage(), (es instanceof EnemyShipBoss),
+                                (es instanceof EnemyShipBoss) ? 100 : 10));
                 enemyShips.remove(i);
                 i--;
             } else {
                 es.paintMe(g);
+            }
+        }
+        for (int i = 0; i < shipDeaths.size(); i++) {
+            ShipDeathAnimation sda = shipDeaths.get(i);
+            if (sda.shouldKill()) {
+                shipDeaths.remove(sda);
+                i--;
+            } else {
+                sda.paintMe(g);
             }
         }
     }

@@ -8,12 +8,14 @@ import bullethell.entity.ship.EnemyShip;
 import bullethell.entity.ship.EnemyShipBigGreen;
 import bullethell.entity.ship.EnemyShipBigRed;
 import bullethell.entity.ship.EnemyShipBigYellow;
+import bullethell.entity.ship.EnemyShipBlue;
 import bullethell.entity.ship.EnemyShipBossGreen;
 import bullethell.entity.ship.EnemyShipBossRed;
 import bullethell.entity.ship.EnemyShipGreen;
 import bullethell.entity.ship.EnemyShipRed;
 import bullethell.entity.ship.EnemyShipYellow;
 import bullethell.entity.ship.PlayerShip;
+import bullethell.entity.ship.ShipDeathAnimation;
 import utility.FontGenerator;
 
 import java.awt.Color;
@@ -38,6 +40,7 @@ public class GamePanel extends JPanel {
     private ArrayList<EnemyShip> enemyShips = new ArrayList<>();
     private ArrayList<PlayerBullet> playerBullets = new ArrayList<>();
     private ArrayList<EnemyBullet> enemyBullets = new ArrayList<>();
+    private ArrayList<ShipDeathAnimation> shipDeaths = new ArrayList<>();
     private BufferedImage background;
 
     public GamePanel() {
@@ -99,9 +102,13 @@ public class GamePanel extends JPanel {
         return enemyBullets;
     }
 
-    private int counter = 0;
+    public ArrayList<ShipDeathAnimation> getShipDeaths() {
+        return shipDeaths;
+    }
+
+    private int counter = 9;
     private int cooldown = 50;
-    private final int WAVES = 15, COOLDOWN_MAX = 50;
+    private final int WAVES = 17, COOLDOWN_MAX = 50;
 
     // removing items from arraylist moved to bulletpanel
     public void update() {
@@ -165,63 +172,115 @@ public class GamePanel extends JPanel {
                                         10));
                         break;
                     case 6:
-                        for (int i = 90; i <= BulletPanel.getBulletPanelWidth() - 90; i += 40) {
-                            enemyShips.add(new EnemyShipRed(new Coords(i, 0), player, 5 + Math.abs(i - 270) / 40));
-                        }
+                        enemyShips
+                                .add(new EnemyShipBlue(new Coords(BulletPanel.getBulletPanelWidth() / 2, 0), player,
+                                        10));
                         break;
                     case 7:
-                        for (int i = -40; i <= 40; i += 40) {
-                            for (int j = 0; j >= -80; j -= 40) {
-                                enemyShips.add(
-                                        new EnemyShipYellow(new Coords(BulletPanel.getBulletPanelWidth() / 2 + i, j),
-                                                player, 9));
-                            }
-                        }
+                        enemyShips
+                                .add(new EnemyShipRed(new Coords(BulletPanel.getBulletPanelWidth() / 2 - 100, 0),
+                                        player,
+                                        10));
+                        enemyShips
+                                .add(new EnemyShipBlue(new Coords(BulletPanel.getBulletPanelWidth() / 2, 0), player,
+                                        10));
+                        enemyShips
+                                .add(new EnemyShipRed(new Coords(BulletPanel.getBulletPanelWidth() / 2 + 100, 0),
+                                        player,
+                                        10));
                         break;
                     case 8:
+                        /*
+                         * for (int i = 90; i <= BulletPanel.getBulletPanelWidth() - 90; i += 40) {
+                         * enemyShips.add(new EnemyShipBlue(new Coords(i, 0), player, 5 + Math.abs(i -
+                         * 270) / 40));
+                         * }
+                         */
+                        for (int i = 90; i <= BulletPanel.getBulletPanelWidth() - 90; i += 90) {
+                            enemyShips
+                                    .add(new EnemyShipBlue(new Coords(i, 0), player, 5 + 2 * Math.abs(i - 270) / 60));
+                        }
+                        break;
+                    case 9:
+                        for (int i = -1; i <= 1; i++) {
+                            enemyShips
+                                    .add(new EnemyShipYellow(
+                                            new Coords(BulletPanel.getBulletPanelWidth() / 2 + i * 75, 0),
+                                            getPlayerShip(), Math.abs(i) + 8));
+                        }
+                        break;
+                    case 10:
                         for (int i = 90; i <= BulletPanel.getBulletPanelWidth() - 90; i += 60) {
                             enemyShips
                                     .add(new EnemyShipGreen(new Coords(i, 0), player, 5 + 2 * Math.abs(i - 270) / 60));
                         }
                         break;
-                    case 9:
-                        for (int i = 5; i <= 7; i++) {
-                            enemyShips.add(new EnemyShipYellow(new Coords(40, 0), player, i));
-                            enemyShips.add(new EnemyShipYellow(
-                                    new Coords(BulletPanel.getBulletPanelWidth() - 40, 0), player, i));
-                            enemyShips.add(new EnemyShipGreen(new Coords(250, 0), player, i));
-                            enemyShips.add(new EnemyShipGreen(
-                                    new Coords(BulletPanel.getBulletPanelWidth() - 250, 0), player, i));
-                            enemyShips.add(new EnemyShipRed(new Coords(210, 0), player, i));
-                            enemyShips.add(new EnemyShipRed(
-                                    new Coords(BulletPanel.getBulletPanelWidth() - 210, 0), player, i));
-                            enemyShips.add(new EnemyShipRed(new Coords(170, 0), player, i));
-                            enemyShips.add(new EnemyShipRed(
-                                    new Coords(BulletPanel.getBulletPanelWidth() - 170, 0), player, i));
-                        }
+                    case 11:
+                        /*
+                         * for (int i = -40; i <= 40; i += 40) {
+                         * for (int j = 0; j >= -80; j -= 40) {
+                         * enemyShips.add(
+                         * new EnemyShipYellow(new Coords(BulletPanel.getBulletPanelWidth() / 2 + i, j),
+                         * player, 9));
+                         * }
+                         * }
+                         * break;
+                         */
+                        enemyShips
+                                .add(new EnemyShipYellow(new Coords(BulletPanel.getBulletPanelWidth() / 2 - 100, 0),
+                                        player,
+                                        10));
+                        enemyShips
+                                .add(new EnemyShipBlue(new Coords(BulletPanel.getBulletPanelWidth() / 2, 0), player,
+                                        8));
+                        enemyShips
+                                .add(new EnemyShipRed(new Coords(BulletPanel.getBulletPanelWidth() / 2, 0), player,
+                                        12));
+                        enemyShips
+                                .add(new EnemyShipGreen(new Coords(BulletPanel.getBulletPanelWidth() / 2 + 100, 0),
+                                        player,
+                                        10));
                         break;
-                    case 10:
+                    /*
+                     * case 12:
+                     * for (int i = 5; i <= 7; i++) {
+                     * enemyShips.add(new EnemyShipYellow(new Coords(40, 0), player, i));
+                     * enemyShips.add(new EnemyShipYellow(
+                     * new Coords(BulletPanel.getBulletPanelWidth() - 40, 0), player, i));
+                     * enemyShips.add(new EnemyShipGreen(new Coords(250, 0), player, i));
+                     * enemyShips.add(new EnemyShipGreen(
+                     * new Coords(BulletPanel.getBulletPanelWidth() - 250, 0), player, i));
+                     * enemyShips.add(new EnemyShipRed(new Coords(210, 0), player, i));
+                     * enemyShips.add(new EnemyShipRed(
+                     * new Coords(BulletPanel.getBulletPanelWidth() - 210, 0), player, i));
+                     * enemyShips.add(new EnemyShipRed(new Coords(170, 0), player, i));
+                     * enemyShips.add(new EnemyShipRed(
+                     * new Coords(BulletPanel.getBulletPanelWidth() - 170, 0), player, i));
+                     * }
+                     * break;
+                     */
+                    case 12:
                         enemyShips.add(new EnemyShipBigRed(new Coords(150, 0), player));
                         enemyShips.add(
                                 new EnemyShipBigRed(new Coords(BulletPanel.getBulletPanelWidth() - 150, 0), player));
                         break;
-                    case 11:
+                    case 13:
                         enemyShips.add(new EnemyShipBigYellow(new Coords(150, 0), player));
                         enemyShips.add(
                                 new EnemyShipBigYellow(new Coords(BulletPanel.getBulletPanelWidth() - 150, 0), player));
                         break;
-                    case 12:
+                    case 14:
                         enemyShips.add(new EnemyShipBigGreen(new Coords(150, 0), player));
                         enemyShips.add(
                                 new EnemyShipBigGreen(new Coords(BulletPanel.getBulletPanelWidth() - 150, 0), player));
                         break;
-                    case 13:
+                    case 15:
                         enemyShips.add(
                                 new EnemyShipBossRed(new Coords(BulletPanel.getBulletPanelWidth() / 2, 0), player,
                                         new Coords(BulletPanel.getBulletPanelWidth() / 2,
                                                 BulletPanel.getBulletPanelHeight() / 4)));
                         break;
-                    case 14:
+                    case 16:
                         enemyShips.add(
                                 new EnemyShipBossGreen(new Coords(BulletPanel.getBulletPanelWidth() / 2, 0), player,
                                         new Coords(BulletPanel.getBulletPanelWidth() / 2,
@@ -237,13 +296,14 @@ public class GamePanel extends JPanel {
             es.update();
             enemyBullets.addAll(es.spawnBullets());
         }
-        for (int i = 0; i < playerBullets.size(); i++) {
-            PlayerBullet pb = playerBullets.get(i);
+        for (PlayerBullet pb : playerBullets) {
             pb.update();
         }
-        for (int i = 0; i < enemyBullets.size(); i++) {
-            EnemyBullet eb = enemyBullets.get(i);
+        for (EnemyBullet eb : enemyBullets) {
             eb.update();
+        }
+        for (ShipDeathAnimation sd : shipDeaths) {
+            sd.update();
         }
         bulletPanel.repaint();
     }
