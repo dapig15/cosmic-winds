@@ -10,53 +10,27 @@ import bullethell.entity.bullet.patterns.BPArc;
 import bullethell.entity.bullet.patterns.BulletPatternCaller;
 
 public class EnemyShipYellow extends EnemyShipBasic {
-    private BPArc arcAttackRight = new BPArc(getCoords(), 12, 6, 8, -0.1f, 0.1f);
-    private BPArc arcAttackLeft = new BPArc(getCoords(), 12, 6, 8, -0.1f + (float) Math.PI, 0.1f + (float) Math.PI);
+    private BPArc arcAttackRight = new BPArc(getCoords(), 12, 6, 8, (float) (-Math.PI / 32), (float) (Math.PI / 32));
+    private BPArc arcAttackLeft = new BPArc(getCoords(), 12, 6, 8, (float) (Math.PI * 31 / 32),
+            (float) (Math.PI * 33 / 32));
 
     public EnemyShipYellow(Coords coords, PlayerShip psRef, int initialYVel) {
-        super(coords, 26, 26, "images/sprites/ships/ship_1.png", 30, psRef, initialYVel);
+        super(coords, 26, 26, "images/sprites/ships/stage_5_ship_yellow.png", 30, psRef, initialYVel);
+        arcAttackRight.setBulletType(BPArc.ACCEL);
+        arcAttackRight.setAccelFactor(-0.15f);
+        arcAttackLeft.setBulletType(BPArc.ACCEL);
+        arcAttackLeft.setAccelFactor(-0.15f);
     }
 
     @Override
     public ArrayList<EnemyBullet> spawnBullets() {
         ArrayList<EnemyBullet> toReturn = new ArrayList<>();
-        if (BulletPatternCaller.canSpawn(getFramesAlive(), 50, 10)) {
+        if (BulletPatternCaller.canSpawn(getFramesAlive(), 50, 5)) {
             arcAttackRight.create(toReturn);
-            arcAttackRight.shiftAngle((float) (Math.PI * 0.1f));
+            arcAttackRight.shiftAngle((float) (Math.PI / 32));
             arcAttackLeft.create(toReturn);
-            arcAttackLeft.shiftAngle((float) (Math.PI * 0.1f));
+            arcAttackLeft.shiftAngle(-(float) (Math.PI / 32));
         }
-        int[] multiply = new int[] { 1, -1 };
-        if ((getFramesAlive() - 20) % 60 == 0) {
-            float angle = angleToPlayer();
-            for (int i : multiply) {
-                toReturn.add(
-                        new EnemyBulletAngularHoming(getCoords().deepClone(), 6, 10, angle + 0.5f * i, getPsRef(), 40,
-                                0.04f));
-            }
-        }
-        /*
-         * for (int i = 1; i <= 13; i++) {
-         * if ((getFramesAlive() + i) % 60 == 0) {
-         * if ((i - 1) % 3 == 0) {
-         * toReturn.add(
-         * new EnemyBulletAngularHoming(new Coords(this.getCoords().getX(),
-         * this.getCoords().getY()),
-         * 6, 10, angle - 0.5f, getPsRef(), 40, 0.015f));
-         * toReturn.add(
-         * new EnemyBulletAngularHoming(new Coords(this.getCoords().getX(),
-         * this.getCoords().getY()),
-         * 6, 10, angle + 0.5f, getPsRef(), 40, 0.015f));
-         * }
-         * toReturn.add(new EnemyBulletAngular(new Coords(this.getCoords().getX(),
-         * this.getCoords().getY()),
-         * 6, 10, angle - 0.5f - (i * 0.05f)));
-         * toReturn.add(new EnemyBulletAngular(new Coords(this.getCoords().getX(),
-         * this.getCoords().getY()),
-         * 6, 10, angle + 0.5f + (i * 0.05f)));
-         * }
-         * }
-         */
         return toReturn;
     }
 

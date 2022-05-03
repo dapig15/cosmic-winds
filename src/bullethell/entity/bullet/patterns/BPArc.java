@@ -6,6 +6,7 @@ import bullethell.Coords;
 import bullethell.entity.bullet.Bullet;
 import bullethell.entity.bullet.EnemyBullet;
 import bullethell.entity.bullet.EnemyBulletAngular;
+import bullethell.entity.bullet.EnemyBulletAngularAccel;
 import bullethell.entity.bullet.EnemyBulletAngularHoming;
 import bullethell.entity.ship.PlayerShip;
 
@@ -14,10 +15,11 @@ public class BPArc implements EnemyBulletPattern {
     private int bulletCount, bulletRadius;
     private float velocity, startAngle, endAngle;
     private int bulletType;
-    public static final int NORMAL = 0, HOMING = 1;
+    public static final int NORMAL = 0, HOMING = 1, ACCEL = 2;
     private PlayerShip psRef;
     private int homingFrames;
     private float homingFactor;
+    private float accelFactor;
 
     public Coords getOrigin() {
         return origin;
@@ -83,6 +85,14 @@ public class BPArc implements EnemyBulletPattern {
         this.homingFrames = homingFrames;
     }
 
+    public float getAccelFactor() {
+        return accelFactor;
+    }
+
+    public void setAccelFactor(float accelFactor) {
+        this.accelFactor = accelFactor;
+    }
+
     public float getHomingFactor() {
         return homingFactor;
     }
@@ -124,13 +134,20 @@ public class BPArc implements EnemyBulletPattern {
     @Override
     public void create(ArrayList<EnemyBullet> toReturn) {
         for (int i = 0; i < bulletCount; i++) {
-            if (bulletType == HOMING) {
-                toReturn.add(new EnemyBulletAngularHoming(origin.deepClone(), bulletRadius, velocity,
-                        startAngle + (endAngle - startAngle) * i / (bulletCount - 1), psRef, homingFrames,
-                        homingFactor));
-            } else {
-                toReturn.add(new EnemyBulletAngular(origin.deepClone(), bulletRadius, velocity,
-                        startAngle + (endAngle - startAngle) * i / (bulletCount - 1)));
+            switch (bulletType) {
+                case NORMAL:
+                    toReturn.add(new EnemyBulletAngular(origin.deepClone(), bulletRadius, velocity,
+                            startAngle + (endAngle - startAngle) * i / (bulletCount - 1)));
+                    break;
+                case HOMING:
+                    toReturn.add(new EnemyBulletAngularHoming(origin.deepClone(), bulletRadius, velocity,
+                            startAngle + (endAngle - startAngle) * i / (bulletCount - 1), psRef, homingFrames,
+                            homingFactor));
+                    break;
+                case ACCEL:
+                    toReturn.add(new EnemyBulletAngularAccel(origin.deepClone(), bulletRadius, velocity,
+                            startAngle + (endAngle - startAngle) * i / (bulletCount - 1), accelFactor));
+                    break;
             }
         }
     }

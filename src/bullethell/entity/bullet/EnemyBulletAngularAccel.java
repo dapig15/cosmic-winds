@@ -9,7 +9,7 @@ public class EnemyBulletAngularAccel extends EnemyBulletAngular {
 
     private float accelFactor = 0;
 
-    public EnemyBulletAngularAccel(Coords coords, int spriteRadius, int velocity, float angle,
+    public EnemyBulletAngularAccel(Coords coords, int spriteRadius, float velocity, float angle,
             float accelFactor) {
         super(coords, spriteRadius, velocity, angle);
         this.accelFactor = accelFactor;

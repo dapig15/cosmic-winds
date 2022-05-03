@@ -7,6 +7,7 @@ import bullethell.Coords;
 import bullethell.entity.bullet.Bullet;
 import bullethell.entity.bullet.EnemyBullet;
 import bullethell.entity.bullet.EnemyBulletAngular;
+import bullethell.entity.bullet.EnemyBulletAngularAccel;
 import bullethell.entity.bullet.EnemyBulletLaser;
 import bullethell.entity.bullet.EnemyBulletNoAccel;
 import bullethell.entity.bullet.patterns.BPArc;
@@ -27,7 +28,6 @@ public class EnemyShipRed extends EnemyShipBasic {
             toReturn.add(new EnemyBulletAngular(getCoords().deepClone(), 6, 8,
                     angleToPlayer() + (float) (Math.sin(getFramesAlive() * 0.05f) * Math.PI)));
             toReturn.add(new EnemyBulletAngular(getCoords().deepClone(), 6, 8,
-
                     angleToPlayer() - (float) (Math.sin(getFramesAlive() * 0.05f) * Math.PI)));
         }
         return toReturn;
