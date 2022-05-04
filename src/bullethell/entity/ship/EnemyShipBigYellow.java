@@ -7,8 +7,8 @@ import bullethell.entity.bullet.*;
 
 public class EnemyShipBigYellow extends EnemyShipBasic {
 
-    public EnemyShipBigYellow(Coords coords, PlayerShip psRef) {
-        super(coords, 26 * 2, 26 * 2, "images/sprites/ships/ship_big_1.png", 250, psRef, 10);
+    public EnemyShipBigYellow(Coords coords, PlayerShip psRef, Coords targetCoords) {
+        super(coords, 26 * 2, 26 * 2, "images/sprites/ships/ship_big_1.png", 250, targetCoords, psRef);
     }
 
     private ArrayList<EnemyBulletBomb> ebbs = new ArrayList<>();

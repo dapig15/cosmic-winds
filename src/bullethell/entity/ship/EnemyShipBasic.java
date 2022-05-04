@@ -9,27 +9,15 @@ import java.awt.Graphics;
 public abstract class EnemyShipBasic extends EnemyShip {
 
     private PlayerShip psRef;
-    private int initialYVel;
     private int maxHealth, roofHealth, lastHitFrame;
 
     public EnemyShipBasic(Coords coords, int hitboxWidth, int hitboxHeight, String imagePath, int health,
-            PlayerShip psRef, int initialYVel) {
-        super(coords, hitboxWidth, hitboxHeight, imagePath, health);
+            Coords targetCoords, PlayerShip psRef) {
+        super(coords, hitboxWidth, hitboxHeight, imagePath, health, targetCoords);
         this.psRef = psRef;
-        this.initialYVel = initialYVel;
         this.maxHealth = getHealth();
         this.roofHealth = getHealth();
         this.lastHitFrame = Integer.MIN_VALUE;
-    }
-
-    @Override
-    public int findXDisp() {
-        return 0;
-    }
-
-    @Override
-    public int findYDisp() {
-        return Math.max(initialYVel - (getFramesAlive() / 3), 0);
     }
 
     public PlayerShip getPsRef() {
@@ -38,14 +26,6 @@ public abstract class EnemyShipBasic extends EnemyShip {
 
     public void setPsRef(PlayerShip psRef) {
         this.psRef = psRef;
-    }
-
-    public int getInitialYVel() {
-        return initialYVel;
-    }
-
-    public void setInitialYVel(int initialYVel) {
-        this.initialYVel = initialYVel;
     }
 
     public int getMaxHealth() {

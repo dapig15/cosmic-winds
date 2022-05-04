@@ -15,13 +15,11 @@ import bullethell.entity.bullet.EnemyBulletNoAccel;
 
 public class EnemyShipBossGreen extends EnemyShipBoss {
 
-    private Coords centerCoords;
-    private Coords targetCoords;
+    private Coords originalCoords;
 
-    public EnemyShipBossGreen(Coords coords, PlayerShip psRef, Coords centerCoords) {
-        super(coords, 100, 120, "images/sprites/ships/stage_5_boss.png", 20, psRef, 10, 5, 20);
-        this.centerCoords = centerCoords;
-        this.targetCoords = centerCoords;
+    public EnemyShipBossGreen(Coords coords, PlayerShip psRef, Coords targetCoords) {
+        super(coords, 26 * 4, 26 * 4, "images/sprites/ships/ship_huge_2.png", 20, targetCoords, psRef, 5, 20);
+        originalCoords = targetCoords.deepClone();
     }
 
     @Override
@@ -29,18 +27,17 @@ public class EnemyShipBossGreen extends EnemyShipBoss {
         if (getCurrentPhase() == 2) {
             return (int) (5 * Math.sin(((getFramesAliveThisPhase() / 8f) * Math.PI) / 10 + (Math.PI / 2)));
         }
-        if (getCoords().getX() == targetCoords.getX())
-            return 0;
-        else
-            return (int) Math.ceil(-(getCoords().getX() - targetCoords.getX()) * 0.05);
+        return super.findXDisp();
     }
 
     @Override
-    public int findYDisp() {
-        if (getCoords().getY() == targetCoords.getY())
-            return 0;
-        else
-            return (int) Math.ceil(-(getCoords().getY() - targetCoords.getY()) * 0.05);
+    public void update() {
+        super.update();
+        if (getCurrentPhase() == 0) {
+            setTargetCoords(new Coords(getPsRef().getCoords().getX(), originalCoords.getY()));
+        } else {
+            setTargetCoords(originalCoords);
+        }
     }
 
     private ArrayList<EnemyBulletBomb> ebbs = new ArrayList<>();

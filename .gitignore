@@ -56,3 +56,8 @@ bin/bullethell/GamePanel.class
 bin/bullethell/Main$GameTick.class
 bin/bullethell/Main.class
 bin/utility/Hitbox.class
+*.class
+bin/bullethell/entity/ship/EnemyShipGreen.class
+bin/bullethell/entity/ship/EnemyShipRed.class
+bin/bullethell/entity/ship/EnemyShipYellow.class
+bin/bullethell/GamePanel.class

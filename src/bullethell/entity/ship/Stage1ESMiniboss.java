@@ -12,19 +12,18 @@ import bullethell.entity.bullet.EnemyBulletAngularRotational;
 import bullethell.entity.bullet.EnemyBulletBomb;
 import bullethell.entity.bullet.EnemyBulletNoAccel;
 
-public class EnemyShipBossRed extends EnemyShipBoss {
+public class Stage1ESMiniboss extends EnemyShipBoss {
 
     private Coords originalCoords;
 
-    public EnemyShipBossRed(Coords coords, PlayerShip psRef, Coords targetCoords) {
-        super(coords, 26 * 4, 26 * 4, "images/sprites/ships/ship_huge_0.png", 200, targetCoords, psRef, 5,
-                200);
+    public Stage1ESMiniboss(Coords coords, PlayerShip psRef, Coords targetCoords) {
+        super(coords, 26 * 4, 26 * 4, "images/sprites/ships/ship_huge_0.png", 50, targetCoords, psRef, 5, 200);
         originalCoords = targetCoords.deepClone();
     }
 
     @Override
     public int findXDisp() {
-        if (getCurrentPhase() == 2) {
+        if (getCurrentPhase() == 0) {
             return (int) (5 * Math.sin(((getFramesAliveThisPhase() / 8f) * Math.PI) / 10 + (Math.PI / 2)));
         }
         return super.findXDisp();

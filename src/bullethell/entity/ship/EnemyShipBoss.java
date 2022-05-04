@@ -19,8 +19,8 @@ public abstract class EnemyShipBoss extends EnemyShipBasic {
     private ShipDeathAnimation sda = null;
 
     public EnemyShipBoss(Coords coords, int hitboxWidth, int hitboxHeight, String imagePath, int health,
-            PlayerShip psRef, int initialYVel, int totalPhases, int rechargeFrames) {
-        super(coords, hitboxWidth, hitboxHeight, imagePath, health, psRef, initialYVel);
+            Coords targetCoords, PlayerShip psRef, int totalPhases, int rechargeFrames) {
+        super(coords, hitboxWidth, hitboxHeight, imagePath, health, targetCoords, psRef);
         initialHealth = health;
         this.totalPhases = totalPhases;
         this.rechargeFrames = rechargeFrames;
