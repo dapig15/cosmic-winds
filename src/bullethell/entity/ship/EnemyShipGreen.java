@@ -12,7 +12,7 @@ import bullethell.entity.bullet.patterns.BulletPatternCaller;
 public class EnemyShipGreen extends EnemyShipBasic {
 
     public EnemyShipGreen(Coords coords, PlayerShip psRef, int initialYVel) {
-        super(coords, 26, 26, "images/sprites/ships/stage_5_ship_green.png", 30, psRef, initialYVel);
+        super(coords, 26, 26, "images/sprites/ships/stage_5_ship_green.png", 75, psRef, initialYVel);
     }
 
     private ArrayList<EnemyBulletBomb> ebbs = new ArrayList<>();

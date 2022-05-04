@@ -18,7 +18,7 @@ public class EnemyShipYellow extends EnemyShipBasic {
             (float) (Math.PI * 33 / 32));
 
     public EnemyShipYellow(Coords coords, PlayerShip psRef, int initialYVel) {
-        super(coords, 26, 26, "images/sprites/ships/stage_5_ship_yellow.png", 30, psRef, initialYVel);
+        super(coords, 26, 26, "images/sprites/ships/stage_5_ship_yellow.png", 75, psRef, initialYVel);
         arcAttackRight.setBulletType(BPArc.ACCEL);
         arcAttackRight.setAccelFactor(-0.1f);
         arcAttackLeft.setBulletType(BPArc.ACCEL);
@@ -37,27 +37,21 @@ public class EnemyShipYellow extends EnemyShipBasic {
                 i--;
             } else if (ebaa.getFramesAlive() == 30) {
                 toReturn.add(new EnemyBulletAngularHoming(ebaa.getCoords().deepClone(), 6, 5, ebaa.getAngle(),
-                        getPsRef(), 50, 0.2f));
+                        getPsRef(), 40, 0.2f));
             } else if (ebaa.getFramesAlive() > 30) {
                 ebaa.setKillMe(true);
             }
         }
-        if (BulletPatternCaller.canSpawn(getFramesAlive(), 50, 10)) {
-            for (int i = -5; i <= 5; i++) {
+        if (BulletPatternCaller.canSpawn(getFramesAlive(), 50, 80)) {
+            for (int i = -10; i <= 10; i++) {
                 float angle = angleToPlayer() + i * 0.1f;
-                if (i % 2 == 1) {
-                    EnemyBulletAngularAccel ebaa = new EnemyBulletAngularAccel(getCoords().deepClone(), 6, 10,
-                            angle, -0.1f);
-                    toReturn.add(ebaa);
+                EnemyBulletAngularAccel ebaa = new EnemyBulletAngularAccel(getCoords().deepClone(), 6, 10,
+                        angle, -0.1f);
+                toReturn.add(ebaa);
+                if (Math.abs(i) % 2 == 0) {
                     ebaas.add(ebaa);
-                } else {
-                    toReturn.add(new EnemyBulletAngular(getCoords().deepClone(), 6, 10, angle));
                 }
             }
-            EnemyBulletAngularAccel ebaa = new EnemyBulletAngularAccel(getCoords().deepClone(), 6, 10, angleToPlayer(),
-                    -0.2f);
-            toReturn.add(ebaa);
-            ebaas.add(ebaa);
         }
         /*
          * if (BulletPatternCaller.canSpawn(getFramesAlive(), 50, 10)) {

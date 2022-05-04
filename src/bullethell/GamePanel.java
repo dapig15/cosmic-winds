@@ -106,7 +106,7 @@ public class GamePanel extends JPanel {
         return shipDeaths;
     }
 
-    private int counter = 9;
+    private int counter = 16;
     private int cooldown = 50;
     private final int WAVES = 17, COOLDOWN_MAX = 50;
 
@@ -202,17 +202,21 @@ public class GamePanel extends JPanel {
                         }
                         break;
                     case 9:
-                        for (int i = -1; i <= 1; i++) {
-                            enemyShips
-                                    .add(new EnemyShipYellow(
-                                            new Coords(BulletPanel.getBulletPanelWidth() / 2 + i * 75, 0),
-                                            getPlayerShip(), Math.abs(i) + 8));
+                        for (int i = -100; i <= 0; i += 50) {
+                            enemyShips.add(new EnemyShipYellow(new Coords(50, i), getPlayerShip(), 13));
+                            enemyShips.add(new EnemyShipYellow(new Coords(BulletPanel.getBulletPanelWidth() - 50, i),
+                                    getPlayerShip(), 13));
                         }
                         break;
                     case 10:
-                        for (int i = 90; i <= BulletPanel.getBulletPanelWidth() - 90; i += 60) {
+                        for (int i = 0; i < 8; i++) {
                             enemyShips
-                                    .add(new EnemyShipGreen(new Coords(i, 0), player, 5 + 2 * Math.abs(i - 270) / 60));
+                                    .add(new EnemyShipGreen(
+                                            new Coords(
+                                                    BulletPanel.getBulletPanelWidth() / 2
+                                                            + (int) (Math.cos(Math.PI * i / 4) * 100),
+                                                    -100 + (int) (Math.sin(Math.PI * i / 4) * 100)),
+                                            player, 12));
                         }
                         break;
                     case 11:

@@ -18,7 +18,7 @@ import bullethell.entity.bullet.patterns.BulletPatternCaller.IntervalCalculator;
 public class EnemyShipRed extends EnemyShipBasic {
 
     public EnemyShipRed(Coords coords, PlayerShip psRef, int initialYVel) {
-        super(coords, 32, 32, "images/sprites/ships/stage_5_ship_red.png", 30, psRef, initialYVel);
+        super(coords, 32, 32, "images/sprites/ships/stage_5_ship_red.png", 75, psRef, initialYVel);
     }
 
     @Override

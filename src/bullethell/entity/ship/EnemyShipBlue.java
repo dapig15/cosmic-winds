@@ -17,7 +17,7 @@ public class EnemyShipBlue extends EnemyShipBasic {
     float angle = 0;
 
     public EnemyShipBlue(Coords coords, PlayerShip psRef, int initialYVel) {
-        super(coords, 26, 26, "images/sprites/ships/stage_5_ship_blue.png", 30, psRef, initialYVel);
+        super(coords, 26, 26, "images/sprites/ships/stage_5_ship_blue.png", 75, psRef, initialYVel);
     }
 
     @Override

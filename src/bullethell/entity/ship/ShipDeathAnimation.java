@@ -57,8 +57,10 @@ public class ShipDeathAnimation {
             Graphics2D createGraphics = nbim.createGraphics();
             createGraphics.drawImage(ship, 0, 0, newWidth, newHeight, null);
             RescaleOp r = new RescaleOp(
-                    new float[] { 1f + framesAlive / 9f, 1f + framesAlive / 9f, 1f + framesAlive
-                            / 9f, Math.max(0, (float) (1 - Math.max(0, framesAlive - (maxFrames * 3 / 4)) * 1f / (maxFrames / 4))) },
+                    new float[] { 1f + framesAlive / 10f, 1f + framesAlive / 10f, 1f + framesAlive / 10f,
+                            Math.max(0,
+                                    (float) (1
+                                            - Math.max(0, framesAlive - (maxFrames * 3 / 4)) * 1f / (maxFrames / 4))) },
                     new float[] { 0, 0, 0, 0 }, null);
             toDraw = r.filter(nbim, null);
         } else {

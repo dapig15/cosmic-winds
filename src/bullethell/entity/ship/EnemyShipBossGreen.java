@@ -19,7 +19,7 @@ public class EnemyShipBossGreen extends EnemyShipBoss {
     private Coords targetCoords;
 
     public EnemyShipBossGreen(Coords coords, PlayerShip psRef, Coords centerCoords) {
-        super(coords, 26 * 4, 26 * 4, "images/sprites/ships/ship_huge_2.png", 20, psRef, 10, 5, 20);
+        super(coords, 100, 120, "images/sprites/ships/stage_5_boss.png", 20, psRef, 10, 5, 20);
         this.centerCoords = centerCoords;
         this.targetCoords = centerCoords;
     }
