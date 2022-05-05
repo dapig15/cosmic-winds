@@ -26,6 +26,7 @@ public class EnemyShipYellow extends EnemyShipBasic {
     }
 
     private ArrayList<EnemyBulletAngularAccel> ebaas = new ArrayList<>();
+    private ArrayList<EnemyBulletAngularAccel> normalEbaas = new ArrayList<>();
 
     @Override
     public ArrayList<EnemyBullet> spawnBullets() {
@@ -42,14 +43,25 @@ public class EnemyShipYellow extends EnemyShipBasic {
                 ebaa.setKillMe(true);
             }
         }
+        for (int i = 0; i < normalEbaas.size(); i++) {
+            EnemyBulletAngularAccel ebaa = normalEbaas.get(i);
+            if (ebaa.isKillMe()) {
+                normalEbaas.remove(i);
+                i--;
+            } else if (ebaa.getFramesAlive() > 150) {
+                ebaa.setKillMe(true);
+            }
+        }
         if (BulletPatternCaller.canSpawn(getFramesAlive(), 50, 80)) {
             for (int i = -10; i <= 10; i++) {
                 float angle = angleToPlayer() + i * 0.1f;
-                EnemyBulletAngularAccel ebaa = new EnemyBulletAngularAccel(getCoords().deepClone(), 6, 10,
-                        angle, -0.1f);
+                EnemyBulletAngularAccel ebaa = new EnemyBulletAngularAccel(getCoords().deepClone(), 6, 12,
+                        angle, -0.05f);
                 toReturn.add(ebaa);
                 if (Math.abs(i) % 2 == 0) {
                     ebaas.add(ebaa);
+                } else {
+                    normalEbaas.add(ebaa);
                 }
             }
         }

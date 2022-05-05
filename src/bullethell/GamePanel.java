@@ -17,6 +17,7 @@ import bullethell.entity.ship.EnemyShipYellow;
 import bullethell.entity.ship.PlayerShip;
 import bullethell.entity.ship.ShipDeathAnimation;
 import bullethell.entity.ship.Stage1ESBlue;
+import bullethell.entity.ship.Stage1ESMiniboss;
 import bullethell.entity.ship.Stage1ESRed;
 import bullethell.entity.ship.Stage1ESYellow;
 import utility.FontGenerator;
@@ -113,9 +114,9 @@ public class GamePanel extends JPanel {
                 50 + BulletPanel.getBulletPanelWidth() + 70, 400 + 20, 1.25f);
     }
 
-    private int waveToSpawn = 0, cooldown = 50, cooldownMax = 50;
-    private int currentStage = 5;
-    private final int[] wavesPerStage = new int[] { 0, 7, 0, 0, 0, 13, 0 };
+    private int waveToSpawn = 7, cooldown = 50, cooldownMax = 50;
+    private int currentStage = 1;
+    private final int[] wavesPerStage = new int[] { 0, 8, 0, 0, 0, 13, 0 };
 
     private void updateStage1(int waveToSpawn) {
         switch (waveToSpawn) {
@@ -170,6 +171,9 @@ public class GamePanel extends JPanel {
                 for (int i = left; i <= right; i += 50) {
                     enemyShips.add(new Stage1ESRed(new Coords(i, -50), player, new Coords(i, 100)));
                 }
+                break;
+            case 7:
+                enemyShips.add(new Stage1ESMiniboss(new Coords(halfWidth, -50), player, new Coords(halfWidth, 150)));
                 break;
         }
     }
