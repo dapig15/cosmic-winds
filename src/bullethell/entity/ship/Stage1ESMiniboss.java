@@ -26,7 +26,7 @@ public class Stage1ESMiniboss extends EnemyShipBoss {
     private BPArc backAttack = new BPArc(getCoords(), 5, 6, 8, (float) (-Math.PI), 0);
 
     public Stage1ESMiniboss(Coords coords, PlayerShip psRef, Coords targetCoords) {
-        super(coords, 64, 64, "images/sprites/ships/stage_1_miniboss.png", 20, targetCoords, psRef, 3, 100);
+        super(coords, 64, 64, "images/sprites/ships/stage_1_miniboss.png", 200, targetCoords, psRef, 3, 100);
         originalCoords = targetCoords;
         arcAttack.primeHoming(getPsRef(), 40, 0.05f);
         arcAttack.setBulletType(BPArc.HOMING);

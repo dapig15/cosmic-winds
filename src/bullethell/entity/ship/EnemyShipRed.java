@@ -10,7 +10,7 @@ import bullethell.entity.bullet.patterns.BulletPatternCaller;
 public class EnemyShipRed extends EnemyShipBasic {
 
     public EnemyShipRed(Coords coords, PlayerShip psRef, Coords targetCoords) {
-        super(coords, 32, 32, "images/sprites/ships/stage_5_ship_red.png", 30, targetCoords, psRef);
+        super(coords, 32, 32, "images/sprites/ships/stage_5_ship_red.png", 75, targetCoords, psRef);
     }
 
     @Override

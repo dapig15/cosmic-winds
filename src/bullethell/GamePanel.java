@@ -17,6 +17,7 @@ import bullethell.entity.ship.EnemyShipYellow;
 import bullethell.entity.ship.PlayerShip;
 import bullethell.entity.ship.ShipDeathAnimation;
 import bullethell.entity.ship.Stage1ESBlue;
+import bullethell.entity.ship.Stage1ESGreen;
 import bullethell.entity.ship.Stage1ESMiniboss;
 import bullethell.entity.ship.Stage1ESRed;
 import bullethell.entity.ship.Stage1ESYellow;
@@ -114,9 +115,9 @@ public class GamePanel extends JPanel {
                 50 + BulletPanel.getBulletPanelWidth() + 70, 400 + 20, 1.25f);
     }
 
-    private int waveToSpawn = 7, cooldown = 50, cooldownMax = 50;
+    private int waveToSpawn = 11, cooldown = 50, cooldownMax = 50;
     private int currentStage = 1;
-    private final int[] wavesPerStage = new int[] { 0, 8, 0, 0, 0, 13, 0 };
+    private final int[] wavesPerStage = new int[] { 0, 14, 0, 0, 0, 13, 0 };
 
     private void updateStage1(int waveToSpawn) {
         switch (waveToSpawn) {
@@ -166,14 +167,60 @@ public class GamePanel extends JPanel {
                 enemyShips.add(new Stage1ESBlue(new Coords(halfWidth, -50), player, new Coords(halfWidth, 80)));
                 break;
             case 6:
-                int left = BulletPanel.getBulletPanelWidth() / 2 - 200;
-                int right = BulletPanel.getBulletPanelWidth() / 2 + 200;
-                for (int i = left; i <= right; i += 50) {
+                for (int i = halfWidth - 200; i <= halfWidth + 200; i += 50) {
                     enemyShips.add(new Stage1ESRed(new Coords(i, -50), player, new Coords(i, 100)));
                 }
                 break;
             case 7:
                 enemyShips.add(new Stage1ESMiniboss(new Coords(halfWidth, -50), player, new Coords(halfWidth, 150)));
+                break;
+            case 8:
+                enemyShips.add(new Stage1ESGreen(new Coords(halfWidth, -50), player, new Coords(halfWidth, 100)));
+                break;
+            case 9:
+                for (int i = halfWidth - 200; i <= halfWidth + 200; i += 100) {
+                    enemyShips
+                            .add(new Stage1ESGreen(new Coords(i, -50), player,
+                                    new Coords(i, 100 + Math.abs(halfWidth - i) / 2)));
+                }
+                break;
+            case 10:
+                for (int i = halfWidth - 200; i <= halfWidth + 200; i += 50) {
+                    enemyShips
+                            .add(new Stage1ESBlue(new Coords(i, -50), player, new Coords(i,
+                                    50 + Math.abs(halfWidth - i) / 2)));
+                }
+                break;
+            case 11:
+                for (int i = halfWidth - 50; i <= halfWidth + 50; i += 50) {
+                    for (int j = 75; j <= 175; j += 50) {
+                        enemyShips.add(new Stage1ESYellow(new Coords(i, -50), player, new Coords(i, j)));
+                    }
+                }
+                break;
+            case 12:
+                for (int i = 0; i < 8; i++) {
+                    Coords targetCoords = new Coords(halfWidth + 200 * (int) Math.cos(i * Math.PI / 4),
+                            125 + 50 * (int) Math.sin(i * Math.PI / 4));
+                    if (i % 2 == 0) {
+                        enemyShips.add(new Stage1ESRed(new Coords(halfWidth, -50), player, targetCoords));
+                    } else {
+                        enemyShips.add(new Stage1ESGreen(new Coords(halfWidth, -50), player, targetCoords));
+                    }
+                }
+                break;
+            case 13:
+                for (int i = 100; i <= 400; i += 50) {
+                    for (int j = 50; j <= halfWidth * 2 - 50; j += halfWidth * 2 - 100) {
+                        if (Math.abs(250 - i) == 150) {
+                            enemyShips.add(new Stage1ESYellow(new Coords(j, -50), player, new Coords(j, i)));
+                        } else if ((i / 10) % 2 == 1) {
+                            enemyShips.add(new Stage1ESBlue(new Coords(j, -50), player, new Coords(j, i)));
+                        } else {
+                            enemyShips.add(new Stage1ESGreen(new Coords(j, -50), player, new Coords(j, i)));
+                        }
+                    }
+                }
                 break;
         }
     }

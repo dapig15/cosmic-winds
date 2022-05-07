@@ -18,7 +18,7 @@ public class EnemyShipYellow extends EnemyShipBasic {
             (float) (Math.PI * 33 / 32));
 
     public EnemyShipYellow(Coords coords, PlayerShip psRef, Coords targetCoords) {
-        super(coords, 26, 26, "images/sprites/ships/stage_5_ship_yellow.png", 30, targetCoords, psRef);
+        super(coords, 26, 26, "images/sprites/ships/stage_5_ship_yellow.png", 75, targetCoords, psRef);
         arcAttackRight.setBulletType(BPArc.ACCEL);
         arcAttackRight.setAccelFactor(-0.1f);
         arcAttackLeft.setBulletType(BPArc.ACCEL);
