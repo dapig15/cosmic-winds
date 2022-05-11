@@ -28,7 +28,7 @@ public class Stage1ESGreen extends EnemyShipBasic {
                                 (float) (4 * Math.sin(
                                         angleToPlayer())),
                                 30,
-                                30, false));
+                                30, true));
             }
         }
         return toReturn;

@@ -11,6 +11,7 @@ import utility.FontGenerator;
 
 public class Main {
 
+    private JFrame frame;
     private GamePanel gamePanel;
     Timer timer;
 
@@ -29,7 +30,7 @@ public class Main {
     }
 
     public void run() {
-        JFrame frame = new JFrame();
+        frame = new JFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // frame.setLayout(null);
 
@@ -50,7 +51,9 @@ public class Main {
         public void run() {
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
-                    gamePanel.update();
+                    if (frame.isFocused()) {
+                        gamePanel.update();
+                    }
                     gamePanel.repaint();
                 }
             });

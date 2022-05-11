@@ -103,6 +103,24 @@ public class FontGenerator {
         }
     }
 
+    public static void writeCenteredText(Graphics g, String str, int centerX, int startY, float scale,
+            Color fontColor) {
+        String[] splitStrs = str.split("\n");
+        for (String smallStr : splitStrs) {
+            String smallStr = 
+            float length = 0;
+            for (char c : smallStr.toCharArray()) {
+                if (c == ' ') {
+                    length += 2 * scale;
+                } else {
+                    length += letterMap.get(c).getWidth() * scale;
+                }
+            }
+            length += (smallStr.length() - 1) * scale;
+            writeText(g, str, centerX - length / 2, startY, scale, fontColor);
+        }
+    }
+
     public static void writeText(Graphics g, String str, int startX, int startY, float scale) {
         writeText(g, str, startX, startY, scale, Color.BLACK);
     }

@@ -10,7 +10,7 @@ public class EnemyBulletAngularRotational extends EnemyBulletAngular {
     private float accelFactor;
     private float rotation;
 
-    public EnemyBulletAngularRotational(Coords coords, int spriteRadius, int velocity, float angle,
+    public EnemyBulletAngularRotational(Coords coords, int spriteRadius, float velocity, float angle,
             float accelFactor, float rotation) {
         super(coords, spriteRadius, velocity, angle);
         this.accelFactor = accelFactor;

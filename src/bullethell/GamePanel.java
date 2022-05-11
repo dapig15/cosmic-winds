@@ -116,7 +116,7 @@ public class GamePanel extends JPanel {
                 50 + BulletPanel.getBulletPanelWidth() + 70, 400 + 20, 1.25f);
     }
 
-    private int waveToSpawn = 14, cooldown = 50, cooldownMax = 50;
+    private int waveToSpawn = 12, cooldown = 50, cooldownMax = 50;
     private int currentStage = 1;
     private final int[] wavesPerStage = new int[] { 0, 15, 0, 0, 0, 13, 0 };
 
@@ -201,8 +201,8 @@ public class GamePanel extends JPanel {
                 break;
             case 12:
                 for (int i = 0; i < 8; i++) {
-                    Coords targetCoords = new Coords(halfWidth + 200 * (int) Math.cos(i * Math.PI / 4),
-                            125 + 50 * (int) Math.sin(i * Math.PI / 4));
+                    Coords targetCoords = new Coords((int) (halfWidth + 200 * Math.cos(i * Math.PI / 4)),
+                            (int) (125 + 50 * Math.sin(i * Math.PI / 4)));
                     if (i % 2 == 0) {
                         enemyShips.add(new Stage1ESRed(new Coords(halfWidth, -50), player, targetCoords));
                     } else {

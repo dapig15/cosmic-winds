@@ -8,18 +8,13 @@ import bullethell.entity.bullet.EnemyBullet;
 import bullethell.entity.bullet.EnemyBulletAngular;
 import bullethell.entity.bullet.EnemyBulletAngularAccel;
 import bullethell.entity.bullet.EnemyBulletAngularHoming;
+import bullethell.entity.bullet.EnemyBulletAngularRotational;
 import bullethell.entity.ship.PlayerShip;
 
-public class BPArc implements EnemyBulletPattern {
+public class BPArc extends EnemyBulletPattern {
     private Coords origin;
     private int bulletCount, bulletRadius;
     private float velocity, startAngle, endAngle;
-    private int bulletType;
-    public static final int NORMAL = 0, HOMING = 1, ACCEL = 2;
-    private PlayerShip psRef;
-    private int homingFrames;
-    private float homingFactor;
-    private float accelFactor;
 
     public Coords getOrigin() {
         return origin;
@@ -69,47 +64,9 @@ public class BPArc implements EnemyBulletPattern {
         this.endAngle = endAngle;
     }
 
-    public int getBulletType() {
-        return bulletType;
-    }
-
-    public void setBulletType(int bulletType) {
-        this.bulletType = bulletType;
-    }
-
-    public int getHomingFrames() {
-        return homingFrames;
-    }
-
-    public void setHomingFrames(int homingFrames) {
-        this.homingFrames = homingFrames;
-    }
-
-    public float getAccelFactor() {
-        return accelFactor;
-    }
-
-    public void setAccelFactor(float accelFactor) {
-        this.accelFactor = accelFactor;
-    }
-
-    public float getHomingFactor() {
-        return homingFactor;
-    }
-
-    public void setHomingFactor(float homingFactor) {
-        this.homingFactor = homingFactor;
-    }
-
     public void shiftAngle(float inc) {
         this.startAngle += inc;
         this.endAngle += inc;
-    }
-
-    public void primeHoming(PlayerShip psRef, int homingFrames, float homingFactor) {
-        this.psRef = psRef;
-        this.homingFrames = homingFrames;
-        this.homingFactor = homingFactor;
     }
 
     public BPArc(Coords origin, int bulletCount, int bulletRadius, float velocity, float startAngle,
@@ -134,20 +91,24 @@ public class BPArc implements EnemyBulletPattern {
     @Override
     public void create(ArrayList<EnemyBullet> toReturn) {
         for (int i = 0; i < bulletCount; i++) {
-            switch (bulletType) {
+            switch (getBulletType()) {
                 case NORMAL:
                     toReturn.add(new EnemyBulletAngular(origin.deepClone(), bulletRadius, velocity,
                             startAngle + (endAngle - startAngle) * i / (bulletCount - 1)));
                     break;
                 case HOMING:
                     toReturn.add(new EnemyBulletAngularHoming(origin.deepClone(), bulletRadius, velocity,
-                            startAngle + (endAngle - startAngle) * i / (bulletCount - 1), psRef, homingFrames,
-                            homingFactor));
+                            startAngle + (endAngle - startAngle) * i / (bulletCount - 1), getPsRef(), getHomingFrames(),
+                            getHomingFactor()));
                     break;
                 case ACCEL:
                     toReturn.add(new EnemyBulletAngularAccel(origin.deepClone(), bulletRadius, velocity,
-                            startAngle + (endAngle - startAngle) * i / (bulletCount - 1), accelFactor));
+                            startAngle + (endAngle - startAngle) * i / (bulletCount - 1), getAccelFactor()));
                     break;
+                case ROTATIONAL:
+                    toReturn.add(new EnemyBulletAngularRotational(origin.deepClone(), bulletRadius, velocity,
+                            startAngle + (endAngle - startAngle) * i / (bulletCount - 1), getAccelFactor(),
+                            getRotation()));
             }
         }
     }
