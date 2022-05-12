@@ -29,6 +29,8 @@ public class PlayerShip extends Ship {
     private boolean moveRight, moveLeft, moveDown, moveUp, isShooting, autoFire = false;
     private PlayerKeyAdapter pka = new PlayerKeyAdapter();
     private ArrayList<EnemyShip> esListRef;
+    private int shield = 5;
+    private int invincibleCounter = 0;
 
     public PlayerShip(Coords coords, int hitboxWidth, int hitboxHeight, String imagePath,
             ArrayList<EnemyShip> esListRef) {
@@ -78,6 +80,26 @@ public class PlayerShip extends Ship {
 
     public PlayerKeyAdapter getPKA() {
         return pka;
+    }
+
+    public int getShield() {
+        return shield;
+    }
+
+    public void setShield(int shield) {
+        this.shield = shield;
+    }
+
+    public int getInvincibleCounter() {
+        return invincibleCounter;
+    }
+
+    public void setInvincibleCounter(int invincibleCounter) {
+        this.invincibleCounter = invincibleCounter;
+    }
+
+    public boolean isInvincible() {
+        return invincibleCounter > 0;
     }
 
     @Override
@@ -155,6 +177,9 @@ public class PlayerShip extends Ship {
         }
         if (moveUp) {
             shiftCoords(0, -moveSpeed);
+        }
+        if (invincibleCounter > 0) {
+            invincibleCounter--;
         }
     }
 
@@ -239,6 +264,12 @@ public class PlayerShip extends Ship {
 
     @Override
     public void getHit(Bullet eb) {
-        setHealth(getHealth() - eb.getDamage());
+        if (!isInvincible()) {
+            if (shield > 0) {
+                shield--;
+                invincibleCounter = 100;
+            }
+            setHealth(getHealth() - eb.getDamage());
+        }
     }
 }

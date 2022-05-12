@@ -106,8 +106,8 @@ public class FontGenerator {
     public static void writeCenteredText(Graphics g, String str, int centerX, int startY, float scale,
             Color fontColor) {
         String[] splitStrs = str.split("\n");
-        for (String smallStr : splitStrs) {
-            String smallStr = 
+        for (int i = 0; i < splitStrs.length; i++) {
+            String smallStr = splitStrs[i];
             float length = 0;
             for (char c : smallStr.toCharArray()) {
                 if (c == ' ') {
@@ -117,7 +117,7 @@ public class FontGenerator {
                 }
             }
             length += (smallStr.length() - 1) * scale;
-            writeText(g, str, centerX - length / 2, startY, scale, fontColor);
+            writeText(g, smallStr, (int) (centerX - length / 2), (int) (startY + 11 * i * scale), scale, fontColor);
         }
     }
 
@@ -125,11 +125,23 @@ public class FontGenerator {
         writeText(g, str, startX, startY, scale, Color.BLACK);
     }
 
+    public static void writeCenteredText(Graphics g, String str, int centerX, int startY, float scale) {
+        writeCenteredText(g, str, centerX, startY, scale, Color.BLACK);
+    }
+
     public static void writeText(Graphics g, String str, int startX, int startY, Color fontColor) {
         writeText(g, str, startX, startY, 1, fontColor);
     }
 
+    public static void writeCenteredText(Graphics g, String str, int centerX, int startY, Color fontColor) {
+        writeCenteredText(g, str, centerX, startY, 1, fontColor);
+    }
+
     public static void writeText(Graphics g, String str, int startX, int startY) {
         writeText(g, str, startX, startY, 1, Color.BLACK);
+    }
+
+    public static void writeCenteredText(Graphics g, String str, int centerX, int startY) {
+        writeCenteredText(g, str, centerX, startY, 1, Color.BLACK);
     }
 }

@@ -58,9 +58,9 @@ public abstract class EnemyBullet extends Bullet {
     @Override
     public void process() {
         if (hasCollidedWithPlayer(-findXDisp(), -findYDisp())) {
-            playerReference.getHit(this);
-            if (isDieWhenCollide())
+            if (!playerReference.isInvincible() && isDieWhenCollide())
                 setKillMe(true);
+            playerReference.getHit(this);
         }
     }
 

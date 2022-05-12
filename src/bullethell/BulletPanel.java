@@ -6,6 +6,7 @@ import bullethell.entity.bullet.PlayerBullet;
 import bullethell.entity.ship.EnemyShip;
 import bullethell.entity.ship.EnemyShipBoss;
 import bullethell.entity.ship.ShipDeathAnimation;
+import utility.FontGenerator;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -72,7 +73,9 @@ public class BulletPanel extends JPanel {
         g.drawImage(backgrounds[(panelFrameCount / bulletPanelHeight + 1) % 2], 0,
                 panelFrameCount % bulletPanelHeight - 720, null);
         panelFrameCount++;
-        gpReference.getPlayerShip().paintMe(g);
+        if (gpReference.getPlayerShip().getInvincibleCounter() / 5 % 2 == 0) {
+            gpReference.getPlayerShip().paintMe(g);
+        }
         ArrayList<PlayerBullet> playerBullets = gpReference.getPlayerBullets();
         ArrayList<EnemyBullet> enemyBullets = gpReference.getEnemyBullets();
         ArrayList<EnemyShip> enemyShips = gpReference.getEnemyShips();
@@ -115,6 +118,11 @@ public class BulletPanel extends JPanel {
             } else {
                 sda.paintMe(g);
             }
+        }
+        if (gpReference.getWaveToSpawn() == 1 && gpReference.isInBetweenWaves()) {
+            float val = Math.min(1, 2 - Math.abs((gpReference.getCooldown() + 50)) * 0.02f);
+            FontGenerator.writeCenteredText(g, "STAGE 1",
+                    BulletPanel.getBulletPanelWidth() / 2, 150, 5, new Color(1, 1, 1, val));
         }
     }
 

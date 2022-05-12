@@ -104,8 +104,17 @@ public class GamePanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         g.drawImage(background, 0, 0, null);
-        FontGenerator.writeText(g, "hp: " + player.getHealth(), 50 + BulletPanel.getBulletPanelWidth() + 50, 50, 3,
-                Color.white);
+        g.setColor(new Color(50, 150, 155));
+        g.fillRoundRect(90 + BulletPanel.getBulletPanelWidth(), 45, 410, 60, 20, 20);
+        g.setColor(new Color(150, 250, 255));
+        g.fillRoundRect(95 + BulletPanel.getBulletPanelWidth(), 50,
+                Math.max(0, (int) (400f * Math.min(95, getPlayerShip().getHealth()) / 95)), 50, 15, 15);
+        g.setColor(new Color(200, 200, 200));
+        g.fillRoundRect(95 + BulletPanel.getBulletPanelWidth(), 50,
+                Math.max(0, (getPlayerShip().getHealth() - 95) * 80), 50, 15, 15);
+        // FontGenerator.writeText(g, "hp: " + player.getHealth(), 50 +
+        // BulletPanel.getBulletPanelWidth() + 50, 50, 3,
+        // Color.white);
         g.setColor(Color.gray);
         g.fillRoundRect(50 + BulletPanel.getBulletPanelWidth() + 40, 390,
                 getWidth() - BulletPanel.getBulletPanelWidth() - 130, getHeight() - 430, 50, 50);
@@ -116,9 +125,26 @@ public class GamePanel extends JPanel {
                 50 + BulletPanel.getBulletPanelWidth() + 70, 400 + 20, 1.25f);
     }
 
-    private int waveToSpawn = 12, cooldown = 50, cooldownMax = 50;
+    private int waveToSpawn = 0, cooldown = 50;
+    public final int cooldownMax = 50;
     private int currentStage = 1;
     private final int[] wavesPerStage = new int[] { 0, 15, 0, 0, 0, 13, 0 };
+
+    public int getWaveToSpawn() {
+        return waveToSpawn;
+    }
+
+    public int getCooldown() {
+        return cooldown;
+    }
+
+    public int getCurrentStage() {
+        return currentStage;
+    }
+
+    public boolean isInBetweenWaves() {
+        return enemyShips.size() == 0;
+    }
 
     private void updateStage1(int waveToSpawn) {
         switch (waveToSpawn) {
@@ -403,6 +429,9 @@ public class GamePanel extends JPanel {
                         break;
                 }
                 waveToSpawn++;
+                if (waveToSpawn == 1) {
+                    cooldown -= 150;
+                }
             }
         }
 
