@@ -1,0 +1,330 @@
+package platform;
+
+import java.awt.MouseInfo;
+import java.awt.Point;
+import java.awt.Rectangle;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+
+public class Player extends Entity {
+
+	public Player(int x, int y, int xVel, int yVel, int hitboxWidth, int hitboxHeight) {
+		super(x, y, xVel, yVel, hitboxWidth, hitboxHeight, 0, 200);
+		/*
+		this.setImgPaths(new String[] {
+				"player_walking_0.png",
+				"player_walking_1.png",
+				"player_walking_2.png",
+		});
+		*/
+		try {
+			this.setImgs(new BufferedImage[] {
+					PictureFixer.removeBackground(ImageIO.read(new File("idle1.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("idle2.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("idle3.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("idle4.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("idle5.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("idle6.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("idle7.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("idle8.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("run1.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("run2.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("run3.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("run4.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("run5.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("run6.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("run7.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("run8.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("dash12.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("dash11.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("dash10.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("dash9.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("dash8.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("dash7.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("shoot14.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("shoot13.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("shoot12.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("shoot11.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("shoot10.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("shoot9.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("shoot8.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("shoot7.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("shoot6.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("28.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("27.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("26.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("25.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("24.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("23.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("22.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("21.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("20.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("19.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("18.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("17.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("16.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("15.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("14.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("13.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("12.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("11.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("10.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("9.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("8.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("7.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("6.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("5.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("4.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("3.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("2.png"))),
+					PictureFixer.removeBackground(ImageIO.read(new File("1.png")))
+			});
+		} catch (IOException e) {}
+	}
+
+	private int jumpsLeft = 0, maxJumps = 2;
+	private int cycle = 0, dashing = 0, dashFrames = 12, shooting = 0, shootFrames = 18, hitting = 0, hitFrames = 56;
+	private boolean shootDelay = true;
+	private char indicator = 'N';
+	private char currentDirection = 'N';
+	private PlayerKeyAdapter pka = new PlayerKeyAdapter();
+	private int screenX = 0, screenY = 0;
+	public void updateScreenCoords(int screenX, int screenY) {
+		this.screenX = screenX;
+		this.screenY = screenY;
+	}
+	public PlayerKeyAdapter getPKA() {
+		return pka;
+	}
+	private PlayerMouseListener pml = new PlayerMouseListener();
+	public PlayerMouseListener getPML() {
+		return pml;
+	}
+	private int dashWindow = 0, dashCooldown = 0;
+	private boolean isDashRight = true;
+	class PlayerKeyAdapter extends KeyAdapter {
+		@Override
+		public void keyTyped(KeyEvent e) {}
+		@Override
+		public void keyPressed(KeyEvent e) {
+	        int key = e.getKeyCode();
+	        if (key == KeyEvent.VK_W) {
+	        	boolean againstWall = false;
+	        	for (Platform plat : Main.platforms) {
+	        		// TODO dont wall jum pfirst
+					if (plat.getPolygon().contains(getLeft())) {
+			        	setyVel(-16);
+			        	setY(getY()-16);
+			        	setxVel(5);
+			        	againstWall = true;
+			        	break;
+					}
+					if (plat.getPolygon().contains(getRight())) {
+			        	setyVel(-16);
+			        	setY(getY()-16);
+			        	setxVel(-5);
+			        	againstWall = true;
+			        	break;
+					}
+	        	}
+	        	if (jumpsLeft > 0 && !againstWall) {
+		        	setyVel(-16);
+		        	setY(getY()-16);
+		        	jumpsLeft--;
+	        	}
+	        } else if (key == KeyEvent.VK_D) {
+	        	currentDirection = 'D';
+	        	setHasTurnedLeft(false);
+	        	if (dashWindow > 0 && isDashRight) {
+	        		System.out.println("dshf");
+	        		setxVel(superMaxSpeed);
+	        		dashWindow = 0;
+	        		setInvincibility(8);
+	        		dashCooldown = 20;
+					dashing = dashFrames;
+	        	}
+	        } else if (key == KeyEvent.VK_A) {
+	        	currentDirection = 'A';
+	        	setHasTurnedLeft(true);
+	        	if (dashWindow > 0 && !isDashRight) {
+	        		setxVel(-superMaxSpeed);
+	        		dashWindow = 0;
+	        		setInvincibility(8);
+	        		dashCooldown = 20;
+					dashing = dashFrames;
+	        	}
+	        } else if (key == KeyEvent.VK_J) {
+				hitting = hitFrames;
+			} else if (key == KeyEvent.VK_K) {
+				spawnProjectile = true;
+			}
+	    }
+		@Override
+		public void keyReleased(KeyEvent e) {
+	        int key = e.getKeyCode();
+			if (key == KeyEvent.VK_D && currentDirection == 'D') {
+	        	currentDirection = 'N';
+	        	if (dashCooldown == 0) {
+			        dashWindow = 5;
+			        isDashRight = true;
+	        	}
+	        } else if (key == KeyEvent.VK_A && currentDirection == 'A') {
+	        	currentDirection = 'N';
+	        	if (dashCooldown == 0) {
+			        dashWindow = 5;
+			        isDashRight = false;
+	        	}
+	        } else if (key == KeyEvent.VK_J) {
+
+			} else if (key == KeyEvent.VK_K) {
+				spawnProjectile = false;
+			}
+		}
+	}
+
+	static int projectileCooldown = 0;
+	static boolean spawnProjectile = false;
+	
+	class PlayerMouseListener implements MouseListener {
+		
+		@Override public void mouseClicked(MouseEvent e) {}
+		@Override public void mouseReleased(MouseEvent e) {
+			spawnProjectile = false;
+		}
+		@Override public void mouseEntered(MouseEvent e) {}
+		@Override public void mouseExited(MouseEvent e) {
+			spawnProjectile = false;
+		}
+		@Override public void mousePressed(MouseEvent e) {
+			spawnProjectile = true;
+		}
+		
+	}
+	
+	private double maxSpeed = 10, superMaxSpeed = 20, slipFactor = 0.5;
+	private JPanel mainPanel;
+	public void setJPanel(JPanel mainPanel) {
+		this.mainPanel = mainPanel;
+	}
+	private int projectilesLeft = 1;
+	public void addAProjectile() {
+		projectilesLeft++;
+	}
+	
+	private int frameCooldown = 25;
+	
+	@Override
+	void process() {
+		if (shootDelay && shooting == 0) {
+			Point mousePosition = MouseInfo.getPointerInfo().getLocation();
+    		SwingUtilities.convertPointFromScreen(mousePosition, mainPanel);
+			double angle = Math.atan2(mousePosition.getY()-(screenY), mousePosition.getX()-(screenX));
+			ProjectileTest testArrow = new ProjectileTest(getX(), getY()-19, (getHasTurnedLeft() ? Math.PI : 0), 20);
+			//ProjectileTestBoomerang2 testBoomerang = new ProjectileTestBoomerang2(getX(), getY(), angle, 20, this);
+			if (testArrow.shouldKill() < 0 /*testBoomerang.shouldKill() < 0*/) {
+				Main.projectiles.add(testArrow);
+				//Main.projectiles.add(testBoomerang);
+			}
+			projectileCooldown = 17;
+			//projectilesLeft--;
+			shootDelay = false;
+		}
+    	if (spawnProjectile && projectileCooldown == 0 && projectilesLeft > 0) {
+			shootDelay = true;
+			if (shooting == 0) {
+				shooting = shootFrames;
+			}
+    	}
+
+    	projectileCooldown = Math.max(0, projectileCooldown-1);
+
+		// movement
+		if (currentDirection == 'D' && getxVel() < maxSpeed) {
+			setxVel(Math.min(maxSpeed, getxVel()+slipFactor));
+			frameCooldown--;
+			if (frameCooldown <= 0) {
+				//setPathToDisplay((getPathToDisplay()+1)%this.imgs.length);
+				frameCooldown = (int) (maxSpeed+1-Math.abs(getxVel()));
+			}
+		} else if (currentDirection == 'A' && getxVel() > -maxSpeed) {
+			setxVel(Math.max(-maxSpeed, getxVel()-slipFactor));
+			frameCooldown--;
+			if (frameCooldown <= 0) {
+				//setPathToDisplay((getPathToDisplay()+1)%this.imgs.length);
+				frameCooldown = (int) (maxSpeed+1-Math.abs(getxVel()));
+			}
+		} else {
+			if (getxVel() > 0) {
+				setxVel(Math.max(0, getxVel()-slipFactor));
+			} else if (getxVel() < 0) {
+				setxVel(Math.min(0, getxVel()+slipFactor));
+			}
+		}
+		setxVel(Math.min(superMaxSpeed, Math.max(-superMaxSpeed, getxVel())));
+		if (getxVel() > maxSpeed) {
+			setxVel(Math.max(maxSpeed, getxVel()-slipFactor));
+		}
+		if (getxVel() < -maxSpeed) {
+			setxVel(Math.min(-maxSpeed, getxVel()+slipFactor));
+		}
+		dashCooldown = Math.max(0, dashCooldown-1);
+		dashWindow = Math.max(0, dashWindow-1);
+		
+		if (hitting > 0) {
+			setPathToDisplay((28-hitting/2) + 30);
+			hitting--;
+		} else if (shooting > 0) {
+			setPathToDisplay((9-shooting/2) + 21);
+			shooting--;
+		} else if (dashing > 0) {
+			setPathToDisplay((6-dashing/2) + 15);
+			dashing--;
+		} else {
+			if (currentDirection != indicator) {
+				cycle = 0;
+				indicator = currentDirection;
+			} else
+				cycle++;
+			if (currentDirection == 'N') {
+				setPathToDisplay(cycle/3 % 8);
+			} else {
+				setPathToDisplay(cycle/2 % 8 + 8);
+			}
+		}
+
+		super.process();
+		
+		for (Platform plat : Main.platforms) {
+			if (plat.getPolygon().contains(getBottom())) {
+				jumpsLeft = maxJumps;
+				break;
+			}
+		}
+		for (Entity e : Main.entities) {
+			Rectangle poly = e.getHitbox();
+			if (e.getHitbox() != null && poly.contains(getBottom())) {
+				jumpsLeft = maxJumps;
+				break;
+			}
+		}
+	}
+	
+	@Override
+	boolean hitByProjectile(Projectile p) {
+		//setxVel(getxVel()+(p.getxVel()/3));
+		//setyVel(-10);
+		setHp(getHp()-p.getDamage());
+		setInvincibility(p.getInvincibilityFrames());
+		return true;
+	}
+}
