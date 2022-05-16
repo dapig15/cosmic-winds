@@ -15,9 +15,9 @@ public class BossEnemy extends Entity {
 		this.playerReference = playerReference;
 		try {
 			this.setImgs(new BufferedImage[] {
-					ImageIO.read(new File("enemy_walking_0.png")),
-					ImageIO.read(new File("enemy_walking_1.png")),
-					ImageIO.read(new File("enemy_walking_2.png"))
+					ImageIO.read(new File("images/enemy_walking_0.png")),
+					ImageIO.read(new File("images/enemy_walking_1.png")),
+					ImageIO.read(new File("images/enemy_walking_2.png"))
 			});
 		} catch (IOException e) {}
 	}

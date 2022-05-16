@@ -156,14 +156,14 @@ public class Main {
 		 * platforms.add(new Platform(p4, 0.2)); platforms.add(new Platform(p5, 0.2));
 		 */
 		int[][] maze = generateMaze();
-		/*
+		
 		BossEnemy enemy = new BossEnemy(300, 128, 0, 0, 64, 96, mainPlayer);
 		entities.add(enemy);
 		BossEnemy enemy2 = new BossEnemy(300, 128, 0, 0, 50, 50, mainPlayer);
 		entities.add(enemy2);
 		BossEnemy enemy3 = new BossEnemy(300, 128, 0, 0, 50, 50, mainPlayer);
 		entities.add(enemy3);
-		*/
+		
 					
 		/*
 		 * for (int i = 0; i < maze.length; i++) { for (int j = 0; j < maze[0].length;
