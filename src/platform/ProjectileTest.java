@@ -11,7 +11,7 @@ public class ProjectileTest extends ProjectileAngular {
 		super(x, y, angle, velocity, 10, 10, 100, new boolean[] {false, true}, 50);
 		try {
 			setImgs(new BufferedImage[] {
-					ImageIO.read(new File("arrow.png"))
+					ImageIO.read(new File("images/arrow.png"))
 			});
 		} catch (IOException e) {}
 	}

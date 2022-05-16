@@ -14,7 +14,7 @@ public class ProjectileTestBoomerang2 extends ProjectileAngular {
 		super(x, y, angle, velocity, 10, 10, 100, new boolean[] {false, true}, 5);
 		try {
 			setImgs(new BufferedImage[] {
-					ImageIO.read(new File("boomerang1.png"))
+					ImageIO.read(new File("images/boomerang1.png"))
 			});
 		} catch (IOException e) {}
 		setPierceLeft(100000);

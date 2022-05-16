@@ -12,7 +12,7 @@ public class PlatformStoneBrick extends Platform {
 		super(p, 0.2);
 		try {
 			setImgs(new BufferedImage[] {
-					ImageIO.read(new File("bricks.png")),
+					ImageIO.read(new File("images/bricks.png")),
 			});
 		} catch (IOException e) {}
 	}

@@ -14,7 +14,7 @@ public class ProjectileTestEnemyHomingExploding extends ProjectileHoming {
 		setTarget(playerTarget);
 		try {
 			setImgs(new BufferedImage[] {
-					ImageIO.read(new File("arrow3.png"))
+					ImageIO.read(new File("images/arrow3.png"))
 			});
 		} catch (IOException e) {}
 	}

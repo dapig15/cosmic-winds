@@ -140,7 +140,7 @@ public class Main {
 		mainFrame.setVisible(true);
 		mainPlayer.setJPanel(mainPanel);
 		try {
-			pointer = ImageIO.read(new File("pointer.png"));
+			pointer = ImageIO.read(new File("images/pointer.png"));
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
@@ -294,7 +294,7 @@ public class Main {
 			for (int j = 0; j < maze[0].length; j++) {
 				Graphics2D g2d = (Graphics2D) g.create();
 				try {
-					BufferedImage image = ImageIO.read(new File("bricksbkgd.png"));
+					BufferedImage image = ImageIO.read(new File("images/bricksbkgd.png"));
 					// g2d.rotate(Math.atan2(proj.getyVel(), proj.getxVel())-(Math.PI/2),
 					// proj.getX()-(proj.getHitboxWidth()/2)+playerXInc,
 					// proj.getY()-(proj.getHitboxHeight()/2)+playerYInc);
@@ -314,7 +314,7 @@ public class Main {
 					platforms.add(p);
 					Graphics2D g2d = (Graphics2D) g.create();
 					try {
-						BufferedImage image = ImageIO.read(new File("bricks.png"));
+						BufferedImage image = ImageIO.read(new File("images/bricks.png"));
 						// g2d.rotate(Math.atan2(proj.getyVel(), proj.getxVel())-(Math.PI/2),
 						// proj.getX()-(proj.getHitboxWidth()/2)+playerXInc,
 						// proj.getY()-(proj.getHitboxHeight()/2)+playerYInc);
