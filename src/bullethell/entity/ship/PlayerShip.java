@@ -4,6 +4,7 @@ import bullethell.BulletPanel;
 import bullethell.Coords;
 import bullethell.entity.bullet.Bullet;
 import bullethell.entity.bullet.EnemyBullet;
+import bullethell.entity.bullet.EnemyBulletLaser;
 import bullethell.entity.bullet.PlayerBullet;
 import bullethell.entity.bullet.PlayerBulletAngular;
 import bullethell.entity.bullet.PlayerBulletAngularHoming;
@@ -24,6 +25,7 @@ public class PlayerShip extends Ship {
     private int auto = KeyEvent.VK_C;
     private int slow = KeyEvent.VK_SHIFT;
     private int shoot = KeyEvent.VK_Z;
+    private int space = KeyEvent.VK_SPACE;
     private int moveSpeed = 12;
     private int defaultMoveSpeed = 12, slowMoveSpeed = 4;
     private boolean moveRight, moveLeft, moveDown, moveUp, isShooting, autoFire = false;
@@ -31,11 +33,19 @@ public class PlayerShip extends Ship {
     private ArrayList<EnemyShip> esListRef;
     private int shield = 5;
     private int invincibleCounter = 0;
+    private boolean isTutorial = false, isPressingSpace = false;
+    private boolean canShootWave = false, canShootBomb = false;
 
     public PlayerShip(Coords coords, int hitboxWidth, int hitboxHeight, String imagePath,
-            ArrayList<EnemyShip> esListRef) {
+            ArrayList<EnemyShip> esListRef, int stage) {
         super(coords, hitboxWidth, hitboxHeight, imagePath, 100);
         this.esListRef = esListRef;
+        switch (stage) {
+            case 3:
+                canShootBomb = true;
+            case 2:
+                canShootWave = true;
+        }
     }
 
     public int getMoveSpeed() {
@@ -102,6 +112,18 @@ public class PlayerShip extends Ship {
         return invincibleCounter > 0;
     }
 
+    public boolean isTutorial() {
+        return isTutorial;
+    }
+
+    public void setIsTutorial(boolean isTutorial) {
+        this.isTutorial = isTutorial;
+    }
+
+    public boolean isPressingSpace() {
+        return isPressingSpace;
+    }
+
     @Override
     public void shiftCoords(int xInc, int yInc) {
         super.shiftCoords(xInc, yInc);
@@ -138,6 +160,9 @@ public class PlayerShip extends Ship {
             if (key == auto) {
                 autoFire = !autoFire;
             }
+            if (key == space) {
+                isPressingSpace = true;
+            }
         }
 
         @Override
@@ -160,6 +185,9 @@ public class PlayerShip extends Ship {
             }
             if (key == shoot) {
                 isShooting = false;
+            }
+            if (key == space) {
+                isPressingSpace = false;
             }
         }
     }
@@ -231,30 +259,27 @@ public class PlayerShip extends Ship {
                 }
                 normalShotCooldown = normalShotMaxCooldown;
             }
-            /*
-             * if (bombShotCooldown == 0) {
-             * int myX = getCoords().getX(), myY = getCoords().getY();
-             * PlayerBulletBomb pbb = new PlayerBulletBomb(getCoords().deepClone(), 5, 20,
-             * new Coords(myX, myY - 100),
-             * 0.04f, 50, 20);
-             * toReturn.add(pbb);
-             * pbbs.add(pbb);
-             * bombShotCooldown = bombShotMaxCooldown;
-             * }
-             * if (waveCooldown == 0) {
-             * for (int i = 5; i <= 10; i++) {
-             * for (float j = (float) Math.PI * 11 / 8; j <= (float) Math.PI * 13.1 / 8; j
-             * += (float) Math.PI
-             * / 16) {
-             * PlayerBulletAngular pbna = new PlayerBulletAngular(getCoords().deepClone(),
-             * i, i, j,
-             * new Color(255 - (i * 10), 0, i * 20));
-             * toReturn.add(pbna);
-             * }
-             * }
-             * waveCooldown = waveMaxCooldown;
-             * }
-             */
+            if (canShootBomb && bombShotCooldown == 0) {
+                int myX = getCoords().getX(), myY = getCoords().getY();
+                PlayerBulletBomb pbb = new PlayerBulletBomb(getCoords().deepClone(), 5, 20,
+                        new Coords(myX, myY - 100),
+                        0.04f, 50, 20);
+                toReturn.add(pbb);
+                pbbs.add(pbb);
+                bombShotCooldown = bombShotMaxCooldown;
+            }
+            if (canShootWave && waveCooldown == 0) {
+                for (int i = 5; i <= 10; i++) {
+                    for (float j = (float) Math.PI * 11 / 8; j <= (float) Math.PI * 13.1 / 8; j += (float) Math.PI
+                            / 16) {
+                        PlayerBulletAngular pbna = new PlayerBulletAngular(getCoords().deepClone(),
+                                i, i, j,
+                                new Color(255 - (i * 10), 0, i * 20));
+                        toReturn.add(pbna);
+                    }
+                }
+                waveCooldown = waveMaxCooldown;
+            }
         }
         normalShotCooldown = Math.max(0, normalShotCooldown - 1);
         bombShotCooldown = Math.max(0, bombShotCooldown - 1);
@@ -264,12 +289,22 @@ public class PlayerShip extends Ship {
 
     @Override
     public void getHit(Bullet eb) {
+        if (eb instanceof EnemyBulletLaser) {
+            EnemyBulletLaser ebl = (EnemyBulletLaser) eb;
+            if (ebl.getFramesAlive() <= ebl.getChargeFrames()) {
+                return;
+            }
+        }
         if (!isInvincible()) {
             if (shield > 0) {
-                shield--;
+                if (!isTutorial) {
+                    shield--;
+                }
                 invincibleCounter = 100;
+            } else {
+                setHealth(Math.max(0, getHealth() - eb.getDamage()));
             }
-            setHealth(getHealth() - eb.getDamage());
         }
+        System.out.println(shield + " " + getHealth());
     }
 }

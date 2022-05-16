@@ -24,7 +24,7 @@ public class BulletPanel extends JPanel {
 
     private GamePanel gpReference;
     private static int xOffset = 50, bulletPanelWidth = 540, bulletPanelHeight = 720;
-    private static BufferedImage[] backgrounds; // TODO remember to make this more efficient
+    private static BufferedImage[] backgrounds;
 
     public BulletPanel(GamePanel gpReference) {
         this.gpReference = gpReference;
@@ -121,8 +121,24 @@ public class BulletPanel extends JPanel {
         }
         if (gpReference.getWaveToSpawn() == 1 && gpReference.isInBetweenWaves()) {
             float val = Math.min(1, 2 - Math.abs((gpReference.getCooldown() + 50)) * 0.02f);
-            FontGenerator.writeCenteredText(g, "STAGE 1",
+            FontGenerator.writeCenteredText(g, "STAGE " + gpReference.getCurrentStage(),
                     BulletPanel.getBulletPanelWidth() / 2, 150, 5, new Color(1, 1, 1, val));
+        } else if (gpReference.getWaveToSpawn() == 15 && gpReference.isInBetweenWaves()) {
+            float val = Math.min(1, Math.max(0, (gpReference.getCooldown() + 999999900)) * 0.02f);
+            FontGenerator.writeCenteredText(g, "STAGE CLEAR",
+                    BulletPanel.getBulletPanelWidth() / 2, 150, 5, new Color(1, 1, 1, val));
+            FontGenerator.writeCenteredText(g, "Press SPACE to continue",
+                    BulletPanel.getBulletPanelWidth() / 2, 210, 2, new Color(1, 1, 1, val));
+        } else if (gpReference.getPlayerShip().getHealth() == 0) {
+            FontGenerator.writeCenteredText(g, "GAME OVER",
+                    BulletPanel.getBulletPanelWidth() / 2, 150, 5, Color.RED);
+            FontGenerator.writeCenteredText(g, "Press SPACE to retry",
+                    BulletPanel.getBulletPanelWidth() / 2, 210, 2, Color.RED);
+        }
+        if (gpReference.getOpacity() != 0) {
+            System.out.println("opaque!");
+            g.setColor(new Color(0, 0, 0, gpReference.getOpacity()));
+            g.fillRect(0, 0, getWidth(), getHeight());
         }
     }
 

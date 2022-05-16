@@ -11,13 +11,13 @@ import bullethell.entity.bullet.EnemyBulletLaser;
 import bullethell.entity.bullet.patterns.BPArc;
 import bullethell.entity.bullet.patterns.BulletPatternCaller;
 
-public class EnemyShipBlue extends EnemyShipBasic {
+public class Stage3ESBlue extends EnemyShipBasic {
 
     BPArc circleAttack = new BPArc(getCoords(), 16, 6, 5, 0);
     float angle = 0;
 
-    public EnemyShipBlue(Coords coords, PlayerShip psRef, Coords targetCoords) {
-        super(coords, 26, 26, "images/sprites/ships/stage_5_ship_blue.png", 75, targetCoords, psRef);
+    public Stage3ESBlue(Coords coords, PlayerShip psRef, Coords targetCoords) {
+        super(coords, 32, 32, "images/sprites/ships/stage_3_ship_blue.png", 100, targetCoords, psRef);
     }
 
     @Override

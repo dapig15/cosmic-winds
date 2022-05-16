@@ -45,7 +45,6 @@ public abstract class EnemyShip extends Ship {
         shiftCoords(xInc, yInc);
         this.hitbox = new Hitbox(getCoords().getX() - getHitboxWidth() / 2, getCoords().getY() - getHitboxHeight() / 2,
                 getCoords().getX() + getHitboxWidth() / 2, getCoords().getY() + getHitboxHeight() / 2);
-        spawnBullets();
         framesAlive++;
     }
 

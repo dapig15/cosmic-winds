@@ -12,13 +12,13 @@ import bullethell.entity.bullet.EnemyBulletNoAccel;
 import bullethell.entity.bullet.patterns.BPArc;
 import bullethell.entity.bullet.patterns.BulletPatternCaller;
 
-public class EnemyShipYellow extends EnemyShipBasic {
+public class Stage3ESYellow extends EnemyShipBasic {
     private BPArc arcAttackRight = new BPArc(getCoords(), 12, 6, 6, (float) (-Math.PI / 32), (float) (Math.PI / 32));
     private BPArc arcAttackLeft = new BPArc(getCoords(), 12, 6, 6, (float) (Math.PI * 31 / 32),
             (float) (Math.PI * 33 / 32));
 
-    public EnemyShipYellow(Coords coords, PlayerShip psRef, Coords targetCoords) {
-        super(coords, 26, 26, "images/sprites/ships/stage_5_ship_yellow.png", 75, targetCoords, psRef);
+    public Stage3ESYellow(Coords coords, PlayerShip psRef, Coords targetCoords) {
+        super(coords, 32, 32, "images/sprites/ships/stage_3_ship_yellow.png", 100, targetCoords, psRef);
         arcAttackRight.setBulletType(BPArc.ACCEL);
         arcAttackRight.setAccelFactor(-0.1f);
         arcAttackLeft.setBulletType(BPArc.ACCEL);

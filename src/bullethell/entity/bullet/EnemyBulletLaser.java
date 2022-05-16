@@ -22,6 +22,10 @@ public class EnemyBulletLaser extends EnemyBulletAngular {
         laserPolygon = generateLaserPolygon();
     }
 
+    public int getChargeFrames() {
+        return chargeFrames;
+    }
+
     private Polygon generateLaserPolygon() {
         return new Polygon(new int[] {
                 (int) (getCoords().getX() + (Math.cos(getAngle() + (Math.PI / 2)) * getHitboxRadius())),
