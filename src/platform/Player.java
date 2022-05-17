@@ -94,7 +94,7 @@ public class Player extends Entity {
 
 	private int jumpsLeft = 0, maxJumps = 2;
 	private int cycle = 0, dashing = 0, dashFrames = 12, shooting = 0, shootFrames = 18, hitting = 0, hitFrames = 56;
-	private boolean shootDelay = true;
+	private boolean shootDelay = true, hitDelay = true;
 	private char indicator = 'N';
 	private char currentDirection = 'N';
 	private PlayerKeyAdapter pka = new PlayerKeyAdapter();
@@ -164,7 +164,9 @@ public class Player extends Entity {
 					dashing = dashFrames;
 	        	}
 	        } else if (key == KeyEvent.VK_J) {
-				hitting = hitFrames;
+				if (hitting == 0) {
+					hitting = hitFrames;
+				}
 			} else if (key == KeyEvent.VK_K) {
 				spawnProjectile = true;
 			}
@@ -238,13 +240,14 @@ public class Player extends Entity {
 			projectileCooldown = 17;
 			//projectilesLeft--;
 			shootDelay = false;
-		}
+		} else if (hitDelay && hitting == 0) {}
     	if (spawnProjectile && projectileCooldown == 0 && projectilesLeft > 0) {
 			shootDelay = true;
 			if (shooting == 0) {
 				shooting = shootFrames;
 			}
     	}
+
 
     	projectileCooldown = Math.max(0, projectileCooldown-1);
 

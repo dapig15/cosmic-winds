@@ -7,8 +7,8 @@ import java.awt.image.BufferedImage;
 
 public class ProjectileHit extends ProjectileAngular {
 
-	public ProjectileHit(double x, double y, double angle, double velocity) {
-		super(x, y, angle, velocity, 10, 10, 100, new boolean[] {false, true}, 50);
+	public ProjectileHit(double x, double y, double angle) {
+		super(x, y, angle, 0, 10, 10, 100, new boolean[] {false, true}, 100);
 		setImgs(new BufferedImage[] {});
 	}
 
