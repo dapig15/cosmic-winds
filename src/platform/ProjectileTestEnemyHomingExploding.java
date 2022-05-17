@@ -8,26 +8,29 @@ import java.awt.image.BufferedImage;
 
 public class ProjectileTestEnemyHomingExploding extends ProjectileHoming {
 
-	public ProjectileTestEnemyHomingExploding(double x, double y, double angle, double velocity, Player playerTarget) {
-		super(x, y, angle, velocity, 10, 10, 100, new boolean[] {true, false}, 5, 0.04);
+	public ProjectileTestEnemyHomingExploding(double x, double y, double angle, double velocity, Player playerTarget,
+			PGamePanel pgpRef) {
+		super(x, y, angle, velocity, 10, 10, 100, new boolean[] { true, false }, 5, 0.04, pgpRef);
 		setObeysGravity(false);
 		setTarget(playerTarget);
 		try {
 			setImgs(new BufferedImage[] {
 					ImageIO.read(new File("images/arrow3.png"))
 			});
-		} catch (IOException e) {}
+		} catch (IOException e) {
+		}
 	}
 
 	@Override
 	void process() {
-		setVelocity(getVelocity()+0.3);
+		setVelocity(getVelocity() + 0.3);
 		super.process();
 	}
-	
-	@Override void doWorkOnDeath() {
-		for (double i = getAngle(); i < getAngle()+2*Math.PI; i += Math.PI/4) {
-			Main.projectilestoAdd.add(new ProjectileTestEnemy((int)getX(), (int)getY(), i, 5));
+
+	@Override
+	void doWorkOnDeath() {
+		for (double i = getAngle(); i < getAngle() + 2 * Math.PI; i += Math.PI / 4) {
+			getPgpRef().projectilestoAdd.add(new ProjectileTestEnemy((int) getX(), (int) getY(), i, 5, getPgpRef()));
 		}
 	}
 

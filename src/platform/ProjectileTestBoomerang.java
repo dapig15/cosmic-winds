@@ -9,8 +9,8 @@ import javax.imageio.ImageIO;
 
 public class ProjectileTestBoomerang extends ProjectileAngular {
 
-	public ProjectileTestBoomerang(double x, double y, double angle, double velocity, Entity reference) {
-		super(x, y, angle, velocity, 10, 10, 100, new boolean[] {false, true}, 5);
+	public ProjectileTestBoomerang(double x, double y, double angle, double velocity, Entity reference, PGamePanel pgpRef) {
+		super(x, y, angle, velocity, 10, 10, 100, new boolean[] {false, true}, 5, pgpRef);
 		try {
 			setImgs(new BufferedImage[] {
 					ImageIO.read(new File("images/boomerang2.png"))

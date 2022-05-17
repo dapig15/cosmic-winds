@@ -25,8 +25,8 @@ public abstract class ProjectileHoming extends ProjectileAngular {
 	}
 	
 	public ProjectileHoming(double x, double y, double angle, double velocity, int hitboxWidth, int hitboxHeight,
-			int framesLeftAlive, boolean[] canHitType, int damage, double homingFactor) {
-		super(x, y, angle, velocity, hitboxWidth, hitboxHeight, framesLeftAlive, canHitType, damage);
+			int framesLeftAlive, boolean[] canHitType, int damage, double homingFactor, PGamePanel pgpRef) {
+		super(x, y, angle, velocity, hitboxWidth, hitboxHeight, framesLeftAlive, canHitType, damage, pgpRef);
 		this.homingFactor = homingFactor;
 	}
 	

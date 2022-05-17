@@ -1,4 +1,5 @@
 package platform;
+
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -11,7 +12,8 @@ import javax.imageio.ImageIO;
 
 public class ObjectWithColliders extends ObjectBase {
 	private int hitboxWidth = 20, hitboxHeight = 20;
-	
+	private PGamePanel pgpRef;
+
 	public int getHitboxWidth() {
 		return hitboxWidth;
 	}
@@ -29,7 +31,7 @@ public class ObjectWithColliders extends ObjectBase {
 	}
 
 	private Point top, right, bottom, left;
-	
+
 	public Point getTop() {
 		return top;
 	}
@@ -53,22 +55,35 @@ public class ObjectWithColliders extends ObjectBase {
 		right = new Point((int) (getX() + (hitboxWidth / 2)), (int) (getY()));
 	}
 
+	public PGamePanel getPgpRef() {
+		return pgpRef;
+	}
+
+	public void setPgpRef(PGamePanel pgpRef) {
+		this.pgpRef = pgpRef;
+	}
+
 	private boolean affectedByPlatforms = true;
-	
-	public ObjectWithColliders(double x, double y, double xVel, double yVel, int hitboxWidth, int hitboxHeight) {
+
+	public ObjectWithColliders(double x, double y, double xVel, double yVel, int hitboxWidth, int hitboxHeight,
+			PGamePanel pgpRef) {
 		super(x, y, xVel, yVel);
 		this.hitboxWidth = hitboxWidth;
 		this.hitboxHeight = hitboxHeight;
 		recalculateHitbox();
+		this.pgpRef = pgpRef;
 	}
-	public ObjectWithColliders(double x, double y, double xVel, double yVel, int hitboxWidth, int hitboxHeight, boolean affectedByPlatforms) {
+
+	public ObjectWithColliders(double x, double y, double xVel, double yVel, int hitboxWidth, int hitboxHeight,
+			boolean affectedByPlatforms, PGamePanel pgpRef) {
 		super(x, y, xVel, yVel);
 		this.hitboxWidth = hitboxWidth;
 		this.hitboxHeight = hitboxHeight;
 		this.affectedByPlatforms = affectedByPlatforms;
 		recalculateHitbox();
+		this.pgpRef = pgpRef;
 	}
-	
+
 	private void updateBottom(Platform plat) {
 		Polygon poly = plat.getPolygon();
 		if (poly.contains(getBottom())) {
@@ -79,13 +94,13 @@ public class ObjectWithColliders extends ObjectBase {
 			setY(getY() + i + 1);
 			recalculateHitbox();
 			if (getxVel() < 0) {
-				setxVel(Math.min(0, getxVel()+plat.getFriction()));
+				setxVel(Math.min(0, getxVel() + plat.getFriction()));
 			} else if (getxVel() > 0) {
-				setxVel(Math.max(0, getxVel()-plat.getFriction()));
+				setxVel(Math.max(0, getxVel() - plat.getFriction()));
 			}
 		}
 	}
-	
+
 	private void updateTop(Platform plat) {
 		Polygon poly = plat.getPolygon();
 		if (poly.contains(getTop())) {
@@ -97,7 +112,7 @@ public class ObjectWithColliders extends ObjectBase {
 			recalculateHitbox();
 		}
 	}
-	
+
 	private void updateVertical(Platform plat) {
 		if (getyVel() > 0) {
 			updateBottom(plat);
@@ -107,7 +122,7 @@ public class ObjectWithColliders extends ObjectBase {
 			updateBottom(plat);
 		}
 	}
-	
+
 	private void updateLeft(Platform plat) {
 		Polygon poly = plat.getPolygon();
 		if (poly.contains(getLeft())) {
@@ -119,7 +134,7 @@ public class ObjectWithColliders extends ObjectBase {
 			recalculateHitbox();
 		}
 	}
-	
+
 	private void updateRight(Platform plat) {
 		Polygon poly = plat.getPolygon();
 		if (poly.contains(getRight())) {
@@ -131,7 +146,7 @@ public class ObjectWithColliders extends ObjectBase {
 			recalculateHitbox();
 		}
 	}
-	
+
 	private void updateHorizontal(Platform plat) {
 		if (getxVel() < 0) {
 			updateLeft(plat);
@@ -141,13 +156,13 @@ public class ObjectWithColliders extends ObjectBase {
 			updateLeft(plat);
 		}
 	}
-	
+
 	@Override
 	void process() {
 		super.process();
 		recalculateHitbox();
 		if (affectedByPlatforms) {
-			for (Platform plat : Main.platforms) {
+			for (Platform plat : pgpRef.platforms) {
 				if (Math.abs(getxVel()) > Math.abs(getyVel())) {
 					updateHorizontal(plat);
 					updateVertical(plat);
