@@ -611,7 +611,7 @@ public class GamePanel extends JPanel {
     }
 
     // removing items from arraylist moved to bulletpanel
-    void update() {
+    public void update() {
         if (termCount > 0) {
             termCount++;
             if (player.getHealth() == 0) {

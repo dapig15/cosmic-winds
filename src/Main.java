@@ -1,4 +1,3 @@
-package bullethell;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -6,11 +5,14 @@ import java.util.TimerTask;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import bullethell.GamePanel;
+import platform.PGamePanel;
 import utility.FontGenerator;
 
 public class Main {
 
     private JFrame frame;
+    private PGamePanel pGamePanel;
     private GamePanel gamePanel;
     private Timer mainTimer, gameTimer;
 
@@ -39,6 +41,16 @@ public class Main {
         mainTimer.schedule(new MainTick(), 100, 3000);
     }
 
+    public void createPlatformer(int maxKills, int width) {
+        pGamePanel = new PGamePanel(maxKills, width);
+        frame.setContentPane(pGamePanel);
+        frame.pack();
+        frame.setVisible(true);
+
+        gameTimer = new Timer();
+        gameTimer.schedule(new PlatformTick(), 0, 20);
+    }
+
     public void createBulletHell(int currentStage) {
         gamePanel = new GamePanel(currentStage);
         frame.setContentPane(gamePanel);
@@ -57,18 +69,51 @@ public class Main {
                 isGaming = true;
                 switch (stage) {
                     case 0:
-                        createBulletHell(1);
+                        createPlatformer(4, 40);
                         break;
                     case 1:
-                        createBulletHell(2);
+                        createBulletHell(1);
                         break;
                     case 2:
+                        createPlatformer(9, 60);
+                        break;
+                    case 3:
+                        createBulletHell(2);
+                        break;
+                    case 4:
+                        createPlatformer(16, 80);
+                        break;
+                    case 5:
                         createBulletHell(3);
                         break;
                     default:
                         isGaming = false;
                 }
             }
+        }
+
+    }
+
+    class PlatformTick extends TimerTask {
+
+        @Override
+        public void run() {
+            SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    if (frame.isFocused()) {
+                        pGamePanel.requestFocus();
+                        pGamePanel.update();
+                    }
+                    pGamePanel.repaint();
+                    if (pGamePanel.shouldTerminate()) {
+                        gameTimer.cancel();
+                        isGaming = false;
+                        if (!pGamePanel.isGameOver()) {
+                            stage++;
+                        }
+                    }
+                }
+            });
         }
 
     }
