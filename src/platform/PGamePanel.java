@@ -50,12 +50,12 @@ public class PGamePanel extends JPanel implements ActionListener {
 	}
 
 	private int[][] generatedMaze;
-	private int killCount = 0, maxKills;
-
-	public PGamePanel(int maxKills, int width) {
+	private int killCount = 0, maxKills, maxBossKills;
+	public PGamePanel(int maxKills, int width, int mbk) {
+		System.out.println(width);
 		mainPlayer = new Player(128, 128, 0, 0, 32, 48, this);
 		entities.add(mainPlayer);
-		this.setPreferredSize(new Dimension(1024, 512));
+		this.setPreferredSize(new Dimension(1080, 720));
 		this.addKeyListener(mainPlayer.getPKA());
 		this.addMouseListener(mainPlayer.getPML());
 		this.setFocusable(true);
@@ -67,6 +67,7 @@ public class PGamePanel extends JPanel implements ActionListener {
 
 		generatedMaze = generateMaze(width);
 		this.maxKills = maxKills;
+		this.maxBossKills = mbk;
 	}
 
 	@Override
@@ -199,7 +200,7 @@ public class PGamePanel extends JPanel implements ActionListener {
 				killCount++;
 			}
 		}
-		if (killCount < maxKills && entities.size() == 1) {
+		if (killCount < (maxKills+maxBossKills) && entities.size() == 1) {
 			cooldown++;
 			if (cooldown == maxCooldown) {
 				cooldown = 0;
@@ -240,7 +241,11 @@ public class PGamePanel extends JPanel implements ActionListener {
 						}
 					}
 				}
-				newEntities.add(new BossEnemy(spawnX * 128 + 64, spawnY * 128 + 64, 0, 0, 50, 50, mainPlayer, this));
+				if (killCount >= maxKills) {
+					newEntities.add(new BossEnemy(spawnX * 128 + 64, spawnY * 128 + 64, 0, 0, 50, 50, mainPlayer, this, true));
+				} else {
+					newEntities.add(new BossEnemy(spawnX * 128 + 64, spawnY * 128 + 64, 0, 0, 50, 50, mainPlayer, this, false));
+				}
 			}
 		}
 		entities = newEntities;

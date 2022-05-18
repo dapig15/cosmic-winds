@@ -196,7 +196,7 @@ public class GamePanel extends JPanel {
         switch (currentStage * 100 + waveToSpawn) {
             case 101:
                 FontGenerator.writeText(g,
-                        "Use the arrow keys to move.\nDo not get hit by the red circles.\nShoot with Z.\n\n(For this stage only, getting hit\nwill not decrease your shield.)",
+                        "Welcome back soldier.\n\nUse the arrow keys to move.\nDo not get hit by the red circles.\nShoot with Z.\n\n(For this stage only, getting hit\nwill not decrease your shield.)",
                         textStartX,
                         textStartY, 1.25f);
                 break;

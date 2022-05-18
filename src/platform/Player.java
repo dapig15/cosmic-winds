@@ -355,8 +355,8 @@ public class Player extends Entity {
 
 	@Override
 	boolean hitByProjectile(Projectile p) {
-		// setxVel(getxVel()+(p.getxVel()/3));
-		// setyVel(-10);
+		setxVel(getxVel()+(p.getxVel()/3));
+		setyVel(-10);
 		setHp(getHp() - p.getDamage());
 		setInvincibility(p.getInvincibilityFrames());
 		return true;

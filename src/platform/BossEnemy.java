@@ -11,9 +11,10 @@ import java.awt.image.BufferedImage;
 public class BossEnemy extends Entity {
 
 	public BossEnemy(int x, int y, int xVel, int yVel, int hitboxWidth, int hitboxHeight, Player playerReference,
-			PGamePanel pgpRef) {
+			PGamePanel pgpRef, boolean tough) {
 		super(x, y, xVel, yVel, hitboxWidth, hitboxHeight, 1, 150, pgpRef);
 		this.playerReference = playerReference;
+		this.tough = tough;
 		try {
 			this.setImgs(new BufferedImage[] {
 					ImageIO.read(new File("images/enemy_walking_0.png")),
@@ -34,12 +35,13 @@ public class BossEnemy extends Entity {
 	}
 
 	private int projectileCooldown = 20;
+	private boolean tough;
 	private Player playerReference;
 
 	private int jumpCooldown = 100;
 
 	private int speed = 2;
-	private int frameCooldown = 15;
+	private int frameCooldown = 100;
 
 	@Override
 	public void process() {
@@ -93,9 +95,11 @@ public class BossEnemy extends Entity {
 			 * }
 			 * }
 			 */
-			ProjectileTestEnemyHomingExploding testArrow = new ProjectileTestEnemyHomingExploding(getX(), getY(), angle,
+			if (tough) {
+				ProjectileTestEnemyHomingExploding testArrow = new ProjectileTestEnemyHomingExploding(getX(), getY(), angle,
 					10, playerReference, getPgpRef());
-			getPgpRef().projectiles.add(testArrow);
+				getPgpRef().projectiles.add(testArrow);
+			}
 			if (getHp() <= (getMaxHp() * 3 / 4)) {
 				angle += Math.PI / 8;
 				ProjectileTestEnemy testArrow2 = new ProjectileTestEnemy(getX(), getY(), angle, 10, getPgpRef());
@@ -112,7 +116,11 @@ public class BossEnemy extends Entity {
 					getPgpRef().projectiles.add(testArrow5);
 				}
 			}
-			projectileCooldown = (int) (20 * Math.pow(1.005, getHp()));
+			if (tough) {
+				projectileCooldown = (int) (20 * Math.pow(1.005, getHp()));
+			} else {
+				projectileCooldown = (int) (50 * Math.pow(1.005, getHp()));
+			}
 		}
 		super.process();
 		jumpCooldown--;
